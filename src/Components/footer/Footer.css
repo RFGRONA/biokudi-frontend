@@ -1,0 +1,144 @@
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: #476930;
+  height: 10em;
+  botom: 0;
+  padding-top: 1em;
+  overflow: hidden;
+}
+
+.logoCopy {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2em;
+  width: 20em;
+}
+
+.logoCopy img {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.copyRightText {
+  margin-left: 3em;
+  margin-top: 1em;
+}
+
+.copyPharagraph {
+  margin-top: 1.5em;
+}
+
+.listHelp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-left: auto;
+  text-align: right;
+  padding-right: 3em;
+  white-space: nowrap;
+  padding-left: 1em;
+}
+
+.listHelp ul {
+  list-style-type: none;
+}
+
+.listHelp li {
+  display: inline;
+  margin-right: 1em;
+}
+
+.listHelp a {
+  text-decoration: none;
+  color: white;
+}
+
+.firstListFooter {
+  margin-top: 10%;
+}
+
+.menuButtonFooter {
+  display: none;
+  margin-left: auto;
+  margin-right: 1.5em;
+  margin-top: 2.5em;
+}
+
+.menuButtonFooter i {
+  color: #171f20;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 0.6em;
+  border-radius: 20%;
+  background-color: #395426;
+}
+
+/*Menu when devices*/
+.listHelpMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1;
+  opacity: 0.85;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.closeButtonMenuFooter {
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+  font-size: 2em;
+  margin-right: 1em;
+  margin-top: 1em;
+}
+
+/* Styles for bigger screens */
+@media (min-width: 601px) {
+  .menuButtonFooter {
+    display: none;
+  }
+
+  .listHelp {
+    display: flex;
+  }
+}
+
+/* Styles for small screens */
+@media (max-width: 950px) {
+  .copyRightText {
+    display: none;
+  }
+
+  .logoCopy img {
+    width: 80%;
+    height: 80%;
+  }
+}
+
+/* Esconder elementos y mostrar el botón de menú en pantallas pequeñas */
+@media (max-width: 600px) {
+  .listHelp {
+    display: none;
+  }
+
+  .copyRightText {
+    display: none;
+  }
+
+  .menuButtonFooter {
+    display: block;
+  }
+
+  .listHelpMenu.open {
+    display: block;
+  }
+}

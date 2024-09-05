@@ -1,0 +1,51 @@
+.body {
+  padding: 20px;
+}
+
+.bodyTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.imageCarousel {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  gap: 1em;
+  width: 100vw;
+}
+
+.oneImageCarousel {
+  width: 20em;
+  height: 20em;
+  flex-shrink: 0;
+  transition: transform 0.5s ease-in-out;
+  animation: scroll 15s linear infinite;
+}
+
+.oneImageCarousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.imageInfo {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Animación para evitar espacios vacíos al final */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(calc(-100% - 1em));
+  }
+}
