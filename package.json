@@ -1,5 +1,5 @@
 {
-  "name": "biokudi-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://rfgrona.github.io/biokudi-frontend/",
@@ -8,7 +8,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "biokudi-frontend": "file:",
+    "bootstrap": "^5.3.3",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
@@ -42,8 +44,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.44",
-    "tailwindcss": "^3.4.10",
-    "gh-pages": "^6.1.1"
+    "tailwindcss": "^3.4.10"
   }
 }
