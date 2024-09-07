@@ -3,7 +3,7 @@ import logoCopy from "../../assets/footer/logoCopyRight.svg";
 import ListMenu from "./ListMenu";
 
 // Styles
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   const firstCopyRight =
@@ -18,19 +18,22 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer">
-      <div className="logoCopy">
-        <img src={logoCopy} alt="logoCopy" />
+    <div className={styles.footer}>
+      <div className={styles.logoCopy}>
+        <img src={logoCopy} alt={styles.logoCopy} />
       </div>
-      <div className="menuButtonFooter">
-        <i className="fa-solid fa-info" onClick={toggleMenu}></i>
+      <div className={styles.menuButtonFooter}>
+        <i
+          className={["fa-solid", "fa-circle-info"].join(" ")}
+          onClick={toggleMenu}
+        ></i>
       </div>
-      <div className="copyRightText">
+      <div className={[styles.copyRightText, "asul-bold"].join(" ")}>
         <p>{firstCopyRight}</p>
-        <p className="copyPharagraph">{secondCopyRight}</p>
+        <p className={styles.copyPharagraph}>{secondCopyRight}</p>
       </div>
-      <div className="listHelp">
-        <div className="firstListFooter">
+      <div className={[styles.listHelp, "bitter-bold"].join(" ")}>
+        <div className={styles.firstListFooter}>
           <ul>
             <li>
               <a href="#">Ayuda</a>
@@ -43,7 +46,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="secondListFooter">
+        <div className={styles.secondListFooter}>
           <ul>
             <li>
               <a href="#">Legal</a>
@@ -57,11 +60,11 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className={`listHelpMenu ${menuOpen ? "open" : ""}`}>
-        <div className="listInsideMenu">
-          <div className="closeButtonMenuFooter">
+      <div className={`${styles.listHelpMenu} ${menuOpen ? styles.open : ""}`}>
+        <div className={styles.listInsideMenu}>
+          <div className={styles.closeButtonMenuFooter}>
             <button onClick={toggleMenu}>
-              <i className="fa-solid fa-xmark"></i>
+              <i className={["fa-solid", "fa-xmark"].join(" ")}></i>
             </button>
           </div>
           <ListMenu />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./HomeBody.css";
 import { fetchImages } from "../../api/getCarrousel";
-
+import styles from "./HomeBody.module.css";
 const HomeBody = () => {
   const [images, setImages] = useState([]);
 
@@ -16,16 +15,34 @@ const HomeBody = () => {
   }, []);
 
   return (
-    <div className="body">
-      <div className="bodyTitle">Destinos que te pueden interesar</div>
+    <div className={styles.body}>
+      <div
+        className={[
+          styles.bodyTitle,
+          "inter",
+          "inter-italic",
+          "inter-bold",
+        ].join(" ")}
+      >
+        Destinos que te pueden interesar
+      </div>
       {images.length > 0 && (
-        <div className="imageCarousel">
+        <div className={styles.imageCarousel}>
           {images.map((image, index) => (
-            <div className="oneImageCarousel" key={index}>
+            <div className={styles.oneImageCarousel} key={index}>
               <img src={image.url} alt={image.name} />
-              <div className="imageInfo">
-                <h4>{image.name}</h4>
-                <p>Calificación: {image.rating}</p>
+              <div className={[styles.imageCarrouselInfo, "inter"].join(" ")}>
+                <h4 className={styles.imageCarrouselName}>{image.name}</h4>
+                <p className={styles.imageCarrouselRating}>
+                  <i
+                    className={[
+                      "fa-regular",
+                      "fa-star-half-stroke",
+                      styles.starRaiting,
+                    ].join(" ")}
+                  ></i>{" "}
+                  {image.rating}
+                </p>
               </div>
             </div>
           ))}

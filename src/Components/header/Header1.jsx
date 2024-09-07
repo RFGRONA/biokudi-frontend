@@ -1,17 +1,17 @@
 import React from "react";
-import "./Header1.css";
 import logo from "../../assets/header/logo.svg";
 import places from "../../assets/header/btnPlaces.svg";
 import map from "../../assets/header/btnMap.svg";
 import btnLogin from "../../assets/header/btnLogin.svg";
+import styles from "./Header1.module.css";
 
 const Header1 = () => {
   return (
     <header>
-      <div className="logo">
+      <div className={styles.logo}>
         <img src={logo} alt="logo" />
       </div>
-      <div className="actions">
+      <div className={[styles.actions, "inter-bold"].join(" ")}>
         <div className="btn-places">
           <img src={places} alt="lugares" />
           <p>Lugares</p>

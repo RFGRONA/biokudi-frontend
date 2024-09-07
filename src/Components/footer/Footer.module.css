@@ -26,6 +26,8 @@
 .copyRightText {
   margin-left: 3em;
   margin-top: 1em;
+  color: #171f20;
+  font-size: 0.8em;
 }
 
 .copyPharagraph {
@@ -53,8 +55,9 @@
 }
 
 .listHelp a {
-  text-decoration: none;
-  color: white;
+  text-decoration: underline;
+  color: #171f20;
+  font-size: 0.8em;
 }
 
 .firstListFooter {
@@ -64,17 +67,17 @@
 .menuButtonFooter {
   display: none;
   margin-left: auto;
-  margin-right: 1.5em;
-  margin-top: 2.5em;
 }
 
 .menuButtonFooter i {
   color: #171f20;
-  font-size: 1.5em;
+  font-size: 3em;
   cursor: pointer;
-  padding: 0.6em;
-  border-radius: 20%;
-  background-color: #395426;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1em;
+  margin-top: 1em;
 }
 
 /*Menu when devices*/

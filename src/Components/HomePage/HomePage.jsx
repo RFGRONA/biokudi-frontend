@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import "./HomePage.css";
 import Header1 from "../header/Header1";
 import Footer from "../footer/Footer";
-
+import styles from "./HomePage.module.css";
 //Assets
 import homeImage from "../../assets/homeImage.svg";
 import HomeBody from "./HomeBody";
@@ -11,16 +10,20 @@ function HomePage() {
   return (
     <Fragment>
       <Header1 />
-      <div className="bodyUpper">
-        <div className="leftTitleContainer">
-          <img src={homeImage} alt="homeImage" className="homeImage" />
+      <div className={styles.bodyUpper}>
+        <div className={styles.leftTitleContainer}>
+          <img src={homeImage} alt="homeImage" className={styles.homeImage} />
         </div>
-        <div className="rightTitleContainer">
-          <h1 className="homeTitle">
+        <div className={styles.rightTitleContainer}>
+          <h1
+            className={[styles.homeTitle, "inter-bold", "color-primary"].join(
+              " "
+            )}
+          >
             <span>Descubre la magia</span>
             <span>natural de Cundinamarca</span>
           </h1>
-          <div className="homeSubtitle">
+          <div className={[styles.homeSubtitle, "asul"].join(" ")}>
             <p>¿Qué destino deseas explorar?</p>
           </div>
           <BarSearch />

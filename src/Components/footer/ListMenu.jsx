@@ -1,5 +1,5 @@
 import React from "react";
-import "./ListMenu.css";
+import styles from "./ListMenu.module.css";
 import logo from "../../assets/header/logo.svg";
 const ListMenu = () => {
   const copyRightText = `CopyRight © 2024 BioKudi. Todos los derechos reservados
@@ -7,14 +7,17 @@ const ListMenu = () => {
   utilizar el sitio, indicas que aceptas cumplir con estos Términos y
   Condiciones del sitio.`;
   return (
-    <div className="content">
-      <div className="logoFooterMenu">
+    <div className={styles.content}>
+      <div className={styles.logoFooterMenu}>
         <img src={logo} alt="logo" />
       </div>
-      <a href="#" className="bioKudi loko">
+      <a
+        href="#"
+        className={[styles.bioKudi, styles.loko, "bitter-bold"].join(" ")}
+      >
         BioKudi
       </a>
-      <div className="listHelpInside">
+      <div className={[styles.listHelpInside, "asul"].join(" ")}>
         <ul>
           <li></li>
           <li>
@@ -38,7 +41,7 @@ const ListMenu = () => {
           </li>
         </ul>
       </div>
-      <div className="copyRightTextInside">
+      <div className={styles.copyRightTextInside}>
         <p>{copyRightText}</p>
       </div>
     </div>

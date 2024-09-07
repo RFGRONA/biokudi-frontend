@@ -1,13 +1,10 @@
 .leftTitleContainer {
-  background-color: red; /* !!!!!!!!!!!!!!!!!!!!!!*/
   width: 50%;
 }
 .rightTitleContainer {
-  background-color: green; /* !!!!!!!!!!!!!!!!!!!!!!*/
   width: 50%;
   font-size: 1.5em;
   margin-left: 0.8em;
-  padding-right: 0.4em;
 }
 
 .homeImage {
@@ -22,12 +19,12 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: blue; /* !!!!!!!!!!!!!!!!!!!!!!*/
 }
 
 .homeTitle span {
   display: block;
   font-size: 1.5em;
+  word-wrap: break-word;
 }
 
 .homeSubtitle {
@@ -41,7 +38,6 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 20px 0;
 }
 
 .inputWrapper {
@@ -83,7 +79,7 @@
 }
 
 .searchBar:focus::placeholder {
-  color: transparent; /* Hace el placeholder invisible cuando el input está en foco */
+  color: transparent;
 }
 
 .homeHeading {
@@ -92,22 +88,20 @@
 
 @media (max-width: 600px) {
   .homeHeading {
-    margin-right: 2em; /* Ajusta el margen para pantallas pequeñas */
+    margin-right: 2em;
   }
 
   .searchBar {
-    width: 100%; /* Asegura que el input ocupe el ancho completo */
+    width: 100%;
   }
 
   .homeTitle span {
-    font-size: 1.2em; /* Ajusta el tamaño de la letra para pantallas pequeñas */
+    font-size: 1.2em;
   }
 
   .rightTitleContainer {
-    font-size: 1.2em; /* Ajusta el tamaño de la letra para pantallas pequeñas */
+    font-size: 1.2em;
   }
-
-  /* Ajusta otros elementos según sea necesario */
 }
 
 @media (max-width: 300px) {

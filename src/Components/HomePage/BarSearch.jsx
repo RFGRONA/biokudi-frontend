@@ -1,15 +1,17 @@
 import React from "react";
 import searchBar from "../../assets/homePage/iconSearch.svg";
-
+import styles from "./HomePage.module.css";
 const BarSearch = () => {
+  const text = "Descubre tu ecolugar";
+
   return (
-    <div className="inputWrapper">
+    <div className={styles.inputWrapper}>
       <input
-        className="searchBar"
+        className={[styles.searchBar, "bitter"].join(" ")}
         type="text"
-        placeholder="Descubre tu lugar"
+        placeholder={text}
       />
-      <span className="searchIcon">
+      <span className={styles.searchIcon}>
         <img src={searchBar} alt="Buscar" />
       </span>
     </div>
