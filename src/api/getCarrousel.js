@@ -1,4 +1,4 @@
-//Minimo 7 imagenes para que funcione bien el front
+//We need at least 7 images to show in the carousel, so we will create a function that returns an array of images.
 export const fetchImages = async () => {
   const images = [
     { name: "image1", rating: 5, url: "https://via.placeholder.com/150" },
