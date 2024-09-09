@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchImages } from "../../api/getCarrousel";
+import { fetchImages } from "../../model/getCarrousel";
 import styles from "./HomeBody.module.css";
 const HomeBody = () => {
   const [images, setImages] = useState([]);
