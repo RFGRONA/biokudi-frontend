@@ -3,10 +3,11 @@
   justify-content: flex-start;
   width: 100%;
   background-color: #476930;
-  height: 10em;
-  botom: 0;
+  height: 8em;
   padding-top: 1em;
   overflow: hidden;
+  position: fixed;
+  bottom: 0;
 }
 
 .logoCopy {
