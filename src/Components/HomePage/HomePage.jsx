@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import Header1 from "../Header/Header1.jsx";
-import Footer from "../Footer/Footer.jsx";
+import Header1 from "../header/Header1";
+import Footer from "../footer/Footer";
 import styles from "./HomePage.module.css";
 //Assets
 import homeImage from "../../assets/homeImage.svg";
