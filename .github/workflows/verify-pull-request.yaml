@@ -29,7 +29,6 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const { context } = require('@actions/github');
           const pr_number = context.payload.pull_request.number;
           await github.pulls.merge({
             owner: context.repo.owner,
