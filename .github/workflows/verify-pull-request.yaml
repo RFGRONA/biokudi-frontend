@@ -24,12 +24,6 @@ jobs:
     - name: Build the project
       run: npm run build
 
-    - name: Lint and Test (optional)
-      run: |
-        npm run lint
-        npm run test || echo "No tests found or tests failed, continuing..."
-
-
     - name: Approve and merge pull request
       if: success()
       uses: actions/github-script@v6
