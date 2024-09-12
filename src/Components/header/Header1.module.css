@@ -2,15 +2,14 @@
   height: 3em;
   pointer-events: none;
 }
-
 .logo:hover {
   cursor: pointer;
 }
 
-header {
+.header {
   width: 100%;
   display: flex;
-  background-color: #d8eece;
+  background-color: white;
   padding: 0.5em;
   padding-top: 1em;
 }
@@ -22,17 +21,6 @@ header {
   padding-left: 0.8em;
 }
 
-.actions img {
-  color: #45a049;
-  cursor: pointer;
-}
-
-.actions img,
-.actions p {
-  height: 2em;
-  margin: auto;
-  word-wrap: break-word;
-}
 .btnPlaces,
 .btnMap,
 .btnLogin {
@@ -43,6 +31,13 @@ header {
 .btnLogin:hover {
   cursor: pointer;
   font-size: 1.1em;
+}
+
+.actions img,
+.actions p {
+  height: 2em;
+  margin: auto;
+  word-wrap: break-word;
 }
 
 @media (max-width: 600px) {

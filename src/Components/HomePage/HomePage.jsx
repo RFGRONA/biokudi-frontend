@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Header from "./Header1";
+import Header from "../header/Header1";
 import Footer from "../footer/Footer";
 import styles from "./HomePage.module.css";
 //Assets

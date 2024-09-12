@@ -3,10 +3,10 @@ import logo from "../../assets/header/logo.svg";
 import places from "../../assets/header/btnPlaces.svg";
 import map from "../../assets/header/btnMap.svg";
 import btnLogin from "../../assets/header/btnLogin.svg";
-import styles from "./Header2.module.css";
+import styles from "./Header1.module.css";
 import { useNavigate } from "react-router-dom";
 
-const Header2 = () => {
+const Header1 = () => {
   const navigate = useNavigate();
   const goToLogin = () => {
     navigate("/login");
@@ -16,7 +16,7 @@ const Header2 = () => {
   };
 
   return (
-    <header>
+    <div className={styles.header}>
       <div className={styles.logo} onClick={goToHome}>
         <img src={logo} alt="logo" />
       </div>
@@ -34,8 +34,8 @@ const Header2 = () => {
           <p>Ingresar</p>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 
-export default Header2;
+export default Header1;
