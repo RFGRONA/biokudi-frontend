@@ -6,7 +6,7 @@
 header {
   width: 100%;
   display: flex;
-  background-color: white;
+  background-color: #d8eece;
   padding: 0.5em;
   padding-top: 1em;
 }
@@ -16,6 +16,11 @@ header {
   margin-left: auto;
   gap: 1em;
   padding-left: 0.8em;
+}
+
+.actions img {
+  color: #45a049;
+  cursor: pointer;
 }
 
 .actions img,

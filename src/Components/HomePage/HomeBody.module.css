@@ -8,6 +8,15 @@
   text-align: center;
   color: #9f9f9f;
 }
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.bodyUpper {
+  flex: 1;
+}
 
 .imageCarousel {
   display: flex;

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Header1 from "../header/Header1";
+import Header from "./Header1";
 import Footer from "../footer/Footer";
 import styles from "./HomePage.module.css";
 //Assets
@@ -8,8 +8,9 @@ import HomeBody from "./HomeBody";
 import BarSearch from "./BarSearch";
 function HomePage() {
   return (
-    <Fragment>
-      <Header1 />
+    <div className={styles.mainContainer}>
+      <Header />
+
       <div className={styles.bodyUpper}>
         <div className={styles.leftTitleContainer}>
           <img src={homeImage} alt="homeImage" className={styles.homeImage} />
@@ -31,7 +32,7 @@ function HomePage() {
       </div>
       <HomeBody />
       <Footer />
-    </Fragment>
+    </div>
   );
 }
 

@@ -15,9 +15,28 @@ header {
   display: flex;
   margin-left: auto;
   gap: 1em;
+  padding-left: 0.8em;
+}
+
+.actions:hover {
+  cursor: pointer;
 }
 
 .actions img,
 .actions p {
   height: 2em;
+  margin: auto;
+  word-wrap: break-word;
+}
+
+.actions img:hover {
+  fill: red;
+}
+
+@media (max-width: 600px) {
+  .actions {
+    gap: 0.5em;
+    padding-left: 0.5em;
+    font-size: 0.6em;
+  }
 }

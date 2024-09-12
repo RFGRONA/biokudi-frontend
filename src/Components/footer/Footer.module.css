@@ -7,8 +7,12 @@
   padding-top: 1em;
   overflow: hidden;
   /*Estar siempre abajo de la pantalla pero sin sobreponerse a otros componentes*/
-  position: fixed;
+  position: relative;
   bottom: 0;
+}
+
+.main-content {
+  flex: 1;
 }
 
 .logoCopy {

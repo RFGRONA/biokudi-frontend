@@ -1,16 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styles from "./Login.module.css";
-import Header from "../header/Header1";
+import Header from "../header/Header2";
 import Footer from "../footer/Footer";
 import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
-    <div>
+    <Fragment>
       <Header />
-      <LoginForm />
+      <div className={styles.mainContainer}>
+        <LoginForm />
+      </div>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 
