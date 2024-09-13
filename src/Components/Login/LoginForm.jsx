@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const LoginForm = () => {
   /*Auth method*/
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /**Register redirect */
+  const navigate = useNavigate();
+  const goToRegister = () => {
+    navigate("/register");
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
@@ -35,6 +43,7 @@ const LoginForm = () => {
         </h1>
         <button
           className={[styles.createAccountButton, "color-contrast"].join(" ")}
+          onClick={goToRegister}
         >
           Crear Cuenta
         </button>
