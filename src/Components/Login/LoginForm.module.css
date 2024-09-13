@@ -119,7 +119,7 @@ form {
   transition: 0.3s;
 }
 
-/*Estilo cuando el boton es disable*/
+/*When button is disabled*/
 .pressButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;

@@ -1,0 +1,74 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+}
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+}
+
+.form {
+  min-width: 35em;
+}
+
+.bottomGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formGroup {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.5em;
+}
+.inputGroup {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-top: 0.3em;
+}
+
+.inputGroup input {
+  border: none;
+  padding: 0.5em;
+  width: 100%;
+  margin-left: 0.2em;
+}
+
+.formGroup label {
+  margin-left: 0.6em;
+}
+
+.recaptcha {
+  margin-right: auto;
+}
+
+/*Confirm button*/
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.25em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  margin-right: 5em;
+  border: 1px solid #f67924;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.submitButton:hover {
+  background-color: #f67924;
+  color: white;
+}
