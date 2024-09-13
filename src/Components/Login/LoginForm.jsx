@@ -1,7 +1,24 @@
 import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
-
+import ReCAPTCHA from "react-google-recaptcha";
+import { useAuth } from "../../context/AuthContext";
 const LoginForm = () => {
+  /*Auth method*/
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login();
+  };
+
+  /*Captcha use*/
+  const [captcha, setCaptcha] = useState(false);
+  const onChange = () => {
+    setCaptcha(true);
+  };
+
+  /*Password visibility*/
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -14,7 +31,7 @@ const LoginForm = () => {
         <h1
           className={[styles.title, "bitter-bold", "color-primary"].join(" ")}
         >
-          Iniciar Sesión
+          Iniciar <br /> Sesión
         </h1>
         <button
           className={[styles.createAccountButton, "color-contrast"].join(" ")}
@@ -25,7 +42,7 @@ const LoginForm = () => {
 
       <div className={styles.rightContainer}>
         <form>
-          <div className={styles.formGroup}>
+          <div className={[styles.formGroup, styles.emailContainer].join(" ")}>
             <label
               htmlFor="email"
               className={["inter-bold", "color-primary"].join(" ")}
@@ -37,47 +54,59 @@ const LoginForm = () => {
               id="email"
               placeholder="example@dominio.com"
               className={styles.inputField}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
-          <div className={styles.passwordContainer}>
-            <label
-              htmlFor="password"
-              className={["inter-bold", "color-primary"].join(" ")}
-            >
-              Contraseña
-            </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              placeholder="**********"
-              className={[
-                styles.inputField,
-                "inter-bold",
-                "color-primary",
-              ].join(" ")}
-            />
-            <span id="togglePassword" className={styles.icon}>
-              {showPassword ? (
-                <i
-                  className={["fa-regular", "fa-eye-slash"].join(" ")}
-                  onClick={handleTogglePassword}
-                ></i>
-              ) : (
-                <i
-                  className={["fa-regular", "fa-eye"].join(" ")}
-                  onClick={handleTogglePassword}
-                ></i>
-              )}
-            </span>
+          <div className={styles.formGroup}>
+            <div className={styles.passwordContainer}>
+              <label
+                htmlFor="password"
+                className={["inter-bold", "color-primary"].join(" ")}
+              >
+                Contraseña
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="**********"
+                className={[
+                  styles.inputField,
+                  "inter-bold",
+                  "color-primary",
+                ].join(" ")}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span id="togglePassword" className={styles.icon}>
+                {showPassword ? (
+                  <i
+                    className={["fa-regular", "fa-eye-slash"].join(" ")}
+                    onClick={handleTogglePassword}
+                  ></i>
+                ) : (
+                  <i
+                    className={["fa-regular", "fa-eye"].join(" ")}
+                    onClick={handleTogglePassword}
+                  ></i>
+                )}
+              </span>
+            </div>
           </div>
           <div className={styles.loginButton}>
-            <button className={[styles.pressButton, "inter-bold"].join(" ")}>
+            <button
+              className={[styles.pressButton, "inter-bold"].join(" ")}
+              disabled={!captcha}
+              onClick={handleSubmit}
+            >
               Ingresar
             </button>
           </div>
         </form>
-        <div className={styles.captcha}>CAPTCHA</div>
+        <div className={styles.recaptcha}>
+          <ReCAPTCHA
+            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+            onChange={onChange}
+          />
+        </div>
         <div className={styles.recordUser}>
           <input type="checkbox" id="recordUser" className={styles.checkbox} />
           <label htmlFor="recordUser">Recordar usuario</label>

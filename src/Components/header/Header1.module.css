@@ -30,7 +30,7 @@
 .btnMap:hover,
 .btnLogin:hover {
   cursor: pointer;
-  font-size: 1.1em;
+  transform: scale(1.1);
 }
 
 .actions img,

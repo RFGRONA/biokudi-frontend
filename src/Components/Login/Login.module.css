@@ -1,3 +1,7 @@
 .mainContainer {
-  height: 100vh;
+  min-height: 75vh;
+  /*Centrar verticalemente*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
