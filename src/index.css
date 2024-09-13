@@ -17,19 +17,14 @@ html {
   overflow-x: hidden;
 }
 
-<<<<<<< HEAD
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .main-content {
   flex: 1;
 }
-=======
-
->>>>>>> aad06f40e06864b3b6aaf8b486bcb2ae8ee9a3c3
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
