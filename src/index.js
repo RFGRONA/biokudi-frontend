@@ -4,13 +4,34 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "https://kit.fontawesome.com/2e0b382a53.js";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./Components/Login/Login";
+import HomePage from "./Components/HomePage/HomePage";
+
+/*React Router */
+import { Route, Routes } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import PrivateRoute from "./Components/PrivateRoute";
+import PublicRoute from "./Components/PublicRoute";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
-    <App />
-  </Router>
+  <React.StrictMode>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Rutas publicas, no necesitan auth*/}
+          <Route element={<PublicRoute />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+
+          {/* Rutas privadas, necesitan auth*/}
+          <Route element={<PrivateRoute />}></Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
