@@ -3,14 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "https://kit.fontawesome.com/2e0b382a53.js";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./Components/Login/Login";
 import HomePage from "./Components/HomePage/HomePage";
 
 /*React Router */
-import { Route, Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
 
@@ -20,14 +18,17 @@ root.render(
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Rutas publicas, no necesitan auth*/}
+          {/* Rutas públicas, no necesitan auth */}
           <Route element={<PublicRoute />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
           </Route>
 
-          {/* Rutas privadas, necesitan auth*/}
-          <Route element={<PrivateRoute />}></Route>
+          {/* Rutas privadas, necesitan auth */}
+          <Route element={<PrivateRoute />}>
+            {/* Agrega aquí tus rutas privadas */}
+            {/* <Route path="/private" element={<PrivatePage />} /> */}
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
