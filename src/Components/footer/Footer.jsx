@@ -36,26 +36,26 @@ const Footer = () => {
         <div className={styles.firstListFooter}>
           <ul>
             <li>
-              <a href="#">Ayuda</a>
+              <a href="../help">Ayuda</a>
             </li>
             <li>
-              <a href="#">Quienes Somos</a>
+              <a href="../about-us">Quienes Somos</a>
             </li>
             <li>
-              <a href="#">Contacto</a>
+              <a href="../contact">Contacto</a>
             </li>
           </ul>
         </div>
         <div className={styles.secondListFooter}>
           <ul>
             <li>
-              <a href="#">Legal</a>
+              <a href="../legal">Legal</a>
             </li>
             <li>
-              <a href="#">Cookies</a>
+              <a href="../cookies">Cookies</a>
             </li>
             <li>
-              <a href="#">Política de Privacidad</a>
+              <a href="../privacy-policy">Política de Privacidad</a>
             </li>
           </ul>
         </div>
