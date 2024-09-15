@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
 }
 .leftContainer {
   display: flex;
@@ -10,21 +9,47 @@
   justify-content: center;
   align-items: center;
   border-right: 1px solid #ccc;
+  width: 100%;
 }
 
 .form {
   min-width: 35em;
+  width: 100%;
+}
+
+.label {
+  color: #f67924;
+  font-size: 1.1em;
+  font-weight: 900;
+  margin-bottom: 0.5em;
+  font-family: "Inter", sans-serif;
 }
 
 .bottomGroup {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 3em;
+}
+
+.inputField {
+  max-width: ;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
+.inputField::placeholder {
+  color: #f67924;
+  opacity: 0.45;
+}
+
+.inputField:focus {
+  outline: none;
 }
 
 .formGroup {
   display: flex;
-  gap: 0.5em;
+  gap: 1em;
   margin: 0.5em;
 }
 .inputGroup {
@@ -32,13 +57,14 @@
   border-radius: 10px;
   overflow: hidden;
   padding-top: 0.3em;
+  overflow: hidden;
+  width: 100%;
 }
 
 .inputGroup input {
   border: none;
   padding: 0.5em;
-  width: 100%;
-  margin-left: 0.2em;
+  margin-left: 0.4em;
 }
 
 .formGroup label {
@@ -47,6 +73,7 @@
 
 .recaptcha {
   margin-right: auto;
+  margin-left: 1em;
 }
 
 /*Confirm button*/
@@ -58,17 +85,77 @@
   padding-bottom: 0.25em;
   padding-left: 0.7em;
   padding-right: 0.7em;
-  margin-right: 5em;
+  margin-right: 3em;
   border: 1px solid #f67924;
   border-radius: 20px;
+  background-color: #f67924;
+  color: white;
   transition: 0.3s;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 1.5em;
 }
 
 .submitButton:disabled {
   background-color: #ccc;
+  border: none;
   cursor: not-allowed;
 }
-.submitButton:hover {
-  background-color: #f67924;
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding-left: 3em;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.title {
+  font-size: 3em;
+  color: #f67924;
+  font-weight: 900;
+  word-wrap: break-word;
+  line-height: 1em;
+}
+
+.goToSesion {
+  color: #476930;
+  font-weight: 700;
+  font-size: 1.2em;
+  font-family: "Inter", sans-serif;
+  border: 1px solid #476930;
+  padding: 0.5em;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.goToSesion:hover {
+  background-color: #476930;
   color: white;
+}
+
+.passwordContainer {
+}
+
+.icon {
+  position: absolute;
+  transform: translateX(-1.5em);
+}
+
+.errors {
+  color: red;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  padding-left: 0.5em;
 }
