@@ -12,7 +12,8 @@ const LoginForm = () => {
 
   /**Register redirect */
   const navigate = useNavigate();
-  const goToRegister = () => {
+  const goToRegister = (e) => {
+    e.preventDefault();
     navigate("/register");
   }
   const handleSubmit = (e) => {
@@ -43,7 +44,7 @@ const LoginForm = () => {
         </h1>
         <button
           className={[styles.createAccountButton, "color-contrast"].join(" ")}
-          onClick={goToRegister}
+          onClick={(e) => goToRegister(e)}
         >
           Crear Cuenta
         </button>

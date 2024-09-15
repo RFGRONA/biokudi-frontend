@@ -2,8 +2,67 @@ import React from "react";
 import styles from "./RegisterForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ValidateRegister } from "../../utils/ValidateRegister";
 
 const RegisterForm = () => {
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: {},
+    email: {},
+    password: {},
+    confirmPassword: {},
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const updatedValues = { ...formValues, [name]: value };
+    setFormValues(updatedValues);
+  };
+
+  /**HandleSubmit */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = ValidateRegister(formValues);
+    setErrors(validationErrors);
+
+    if (
+      Object.keys(validationErrors).every(
+        (key) => !Object.keys(validationErrors[key]).length
+      )
+    ) {
+      console.log("Formulario enviado con éxito");
+    } else {
+      console.log("Errores en el formulario", validationErrors);
+    }
+  };
+
+  /**Button Hande */
+  const navigate = useNavigate();
+  const goToLogin = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
+  /*Password visibility 1*/
+  const [showPassword1, setShowPassword1] = useState(false);
+
+  const handleTogglePassword1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+  /*Password visibility 2*/
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const handleTogglePassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
   /**Captcha handle */
   const [captcha, setCaptcha] = useState(false);
   const onChange = () => {
@@ -15,66 +74,185 @@ const RegisterForm = () => {
         <form className={styles.form}>
           <div className={styles.formGroup}>
             <div className={styles.inputGroup}>
-              <label
-                htmlFor="email"
-                className={["inter-bold", "color-primary"].join(" ")}
-              >
-                Correo electrónico
+              <label htmlFor="name" className={styles.label}>
+                Nombre
               </label>
               <input
-                type="email"
-                id="email"
-                placeholder="example@dominio.com"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="John Doe"
                 className={styles.inputField}
-                // onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInputChange}
+                value={formValues.name}
               />
+              {/* errors handle */}
+              <div className={styles.errors}>
+                <ul>
+                  <li>
+                    {errors.name.required && (
+                      <span className={styles.error}>
+                        {errors.name.required}
+                      </span>
+                    )}
+                  </li>
+                  <li>
+                    {errors.name.length && (
+                      <span className={styles.error}>{errors.name.length}</span>
+                    )}
+                  </li>
+                  <li>
+                    {errors.name.invalid && (
+                      <span className={styles.error}>
+                        {errors.name.invalid}
+                      </span>
+                    )}
+                  </li>
+                </ul>
+              </div>
             </div>
+
             <div className={styles.inputGroup}>
-              <label
-                htmlFor="email"
-                className={["inter-bold", "color-primary"].join(" ")}
-              >
+              <label htmlFor="email" className={styles.label}>
                 Correo electrónico
               </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="example@dominio.com"
-                className={styles.inputField}
-                // onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className={styles.passwordContainer}>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="example@dominio.com"
+                  className={styles.inputField}
+                  onChange={handleInputChange}
+                  value={formValues.email}
+                />
+
+                {/* errors handle */}
+                <div className={styles.errors}>
+                  <ul>
+                    <li>
+                      {errors.email.required && (
+                        <span className={styles.error}>
+                          {errors.email.required}
+                        </span>
+                      )}
+                    </li>
+                    <li>
+                      {errors.email.invalid && (
+                        <span className={styles.error}>
+                          {errors.email.invalid}
+                        </span>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
+
           <div className={styles.formGroup}>
             <div className={styles.inputGroup}>
-              <label
-                htmlFor="email"
-                className={["inter-bold", "color-primary"].join(" ")}
-              >
-                Correo electrónico
+              <label htmlFor="password1" className={styles.label}>
+                Contraseña
               </label>
               <input
-                type="email"
-                id="email"
-                placeholder="example@dominio.com"
+                type={showPassword1 ? "text" : "password"}
+                id="password1"
+                placeholder="*************"
                 className={styles.inputField}
-                // onChange={(e) => setEmail(e.target.value)}
+                onChange={handleInputChange}
+                value={formValues.password}
+                name="password"
               />
+              <span id="togglePassword" className={styles.icon}>
+                {showPassword1 ? (
+                  <i
+                    className={["fa-regular", "fa-eye-slash"].join(" ")}
+                    onClick={handleTogglePassword1}
+                  ></i>
+                ) : (
+                  <i
+                    className={["fa-regular", "fa-eye"].join(" ")}
+                    onClick={handleTogglePassword1}
+                  ></i>
+                )}
+              </span>
+
+              {/* errors handle */}
+              <div className={styles.errors}>
+                <ul>
+                  <li>
+                    {errors.password.required && (
+                      <span className={styles.error}>
+                        {errors.password.required}
+                      </span>
+                    )}
+                  </li>
+                  <li>
+                    {errors.password.length && (
+                      <span className={styles.error}>
+                        {errors.password.length}
+                      </span>
+                    )}
+                  </li>
+                  <li>
+                    {errors.password.lowercase && (
+                      <span className={styles.error}>
+                        {errors.password.lowercase}
+                      </span>
+                    )}
+                  </li>
+                </ul>
+              </div>
             </div>
             <div className={styles.inputGroup}>
-              <label
-                htmlFor="email"
-                className={["inter-bold", "color-primary"].join(" ")}
-              >
-                Correo electrónico
+              <label htmlFor="conPassword" className={styles.label}>
+                Confirmar contraseña
               </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="example@dominio.com"
-                className={styles.inputField}
-                // onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className={styles.passwordContainer}>
+                <input
+                  type={showPassword2 ? "text" : "password"}
+                  id="conPassword"
+                  placeholder="*************"
+                  className={styles.inputField}
+                  onChange={handleInputChange}
+                  value={formValues.confirmPassword}
+                  name="confirmPassword"
+                />
+                <span id="togglePassword" className={styles.icon}>
+                  {showPassword2 ? (
+                    <i
+                      className={["fa-regular", "fa-eye-slash"].join(" ")}
+                      onClick={handleTogglePassword2}
+                    ></i>
+                  ) : (
+                    <i
+                      className={["fa-regular", "fa-eye"].join(" ")}
+                      onClick={handleTogglePassword2}
+                    ></i>
+                  )}
+                </span>
+
+                {/* errors handle */}
+                <div className={styles.errors}>
+                  <ul>
+                    <li>
+                      {errors.confirmPassword.required && (
+                        <span className={styles.error}>
+                          {errors.confirmPassword.required}
+                        </span>
+                      )}
+                    </li>
+                    <li>
+                      {errors.confirmPassword.match && (
+                        <span className={styles.error}>
+                          {errors.confirmPassword.match}
+                        </span>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
           <div className={styles.formGroup}></div>
@@ -86,8 +264,11 @@ const RegisterForm = () => {
             />
             <button
               type="submit"
-              disable={!captcha}
+              disabled={!captcha}
               className={styles.submitButton}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
             >
               Confirmar
             </button>
@@ -96,14 +277,11 @@ const RegisterForm = () => {
       </div>
       <div className={styles.rightContainer}>
         <div className={styles.head}>
-          <h2 className={["color-contrast"]}>
+          <h2 className={styles.title}>
             Crear
             <br /> Cuenta
           </h2>
-          <button
-            className={[styles.createAccountButton, "color-contrast"].join(" ")}
-            // onClick={goToRegister}
-          >
+          <button className={[styles.goToSesion].join(" ")} onClick={goToLogin}>
             Iniciar Sesion
           </button>
         </div>
