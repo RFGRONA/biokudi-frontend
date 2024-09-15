@@ -81,19 +81,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 0.2em;
-  padding-bottom: 0.25em;
-  padding-left: 0.7em;
-  padding-right: 0.7em;
-  margin-right: 3em;
+  padding: 0.4em;
+  margin-right: 4em;
   border: 1px solid #f67924;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #f67924;
   color: white;
   transition: 0.3s;
   font-family: "Inter", sans-serif;
-  font-weight: 800;
-  font-size: 1.5em;
+  font-weight: 700;
+  font-size: 1.2em;
 }
 
 .submitButton:disabled {
@@ -135,7 +132,9 @@
   font-size: 1.2em;
   font-family: "Inter", sans-serif;
   border: 1px solid #476930;
-  padding: 0.5em;
+  padding: 0.3em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
   border-radius: 20px;
   transition: 0.3s;
 }
