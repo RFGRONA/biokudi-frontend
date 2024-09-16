@@ -15,7 +15,7 @@ const LoginForm = () => {
   const goToRegister = (e) => {
     e.preventDefault();
     navigate("/register");
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
@@ -86,19 +86,6 @@ const LoginForm = () => {
                 ].join(" ")}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span id="togglePassword" className={styles.icon}>
-                {showPassword ? (
-                  <i
-                    className={["fa-regular", "fa-eye-slash"].join(" ")}
-                    onClick={handleTogglePassword}
-                  ></i>
-                ) : (
-                  <i
-                    className={["fa-regular", "fa-eye"].join(" ")}
-                    onClick={handleTogglePassword}
-                  ></i>
-                )}
-              </span>
             </div>
           </div>
           <div className={styles.loginButton}>

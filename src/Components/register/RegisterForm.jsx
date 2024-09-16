@@ -164,19 +164,6 @@ const RegisterForm = () => {
                 value={formValues.password}
                 name="password"
               />
-              <span id="togglePassword" className={styles.icon}>
-                {showPassword1 ? (
-                  <i
-                    className={["fa-regular", "fa-eye-slash"].join(" ")}
-                    onClick={handleTogglePassword1}
-                  ></i>
-                ) : (
-                  <i
-                    className={["fa-regular", "fa-eye"].join(" ")}
-                    onClick={handleTogglePassword1}
-                  ></i>
-                )}
-              </span>
 
               {/* errors handle */}
               <div className={styles.errors}>
@@ -219,19 +206,6 @@ const RegisterForm = () => {
                   value={formValues.confirmPassword}
                   name="confirmPassword"
                 />
-                <span id="togglePassword" className={styles.icon}>
-                  {showPassword2 ? (
-                    <i
-                      className={["fa-regular", "fa-eye-slash"].join(" ")}
-                      onClick={handleTogglePassword2}
-                    ></i>
-                  ) : (
-                    <i
-                      className={["fa-regular", "fa-eye"].join(" ")}
-                      onClick={handleTogglePassword2}
-                    ></i>
-                  )}
-                </span>
 
                 {/* errors handle */}
                 <div className={styles.errors}>
