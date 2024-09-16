@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
   gap: 3em;
@@ -159,4 +158,36 @@ form {
   font-family: "Inter", sans-serif;
   font-weight: 700;
   text-decoration: underline;
+}
+ /*Tablets*/
+@media (min-width: 950px) {
+}
+
+/*Phone*/
+@media (max-width: 650px) {
+  .login {
+    flex-direction: column;
+    gap: 2em;
+  }
+  .leftContainer {
+    border-right: none;
+    padding-right: 0;
+    justify-content: start;
+    height: auto;
+  }
+  .rightContainer {
+    gap: 1.5em;
+  }
+  .title {
+    font-size: 2.5em;
+  }
+  .formGroup {
+    width: 100%;
+  }
+  .inputField {
+    width: 100%;
+  }
+  .loginButton {
+    width: 100%;
+  }
 }
