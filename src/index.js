@@ -17,16 +17,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           {/* Rutas publicas, no necesitan auth*/}
           <Route element={<PublicRoute />}>
-            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Error />} />
