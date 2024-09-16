@@ -1,6 +1,5 @@
 .mainContainer {
   min-height: 80vh;
-  /*Centrar verticalemente*/
   display: flex;
   justify-content: center;
   align-items: center;

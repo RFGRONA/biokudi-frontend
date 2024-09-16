@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthContext";
+
+/**Routes */
 import Login from "./Components/Login/Login";
 import HomePage from "./Components/HomePage/HomePage";
+import Register from "./Components/register/Register";
+import Error from "./Components/error/Error";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,10 +21,12 @@ root.render(
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Rutas públicas, no necesitan auth */}
+          <Route path="/" element={<HomePage />} />
+          {/* Rutas publicas, no necesitan auth*/}
           <Route element={<PublicRoute />}>
-            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Error />} />
           </Route>
 
           {/* Rutas privadas, necesitan auth */}

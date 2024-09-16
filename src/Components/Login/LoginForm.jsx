@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const LoginForm = () => {
   /*Auth method*/
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /**Register redirect */
+  const navigate = useNavigate();
+  const goToRegister = (e) => {
+    e.preventDefault();
+    navigate("/register");
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
@@ -35,6 +44,7 @@ const LoginForm = () => {
         </h1>
         <button
           className={[styles.createAccountButton, "color-contrast"].join(" ")}
+          onClick={(e) => goToRegister(e)}
         >
           Crear Cuenta
         </button>
@@ -76,19 +86,6 @@ const LoginForm = () => {
                 ].join(" ")}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span id="togglePassword" className={styles.icon}>
-                {showPassword ? (
-                  <i
-                    className={["fa-regular", "fa-eye-slash"].join(" ")}
-                    onClick={handleTogglePassword}
-                  ></i>
-                ) : (
-                  <i
-                    className={["fa-regular", "fa-eye"].join(" ")}
-                    onClick={handleTogglePassword}
-                  ></i>
-                )}
-              </span>
             </div>
           </div>
           <div className={styles.loginButton}>
