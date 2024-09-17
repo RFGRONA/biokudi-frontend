@@ -15,6 +15,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
 
+import "https://kit.fontawesome.com/2e0b382a53.js";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

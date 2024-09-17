@@ -23,10 +23,7 @@ const Footer = () => {
         <img src={logoCopy} alt={styles.logoCopy} />
       </div>
       <div className={styles.menuButtonFooter}>
-        <i
-          className={["fa-solid", "fa-circle-info"].join(" ")}
-          onClick={toggleMenu}
-        ></i>
+        <i className="fa-regular fa-circle-question" onClick={toggleMenu}></i>
       </div>
       <div className={[styles.copyRightText, "asul-bold"].join(" ")}>
         <p>{firstCopyRight}</p>
