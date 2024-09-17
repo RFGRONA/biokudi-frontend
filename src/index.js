@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import "https://kit.fontawesome.com/2e0b382a53.js";
 import { AuthProvider } from "./context/AuthContext";
 
 /**Routes */
@@ -12,8 +11,7 @@ import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
 
 /*React Router */
-import { Route, Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
 
@@ -31,8 +29,11 @@ root.render(
             <Route path="*" element={<Error />} />
           </Route>
 
-          {/* Rutas privadas, necesitan auth*/}
-          <Route element={<PrivateRoute />}></Route>
+          {/* Rutas privadas, necesitan auth */}
+          <Route element={<PrivateRoute />}>
+            {/* Agrega aquí tus rutas privadas */}
+            {/* <Route path="/private" element={<PrivatePage />} /> */}
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
