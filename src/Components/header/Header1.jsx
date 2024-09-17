@@ -5,6 +5,7 @@ import map from "../../assets/header/btnMap.svg";
 import btnLogin from "../../assets/header/btnLogin.svg";
 import styles from "./Header1.module.css";
 import { useNavigate } from "react-router-dom";
+import btnMenu from "../../assets/header/btnMenu.svg";
 
 const Header1 = () => {
   const navigate = useNavigate();
@@ -32,6 +33,9 @@ const Header1 = () => {
         <div className={styles.btnLogin} onClick={goToLogin}>
           <img src={btnLogin} alt="login" />
           <p>Ingresar</p>
+        </div>
+        <div className={styles.btnMenu}>
+          <img src={btnMenu} alt="menu" />
         </div>
       </div>
     </div>

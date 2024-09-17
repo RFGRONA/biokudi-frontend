@@ -23,12 +23,14 @@
 
 .btnPlaces,
 .btnMap,
-.btnLogin {
+.btnLogin,
+.btnMenu {
   transition: 0.6s;
 }
 .btnPlaces:hover,
 .btnMap:hover,
-.btnLogin:hover {
+.btnLogin:hover,
+.btnMenu:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
@@ -38,6 +40,11 @@
   height: 2em;
   margin: auto;
   word-wrap: break-word;
+}
+
+.btnMenu {
+  margin-right: 0.5em;
+  margin-top: 0.3em;
 }
 
 @media (max-width: 600px) {
