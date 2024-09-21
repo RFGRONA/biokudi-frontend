@@ -6,6 +6,8 @@ import PrivacyPolicy from "./Components/policies/PrivacyPolicy"
 import Cookies from "./Components/policies/Cookies";
 import Legal from "./Components/policies/Legal";
 import AboutUs from "./Components/policies/AboutUs";
+import Help from "./Components/policies/Help";
+import Contact from "./Components/policies/Contact";
 
 function App() {
   return (
@@ -27,6 +29,12 @@ function App() {
 
       {/* Ruta para la página de sobre nosotros */}
       <Route path="/about-us" element={<AboutUs />} />
+
+      {/* Ruta para la página de ayuda */}
+      <Route path="/help" element={<Help />} />
+
+      {/* Ruta para la página de contacto */}
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }
