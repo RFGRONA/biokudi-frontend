@@ -1,15 +1,16 @@
 import axios from "axios";
-import { cryptoService } from './cryptoService';
+import { CryptoService } from './cryptoService';
 
 export const loginApi = async (email, password, rememberme, captchatoken) => {
   const URL_LOGIN = process.env.REACT_APP_URL_API + "/api/login";
   try {
     console.log("URL_LOGIN", URL_LOGIN);
     console.log(email, password, rememberme, captchatoken);
-    const encryptedPassword = await cryptoService.encryptPassword(password);
+    const cryptoService = new CryptoService();
+    password = await cryptoService.encryptPassword(password);
     const response = await axios.post(URL_LOGIN, {
       email,
-      password: encryptedPassword,
+      password,
       rememberme,
       captchatoken,
     });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class cryptoService {
+export class CryptoService {
   constructor() {
     this.publicKey = null;
   }
