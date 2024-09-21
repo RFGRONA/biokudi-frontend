@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../model/user";
 import { useAuth } from "../../context/AuthContext";
 
 const LoginForm = () => {
