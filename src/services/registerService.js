@@ -1,12 +1,14 @@
 import axios from "axios";
+import { cryptoService } from './cryptoService';
 
 export const registerApi = async (email, password, nameUser, captchaToken) => {
-  const URL_REGISTER = process.env.REACT_APP_URL_API + "/person/register";
+  const URL_REGISTER = process.env.REACT_APP_URL_API + "/api/register";
 
   try {
+    const encryptedPassword = await cryptoService.encryptPassword(password);
     const response = await axios.post(URL_REGISTER, {
       email,
-      password,
+      password: encryptedPassword,
       nameUser,
       captchaToken,
     });
