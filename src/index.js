@@ -20,10 +20,11 @@ import "https://kit.fontawesome.com/2e0b382a53.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
+
           {/* Rutas publicas, no necesitan auth*/}
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
@@ -31,14 +32,21 @@ root.render(
             <Route path="*" element={<Error />} />
           </Route>
 
-          {/* Rutas privadas, necesitan auth */}
+          {/* Rutas privadas */}
+          {/* ADMIN */}
+          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+            {/* Agrega aquí tus rutas privadas */}
+            {/* <Route path="/private" element={<PrivatePage />} /> */}
+          </Route>
+
+          {/* USER */}
           <Route element={<PrivateRoute />}>
             {/* Agrega aquí tus rutas privadas */}
             {/* <Route path="/private" element={<PrivatePage />} /> */}
           </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   </React.StrictMode>
 );
 
