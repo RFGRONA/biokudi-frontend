@@ -1,0 +1,111 @@
+.contactContainer {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+}
+
+.inlineFields {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid darkorange;
+    border-radius: 5px;
+}
+
+.textareaContact {
+    padding: 10px;
+    border: 1px solid darkorange;
+    border-radius: 5px;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+}
+
+.textareaContact:focus {
+    outline: none;
+}
+
+.button {
+    background-color: orange;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 50px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.button:hover {
+    background-color: darkorange;
+}
+
+.separatorText {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #666;
+}
+
+.separator {
+    margin: 15px 0;
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    width: 100%;
+}
+
+.socialNetworksIcons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.iconCont {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.contactText {
+    font-weight: bold;
+    color: black;
+    font-size: 1.2em;
+    margin: 0; 
+    text-align: center;
+}
+
+.contactEmail {
+    color: green;
+    font-style: italic;
+    font-size: 1.1em;
+    margin: 0em;
+    text-align: center;
+}
