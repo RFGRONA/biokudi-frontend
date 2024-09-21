@@ -4,6 +4,14 @@ import Footer from '../footer/Footer';
 import styles from './Layout.module.css'
 
 const Layout = ({ icon, title, children }) => {
+  const addClassToParagraphs = (children) => {
+    return React.Children.map(children, (child) => {
+      if (React.isValidElement(child) && child.type === 'p') {
+        return React.cloneElement(child, { className: styles.layoutPara });
+      }
+      return child;
+    });
+  };
   return (
     <div>
       <Header1 />
@@ -11,7 +19,7 @@ const Layout = ({ icon, title, children }) => {
           <main className={styles.layoutBody}>
           <h1>{icon && <img src={icon} alt="Icono" className={styles.icon} />}{title}</h1>
           <hr></hr><br></br>
-            {children}
+            {addClassToParagraphs(children)}
           </main>
     </div>
         <Footer />
