@@ -4,6 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ValidateRegister } from "../../utils/ValidateRegister";
+import { registerApi } from "../../services/registerService";
 
 const RegisterForm = () => {
   const [formValues, setFormValues] = useState({
@@ -12,6 +13,14 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+
+  /*Captcha token */
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captcha, setCaptcha] = useState(false);
+  const onChange = (token) => {
+    setCaptcha(true);
+    setCaptchaToken(token);
+  };
 
   const [errors, setErrors] = useState({
     name: {},
@@ -27,7 +36,7 @@ const RegisterForm = () => {
   };
 
   /**HandleSubmit */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = ValidateRegister(formValues);
     setErrors(validationErrors);
@@ -37,7 +46,21 @@ const RegisterForm = () => {
         (key) => !Object.keys(validationErrors[key]).length
       )
     ) {
-      console.log("Formulario enviado con éxito");
+      try {
+        const response = await registerApi(
+          formValues.email,
+          formValues.password,
+          formValues.name,
+          captchaToken
+        );
+        if (!response) {
+          console.log("Usuario registrado con éxito", response);
+        } else {
+          console.log("Error en el registro", response.error);
+        }
+      } catch (error) {
+        console.log("Error en el registro", error);
+      }
     } else {
       console.log("Errores en el formulario", validationErrors);
     }
@@ -57,10 +80,6 @@ const RegisterForm = () => {
   const [showPassword2, setShowPassword2] = useState(false);
 
   /**Captcha handle */
-  const [captcha, setCaptcha] = useState(false);
-  const onChange = () => {
-    setCaptcha(true);
-  };
   return (
     <div className={styles.main}>
       <div className={styles.leftContainer}>

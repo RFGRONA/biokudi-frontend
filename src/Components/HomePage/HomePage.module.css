@@ -21,10 +21,13 @@
   width: 100%;
 }
 
+.homeTitle {
+  display: block;
+}
 .homeTitle span {
   display: block;
   font-size: 1.5em;
-  word-wrap: break-word;
+  word-wrap: no-wrap;
 }
 
 .homeSubtitle {

@@ -3,6 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthContext";
+import Cookies from "./Components/policies/Cookies";
+import Legal from "./Components/policies/Legal";
+import AboutUs from "./Components/policies/AboutUs";
+import Help from "./Components/policies/Help";
+import Contact from "./Components/policies/Contact";
+import PrivacyPolicy from "./Components/policies/PrivacyPolicy";
 
 /**Routes */
 import Login from "./Components/Login/Login";
@@ -29,6 +35,12 @@ root.render(
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Error />} />
           </Route>
 

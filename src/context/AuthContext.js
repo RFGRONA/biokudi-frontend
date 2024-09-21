@@ -14,25 +14,24 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password, remember, captchaToken) => {
     const response = await loginApi(email, password, remember, captchaToken);
 
-    if (response) {
+    console.log("Context:", response);
+
+    if (response.status === 200) {
       // Guarda el JWT y los datos del usuario
-      setJwtToken(response.token); //!!!!!!!!!! ¿Me lo devuelve en el mismo body?
+      const { data } = response;
+      console.log("data", data);
 
       setUser({
-        id: response.id,
-        name: response.nameuser,
-        email: response.email,
-        role: response.role,
+        id: data.userId,
+        name: data.nameUser,
+        email: data.email,
+        role: data.role,
       });
 
-      // Almacenar el JWT en cookies de forma segura
-      document.cookie = `jwt=${response.token}; path=/; secure; httponly`;
-
-      // Redirige a la página principal u otra según el rol
-      navigate("/");
+      return true;
     } else {
-      console.log("Error: usuario no encontrado");
-      return response;
+      console.log("Error en la autenticación");
+      return false;
     }
   };
 

@@ -25,7 +25,6 @@ const LoginForm = () => {
     const response = await login(email, password, remember, captchaToken);
     if (!response) {
       setError("Usuario o contraseña incorrectos");
-      console.log("Usuario o contraseña incorrectos");
     } else {
       navigate("/");
     }

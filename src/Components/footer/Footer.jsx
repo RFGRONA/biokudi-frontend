@@ -4,8 +4,30 @@ import ListMenu from "./ListMenu";
 
 // Styles
 import styles from "./Footer.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  /*Navigate */
+  const navigate = useNavigate();
+  const handleHelp = () => {
+    navigate("/help");
+  };
+  const handleAboutUs = () => {
+    navigate("/about-us");
+  };
+  const handleContact = () => {
+    navigate("/contact");
+  };
+  const handleLegal = () => {
+    navigate("/legal");
+  };
+  const handleCookies = () => {
+    navigate("/cookies");
+  };
+  const handlePrivacyPolicy = () => {
+    navigate("/privacy-policy");
+  };
+
   const firstCopyRight =
     "CopyRight © 2024 BioKudi. Todos los derechos reservados";
   const secondCopyRight = `El uso de este sitio está sujeto a las condiciones de uso expresas. Al
@@ -33,26 +55,38 @@ const Footer = () => {
         <div className={styles.firstListFooter}>
           <ul>
             <li>
-              <a href="../help">Ayuda</a>
+              <a className={styles.a} onClick={handleHelp}>
+                Ayuda
+              </a>
             </li>
             <li>
-              <a href="../about-us">Quienes Somos</a>
+              <a className={styles.a} onClick={handleAboutUs}>
+                Quienes Somos
+              </a>
             </li>
             <li>
-              <a href="../contact">Contacto</a>
+              <a className={styles.a} onClick={handleContact}>
+                Contacto
+              </a>
             </li>
           </ul>
         </div>
         <div className={styles.secondListFooter}>
           <ul>
             <li>
-              <a href="../legal">Legal</a>
+              <a className={styles.a} onClick={handleLegal}>
+                Legal
+              </a>
             </li>
             <li>
-              <a href="../cookies">Cookies</a>
+              <a className={styles.a} onClick={handleCookies}>
+                Cookies
+              </a>
             </li>
             <li>
-              <a href="../privacy-policy">Política de Privacidad</a>
+              <a className={styles.a} onClick={handlePrivacyPolicy}>
+                Política de Privacidad
+              </a>
             </li>
           </ul>
         </div>

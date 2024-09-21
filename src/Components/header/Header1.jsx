@@ -11,7 +11,8 @@ import { useAuth } from "../../context/AuthContext";
 
 const Header1 = () => {
   /**Context */
-  const user = useAuth();
+  const context = useAuth();
+  const { user } = context;
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const goToLogin = () => {
@@ -23,6 +24,8 @@ const Header1 = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  console.log(user);
 
   return (
     <div className={styles.header}>
@@ -38,13 +41,17 @@ const Header1 = () => {
           <img src={map} alt="mapa" />
           <p>Mapa</p>
         </div>
-        <div className={styles.btnLogin} onClick={goToLogin}>
-          <img src={btnLogin} alt="login" />
-          <p>Ingresar</p>
-        </div>
+        {user && user.role ? (
+          ""
+        ) : (
+          <div className={styles.btnLogin} onClick={goToLogin}>
+            <img src={btnLogin} alt="login" />
+            <p>Ingresar</p>
+          </div>
+        )}
 
         {/* Lateral Menu */}
-        {user.role && (
+        {user && user.role ? (
           <div className={styles.btnMenu}>
             <img
               src={btnMenu}
@@ -52,7 +59,10 @@ const Header1 = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
           </div>
+        ) : (
+          ""
         )}
+
         <MenuHeader showMenu={showMenu} closeMenu={toggleMenu} />
       </div>
     </div>

@@ -1,15 +1,22 @@
-export const loginApi = async (email, password, remember, captchaToken) => {
-  const URL_LOGIN = process.env.REACT_APP_URL_API + "/Person/login";
+import axios from "axios";
+
+export const loginApi = async (email, password, rememberme, captchatoken) => {
+  const URL_LOGIN = process.env.REACT_APP_URL_API + "/person/login";
   try {
-    const response = await fetch(URL_LOGIN, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, remember, captchaToken }),
+    console.log("URL_LOGIN", URL_LOGIN);
+    console.log(email, password, rememberme, captchatoken);
+    const response = await axios.post(URL_LOGIN, {
+      email,
+      password,
+      rememberme,
+      captchatoken,
     });
-    if (response.ok) {
-      const data = await response.json();
-      console.log("entrando aqui", data);
-      return data;
+    console.log(response);
+    if (response.status === 200) {
+      response.error = false;
+      return response;
+    } else {
+      return { error: "Correo o contraseña incorrectos" };
     }
   } catch (error) {
     console.log("Error en la autenticación", error); // Error de autenticación
