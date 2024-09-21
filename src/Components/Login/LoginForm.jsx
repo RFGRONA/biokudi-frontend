@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../model/user";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginForm = () => {
-  /*Auth method*/
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const { login } = useAuth();
+  const [error, setError] = useState("");
 
   /**Register redirect */
   const navigate = useNavigate();
@@ -16,17 +18,31 @@ const LoginForm = () => {
     e.preventDefault();
     navigate("/register");
   };
-  const handleSubmit = (e) => {
+
+  /*Submit */
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login();
+    const response = await login(email, password, remember, captchaToken);
+    if (!response) {
+      setError("Usuario o contraseña incorrectos");
+      console.log("Usuario o contraseña incorrectos");
+    } else {
+      navigate("/");
+    }
   };
 
   /*Captcha use*/
   const [captcha, setCaptcha] = useState(false);
-  const onChange = () => {
+  const [captchaToken, setCaptchaToken] = useState("");
+  const onChange = (token) => {
+    setCaptchaToken(token);
     setCaptcha(true);
   };
 
+  /*Remember me */
+  const handleRemember = () => {
+    setRemember(!remember);
+  };
   /*Password visibility*/
   const [showPassword, setShowPassword] = useState(false);
 
@@ -105,7 +121,12 @@ const LoginForm = () => {
           />
         </div>
         <div className={styles.recordUser}>
-          <input type="checkbox" id="recordUser" className={styles.checkbox} />
+          <input
+            type="checkbox"
+            id="recordUser"
+            onClick={handleRemember}
+            className={styles.checkbox}
+          />
           <label htmlFor="recordUser">Recordar usuario</label>
         </div>
         <div className={styles.forgotPassword}>

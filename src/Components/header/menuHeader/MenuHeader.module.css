@@ -1,0 +1,153 @@
+.menuHeader {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100%;
+  background-color: #d8eece;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /*!!!!!!!!!!!!!!!!!!*/
+}
+
+.menuHeader.open {
+  right: 0;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/*Background black*/
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+
+.backdrop.showBackdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*Menu*/
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.profileImg {
+  width: 50px;
+}
+
+.profileImg img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.profileName {
+  font-size: 0.9em;
+  font-family: "inter", sans-serif;
+  font-weight: 800;
+}
+.profileEmail {
+  font-size: 0.8em;
+  font-family: "inter", sans-serif;
+  font-weight: 400;
+}
+
+.menuItems {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.li p {
+  margin: 0;
+  margin-left: 2em;
+  flex: 1;
+  display: flex;
+  align-items: center; /* Asegurar que el texto dentro del p también esté centrado */
+}
+
+.menuItems ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuImage {
+  width: 2.3em;
+  height: 2.3em;
+}
+.menuImage img {
+  width: 100%;
+  height: 100%;
+}
+.menuItems .li p {
+  font-size: 0.8em;
+  font-family: "inter", sans-serif;
+  font-weight: 800;
+  flex: 1;
+  height: 100%;
+}
+.menuFooter .li p {
+  font-size: 0.8em;
+  font-family: "inter", sans-serif;
+  font-weight: 800;
+  flex: 1;
+  height: 100%;
+}
+
+.help {
+  margin-top: auto;
+}
+
+.menuFooter {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #000;
+  padding-top: 1.5em;
+}
+.exit {
+}
+
+@media (max-width: 600px) {
+  .menuImage {
+    width: 30px;
+    height: 30px;
+  }
+}

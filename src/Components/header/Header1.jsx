@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/header/logo.svg";
 import places from "../../assets/header/btnPlaces.svg";
 import map from "../../assets/header/btnMap.svg";
@@ -6,14 +6,22 @@ import btnLogin from "../../assets/header/btnLogin.svg";
 import styles from "./Header1.module.css";
 import { useNavigate } from "react-router-dom";
 import btnMenu from "../../assets/header/btnMenu.svg";
+import MenuHeader from "./menuHeader/MenuHeader";
+import { useAuth } from "../../context/AuthContext";
 
 const Header1 = () => {
+  /**Context */
+  const user = useAuth();
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
   const goToLogin = () => {
     navigate("/login");
   };
   const goToHome = () => {
     navigate("/");
+  };
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
 
   return (
@@ -34,9 +42,18 @@ const Header1 = () => {
           <img src={btnLogin} alt="login" />
           <p>Ingresar</p>
         </div>
-        <div className={styles.btnMenu}>
-          <img src={btnMenu} alt="menu" />
-        </div>
+
+        {/* Lateral Menu */}
+        {user.role && (
+          <div className={styles.btnMenu}>
+            <img
+              src={btnMenu}
+              alt="menu"
+              onClick={() => setShowMenu(!showMenu)}
+            />
+          </div>
+        )}
+        <MenuHeader showMenu={showMenu} closeMenu={toggleMenu} />
       </div>
     </div>
   );

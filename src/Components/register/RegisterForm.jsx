@@ -43,7 +43,7 @@ const RegisterForm = () => {
     }
   };
 
-  /**Button Hande */
+  /*Button Handle */
   const navigate = useNavigate();
   const goToLogin = (e) => {
     e.preventDefault();
@@ -53,15 +53,8 @@ const RegisterForm = () => {
   /*Password visibility 1*/
   const [showPassword1, setShowPassword1] = useState(false);
 
-  const handleTogglePassword1 = () => {
-    setShowPassword1(!showPassword1);
-  };
   /*Password visibility 2*/
   const [showPassword2, setShowPassword2] = useState(false);
-
-  const handleTogglePassword2 = () => {
-    setShowPassword2(!showPassword2);
-  };
 
   /**Captcha handle */
   const [captcha, setCaptcha] = useState(false);

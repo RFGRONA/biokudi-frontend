@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchImages } from "../../model/getCarrousel";
+import { fetchImages } from "../../services/getCarrousel";
 import styles from "./HomeBody.module.css";
 const HomeBody = () => {
   const [images, setImages] = useState([]);
@@ -7,8 +7,12 @@ const HomeBody = () => {
   //API call to get images
   useEffect(() => {
     const getImages = async () => {
-      const imageData = await fetchImages();
-      setImages([...imageData, ...imageData]);
+      try {
+        const imageData = await fetchImages();
+        setImages([...imageData, ...imageData]);
+      } catch (error) {
+        console.log("Error fetching images", error);
+      }
     };
 
     getImages();
