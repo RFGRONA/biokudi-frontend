@@ -13,12 +13,19 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, remember, captchaToken) => {
     const response = await loginApi(email, password, remember, captchaToken);
+    const { error } = response;
+    const { errorData } = response;
 
-    console.log("Context:", response);
+    if (errorData) {
+      return { error: "Usuario o contraseña incorrectos" };
+    }
+    if (error) {
+      return { error: "Error en la autenticación" };
+    }
 
     if (response.status === 200) {
       // Guarda el JWT y los datos del usuario
-      const { data } = response;
+      const { data } = response.user;
       console.log("data", data);
 
       setUser({
@@ -31,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       return true;
     } else {
       console.log("Error en la autenticación");
-      return false;
+      return { error: "Error en la autenticación" };
     }
   };
 

@@ -1,16 +1,17 @@
 import axios from "axios";
-import { CryptoService } from './cryptoService';
+import { CryptoService } from "./cryptoService";
 
 export const loginApi = async (email, password, rememberme, captchatoken) => {
   const URL_LOGIN = process.env.REACT_APP_URL_API + "/api/login";
   try {
-    console.log("URL_LOGIN", URL_LOGIN);
-    console.log(email, password, rememberme, captchatoken);
-    const cryptoService = new CryptoService();
-    password = await cryptoService.encryptPassword(password);
+    const { encryptPassword } = CryptoService;
+    const passwordEncrypted = await encryptPassword(password);
+
+    console.log(email, passwordEncrypted, rememberme, captchatoken);
+
     const response = await axios.post(URL_LOGIN, {
       email,
-      password,
+      password: passwordEncrypted,
       rememberme,
       captchatoken,
     });
@@ -19,10 +20,10 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
       response.error = false;
       return response;
     } else {
-      return { error: "Correo o contraseña incorrectos" };
+      return { errorData: "Correo o contraseña incorrectos" };
     }
   } catch (error) {
-    console.log("Error en la autenticación", error); // Error de autenticación
+    console.log("Error en la autenticación", error);
     return { error: "Login failed" };
   }
 };
