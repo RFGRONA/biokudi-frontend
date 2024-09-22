@@ -58,10 +58,14 @@
 }
 
 .listHelp {
-  text-decoration: underline;
+  text-decoration: none;
   color: #171f20;
   font-size: 0.8em;
   pointer: cursor;
+}
+
+.listHelp a {
+  transition: 0.3s;
 }
 
 .listHelp a:hover {
