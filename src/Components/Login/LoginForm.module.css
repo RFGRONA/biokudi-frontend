@@ -159,7 +159,15 @@ form {
   font-weight: 700;
   text-decoration: underline;
 }
- /*Tablets*/
+
+.errors {
+  color: red;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  padding-left: 0.5em;
+}
+
+/*Tablets*/
 @media (min-width: 950px) {
 }
 
@@ -192,6 +200,6 @@ form {
     width: 100%;
   }
   .forgotPassword {
-    margin-bottom: 2em; 
+    margin-bottom: 2em;
   }
 }

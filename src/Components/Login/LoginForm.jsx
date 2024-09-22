@@ -22,11 +22,11 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await login(email, password, remember, captchaToken);
-    if (!response) {
-      setError("Usuario o contraseña incorrectos");
-    } else {
-      navigate("/");
+    const { error } = response;
+    if (error) {
+      return setError(error);
     }
+    navigate("/");
   };
 
   /*Captcha use*/
@@ -101,6 +101,11 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+          </div>
+          <div className={styles.errors}>
+            <ul>
+              <li>{error && <span className={styles.error}>{error}</span>}</li>
+            </ul>
           </div>
           <div className={styles.loginButton}>
             <button
