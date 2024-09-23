@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./LoginForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
@@ -22,18 +22,20 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await login(email, password, remember, captchaToken);
-    const { error } = response;
-    if (error) {
-      return setError(error);
+    if (response.status !== 200) {
+      console.log(response);
+      console.log(response.data);
+      return setError(response.data);
     }
     navigate("/");
   };
 
   /*Captcha use*/
   const [captcha, setCaptcha] = useState(false);
+  const captchaRef = useRef();
   const [captchaToken, setCaptchaToken] = useState("");
-  const onChange = (token) => {
-    setCaptchaToken(token);
+  const onChange = () => {
+    setCaptchaToken(captchaRef.current.getValue());
     setCaptcha(true);
   };
 
@@ -43,10 +45,6 @@ const LoginForm = () => {
   };
   /*Password visibility*/
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   return (
     <div className={styles.login}>
@@ -90,7 +88,7 @@ const LoginForm = () => {
                 Contraseña
               </label>
               <input
-                type={showPassword ? "text" : "password"}
+                type="password"
                 id="password"
                 placeholder="**********"
                 className={[
@@ -119,6 +117,7 @@ const LoginForm = () => {
         </form>
         <div className={styles.recaptcha}>
           <ReCAPTCHA
+            ref={captchaRef}
             sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
             onChange={onChange}
           />

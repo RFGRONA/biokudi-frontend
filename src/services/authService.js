@@ -7,24 +7,21 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
     const { encryptPassword } = CryptoService;
     const passwordEncrypted = await encryptPassword(password);
 
-    console.log(email, passwordEncrypted, rememberme, captchatoken);
-
     const response = await axios.post(URL_LOGIN, {
       email,
       password: passwordEncrypted,
       rememberme,
       captchatoken,
     });
-    console.log(response);
     if (response.status === 200) {
-      response.error = false;
-      return response;
+      console.log("Login exitoso");
     } else {
-      return { errorData: "Correo o contraseña incorrectos" };
+      return response;
     }
   } catch (error) {
-    console.log("Error en la autenticación", error);
-    return { error: "Login failed" };
+    const { response } = error;
+    console.log("Error en la autenticación", response);
+    return response;
   }
 };
 

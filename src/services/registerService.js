@@ -15,13 +15,13 @@ export const registerApi = async (email, password, nameUser, captchaToken) => {
       captchaToken,
     });
 
-    console.log("Axiosss", response);
     if (response.ok) {
       const data = await response.json();
       return data;
     }
   } catch (error) {
-    console.log("Error en el registro", error); // Error de registro
-    return { error: "Register failed" };
+    const { response } = error;
+    console.log("Error en el registro", error);
+    return response;
   }
 };
