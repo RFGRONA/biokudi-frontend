@@ -66,16 +66,20 @@ const pemToArrayBuffer = (pem) => {
   if (!pem) {
     throw new Error("La clave PEM proporcionada es inválida.");
   }
-
   const b64Lines = pem.replace(/-----(BEGIN|END) PUBLIC KEY-----/g, "").trim();
-  const b64 = b64Lines.replace(/\n/g, "");
-  const binaryString = atob(b64);
-  const binaryArray = new Uint8Array(binaryString.length);
-  for (let i = 0; i < binaryString.length; i++) {
-    binaryArray[i] = binaryString.charCodeAt(i);
+  const b64 = b64Lines.replace(/[\r\n]+/g, "");
+  try {
+    const binaryString = atob(b64);
+    const binaryArray = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      binaryArray[i] = binaryString.charCodeAt(i);
+    }
+    return binaryArray.buffer;
+  } catch (error) {
+    throw new Error("Error al decodificar la clave pública en Base64.");
   }
-  return binaryArray.buffer;
 };
+
 
 // Convierte ArrayBuffer a Base64
 const arrayBufferToBase64 = (buffer) => {
