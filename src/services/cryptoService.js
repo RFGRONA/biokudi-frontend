@@ -8,8 +8,7 @@ const fetchPublicKey = async () => {
   try {
     const response = await axios.get(URL_PUBLIC_KEY);
     if (response.status === 200 && response.data) {
-      publicKey = response.data.trim(); // Asegúrate de eliminar espacios en blanco
-      console.log("Clave pública obtenida:", publicKey);
+      publicKey = response.data.trim(); 
     } else {
       throw new Error("No se pudo obtener la clave pública.");
     }
