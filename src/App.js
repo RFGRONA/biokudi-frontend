@@ -8,6 +8,7 @@ import Legal from "./Components/policies/Legal";
 import AboutUs from "./Components/policies/AboutUs";
 import Help from "./Components/policies/Help";
 import Contact from "./Components/policies/Contact";
+import Error from "./Components/error/Error";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
 
       {/* Ruta para la página de contacto */}
       <Route path="/contact" element={<Contact />} />
+
+      {/* Ruta para la página de error */}
+      <Route path="*" element={<Error errorCode={404} errorMessage={'No se encontró la pagina deseada'}/>} />
     </Routes>
   );
 }
