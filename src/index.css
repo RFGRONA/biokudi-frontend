@@ -30,6 +30,14 @@ code {
     monospace;
 }
 
+.mainContainer {
+  min-height: 80vh;
+  /*Centrar verticalemente*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .bitter {
   font-family: "Bitter", serif;
   font-optical-sizing: auto;

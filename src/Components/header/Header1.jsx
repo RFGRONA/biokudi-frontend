@@ -25,8 +25,6 @@ const Header1 = () => {
     setShowMenu(!showMenu);
   };
 
-  console.log(user);
-
   return (
     <div className={styles.header}>
       <div className={styles.logo} onClick={goToHome}>

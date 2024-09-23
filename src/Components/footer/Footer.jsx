@@ -40,7 +40,7 @@ const Footer = () => {
   };
 
   return (
-    <div className={styles.footer}>
+    <footer className={styles.footer}>
       <div className={styles.logoCopy}>
         <img src={logoCopy} alt={styles.logoCopy} />
       </div>
@@ -101,7 +101,7 @@ const Footer = () => {
           <ListMenu />
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
