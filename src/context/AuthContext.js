@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { loginApi } from '../services/authService';
+import { useLocation } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -9,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Para mostrar o no un indicador de carga
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Verificación de sesión desde el backend
   const checkAuth = async () => {
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     };
   
     restoreSession(); // Llama a la función de restaurar sesión al cargar la app
-  }, []);
+  }, [location.pathname]);
   
 
   // Método para manejar el login del usuario
