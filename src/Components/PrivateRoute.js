@@ -21,7 +21,6 @@ const PrivateRoute = ({ allowedRoles }) => {
     return <Navigate to="/unauthorized" />; // O alguna página de acceso denegado
   }
 
-  // Si todo está bien, renderiza las rutas privadas
   return <Outlet />;
 };
 
