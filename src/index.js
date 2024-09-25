@@ -15,6 +15,7 @@ import Login from "./Components/Login/Login";
 import HomePage from "./Components/HomePage/HomePage";
 import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
+import ListPlaces from "./Components/places/ListPlaces";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -32,16 +33,19 @@ root.render(
           <Route path="/" element={<HomePage />} />
 
           {/* Rutas publicas, no necesitan auth*/}
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/cookies" element={<Cookies />} />
+          <Route path="/legal" element={<Legal />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/places" element={<ListPlaces />} />
+          <Route path="*" element={<Error />} />
+
+          {/* Rutas publicas, no necesitan auth (No permitidas si estan login) */}
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/cookies" element={<Cookies />} />
-            <Route path="/legal" element={<Legal />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<Error />} />
           </Route>
 
           {/* Rutas privadas */}
