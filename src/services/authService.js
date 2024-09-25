@@ -15,6 +15,7 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
     });
     if (response.status === 200) {
       console.log("Login exitoso");
+      return response;
     } else {
       return response;
     }
@@ -23,17 +24,4 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
     console.log("Error en la autenticación", response);
     return response;
   }
-};
-
-export const verifyTokenApi = async (jwtToken) => {
-  const response = await fetch("/api/verify-token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${jwtToken}`,
-    },
-  });
-
-  const data = await response.json();
-  return data; // Retorna la validación y datos de rol
 };
