@@ -60,11 +60,12 @@
 
 .profileImg {
   width: 50px;
+  height: 50px;
 }
 
 .profileImg img {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 
@@ -97,7 +98,7 @@
 
 .li p {
   margin: 0;
-  margin-left: 2em;
+  padding-left: 2em;
   flex: 1;
   display: flex;
   align-items: center; /* Asegurar que el texto dentro del p también esté centrado */
@@ -149,5 +150,10 @@
   .menuImage {
     width: 30px;
     height: 30px;
+  }
+  .profile,
+  .menuFooter,
+  .menuItems {
+    font-size: 1.3em;
   }
 }

@@ -11,10 +11,14 @@ import { useAuth } from "../../context/AuthContext";
 
 const Header1 = () => {
   /**Context */
-  const context = useAuth();
-  const { user } = context;
+  const user = useAuth();
+
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+
+  const goToPlaces = () => {
+    navigate("/places");
+  };
   const goToLogin = () => {
     navigate("/login");
   };
@@ -31,19 +35,19 @@ const Header1 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
-        <div className={styles.btnPlaces}>
-          <img src={places} alt="lugares" />
+        <div className={styles.btnPlaces} onClick={goToPlaces}>
+          <img src={places} alt="lugares" className={styles.imgg} />
           <p>Lugares</p>
         </div>
         <div className={styles.btnMap}>
-          <img src={map} alt="mapa" />
+          <img src={map} alt="mapa" className={styles.imgg} />
           <p>Mapa</p>
         </div>
         {user && user.role ? (
           ""
         ) : (
           <div className={styles.btnLogin} onClick={goToLogin}>
-            <img src={btnLogin} alt="login" />
+            <img src={btnLogin} alt="login" className={styles.imgg} />
             <p>Ingresar</p>
           </div>
         )}

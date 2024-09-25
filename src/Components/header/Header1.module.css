@@ -35,7 +35,7 @@
   transform: scale(1.1);
 }
 
-.actions img,
+.actions .imgg,
 .actions p {
   height: 2em;
   margin: auto;
@@ -44,7 +44,8 @@
 
 .btnMenu {
   margin-right: 0.5em;
-  margin-top: 0.3em;
+  margin-top: 0.6em;
+  margin-left: 0.5em;
 }
 
 @media (max-width: 600px) {

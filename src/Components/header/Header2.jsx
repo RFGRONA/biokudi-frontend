@@ -14,6 +14,10 @@ const Header2 = () => {
   /*Context*/
   const user = useAuth();
   const navigate = useNavigate();
+
+  const goToPlaces = () => {
+    navigate("/places");
+  };
   const goToLogin = () => {
     navigate("/login");
   };
@@ -32,18 +36,23 @@ const Header2 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
-        <div className={styles.btnPlaces}>
-          <img src={places} alt="lugares" />
+        <div className={styles.btnPlaces} onClick={goToPlaces}>
+          <img src={places} alt="lugares" className={styles.imgg} />
           <p>Lugares</p>
         </div>
         <div className={styles.btnMap}>
-          <img src={map} alt="mapa" />
+          <img src={map} alt="mapa" className={styles.imgg} />
           <p>Mapa</p>
         </div>
-        <div className={styles.btnLogin} onClick={goToLogin}>
-          <img src={btnLogin} alt="login" />
-          <p>Ingresar</p>
-        </div>
+        {user && user.role ? (
+          ""
+        ) : (
+          <div className={styles.btnLogin} onClick={goToLogin}>
+            <img src={btnLogin} alt="login" className={styles.imgg} />
+            <p>Ingresar</p>
+          </div>
+        )}
+
         {/* Lateral Menu */}
         {user.role && (
           <div className={styles.btnMenu}>

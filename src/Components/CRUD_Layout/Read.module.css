@@ -1,0 +1,109 @@
+.NotFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bodyContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 20px;
+}
+
+.titleContainer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.buttonActions {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 10px;
+}
+
+.buttonOrd,
+.buttonEsc,
+.buttonRep,
+.buttonCreate {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  background-color: none;
+  color: #476930;
+  border: 1px solid #476930;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 150px;
+  text-align: left;
+  padding: 7px 10px 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonRep {
+  gap: 5px;
+  background-color: #476930;
+  color: white;
+}
+.buttonCreate {
+  gap: 5px;
+  background-color: #f67924;
+  border: 1px solid #f67924;
+  color: white;
+}
+
+.buttonOrd img,
+.buttonEsc img,
+.buttonRep img,
+.buttonCreate img {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-auto-rows: auto;
+  gap: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.gridHeaderCell {
+  background-color: #d8eece;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.gridCell {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.gridContainer > .gridCell:nth-child(-n) {
+  background-color: #f2f2f2;
+}
+
+.gridCell:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.gridCell:hover {
+  background-color: #ddd;
+}
