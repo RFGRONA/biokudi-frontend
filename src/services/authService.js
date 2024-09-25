@@ -15,9 +15,9 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
     });
     if (response.status === 200) {
       console.log("Login exitoso");
-      console.log("Respuesta: ", response);
       return response;
     } else {
+      return response;
     }
   } catch (error) {
     const { response } = error;

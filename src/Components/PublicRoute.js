@@ -1,14 +1,22 @@
+// src/Components/PublicRoute.js
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const PublicRoute = () => {
-  const { isLoggedIn } = useAuth();
+  const { user, loading } = useAuth();
 
-  if (isLoggedIn) {
-    return <Navigate to="/" />; // Redirige al usuario a la página de inicio
+  // Mientras carga la autenticación
+  if (loading) {
+    return <p>Cargando...</p>; // Puedes usar un spinner aquí
   }
 
+  // Si ya hay un usuario autenticado, redirige a la página de inicio
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
+  // Si no está autenticado, renderiza las rutas públicas
   return <Outlet />;
 };
 

@@ -1,18 +1,24 @@
+// src/Components/PrivateRoute.js
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ allowedRoles = [] }) => {
-  const token = useSelector((state) => state.auth.token);
-  const { user } = useAuth();
+const PrivateRoute = ({ allowedRoles }) => {
+  const { user, loading } = useAuth();
 
-  if (!token) {
+  // Mientras carga la autenticación
+  if (loading) {
+    return <p>Cargando...</p>; // Puedes usar un spinner aquí
+  }
+
+  // Si no hay usuario autenticado, redirige al login
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
-    return <Navigate to="/" />; // Redirige al usuario a la página de inicio
+  // Si hay roles permitidos, verifica que el usuario tenga el rol adecuado
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" />; // O alguna página de acceso denegado
   }
 
   return <Outlet />;

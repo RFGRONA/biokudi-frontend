@@ -1,133 +1,106 @@
-// AuthContext.js
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { loginApi, verifyTokenApi } from "../services/authService";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { loginApi } from "../services/authService";
+import { useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [jwtToken, setJwtToken] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true); // Para mostrar o no un indicador de carga
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Verificación de sesión desde el backend
+  const checkAuth = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_URL_API + "/api/check-session",
+        { withCredentials: true }
+      );
+      setUser(response.data.user); // Si la cookie es válida, establece el usuario
+    } catch (error) {
+      console.error("Error verificando la sesión:", error);
+      setUser(null); // Si hay error, la sesión no es válida
+    } finally {
+      setLoading(false); // Deja de mostrar el indicador de carga
+    }
+  };
+
+  // Al cargar la aplicación o recargar la página
   useEffect(() => {
-    checkSession();
+    const restoreSession = async () => {
+      try {
+        setLoading(true); // Muestra un indicador de carga mientras se verifica la sesión
+        await checkAuth(); // Verifica si hay una cookie con sesión válida
+      } catch (error) {
+        console.error("Error restaurando la sesión:", error);
+      } finally {
+        setLoading(false); // Oculta el indicador de carga después de verificar
+      }
+    };
+
+    restoreSession(); // Llama a la función de restaurar sesión al cargar la app
   }, [location.pathname]);
 
-  const checkSession = async () => {
-    const token = getCookie("jwt");
-    console.log("Cookie:", document.cookie);
-
-    if (token) {
-      try {
-        const response = await verifyTokenApi(token);
-        if (response.valid) {
-          setUser({
-            id: response.userId,
-            name: response.nameUser,
-            email: response.email,
-            role: response.role,
-          });
-          setJwtToken(token);
-          setIsLoggedIn(true);
-
-          // Guardar información del usuario en el almacenamiento local
-          localStorage.setItem("user", JSON.stringify(user));
-          localStorage.setItem("jwt", token);
-        } else {
-          setUser(null);
-          setJwtToken(null);
-          setIsLoggedIn(false);
-
-          // Eliminar token de la cookie
-          document.cookie =
-            "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          localStorage.removeItem("jwt");
-        }
-      } catch (error) {
-        console.error("Error verificando token:", error);
-        setUser(null);
-        setJwtToken(null);
-        setIsLoggedIn(false);
-
-        // Eliminar token de la cookie
-        document.cookie =
-          "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        localStorage.removeItem("jwt");
-      }
-    } else {
-      console.log("No hay token");
-      setUser(null);
-      setJwtToken(null);
-      setIsLoggedIn(false);
-    }
-  };
-
+  // Método para manejar el login del usuario
   const login = async (email, password, remember, captchaToken) => {
-    const response = await loginApi(email, password, remember, captchaToken);
-    if (response.status === 200) {
-      setUser({
-        id: response.data.userId,
-        name: response.data.nameUser,
-        email: response.data.email,
-        role: response.data.role,
-      });
-      const jwtToken = getCookie("jwt");
-      console.log("Token:", jwtToken);
-      setJwtToken(jwtToken);
-      setIsLoggedIn(true);
+    try {
+      const response = await loginApi(email, password, remember, captchaToken);
 
-      // Guardar información del usuario en el almacenamiento local
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("jwt", jwtToken);
+      if (response && response.status === 200) {
+        const { data } = response;
+        console.log("Login exitoso", data);
+        setUser({
+          name: data.nameUser,
+          id: data.userId,
+          email: data.email,
+          role: data.role,
+        });
 
-      return response;
-    } else {
-      console.log("Error en la autenticación");
-      return response;
+        return true;
+      } else {
+        console.log("Error en la autenticación");
+        return "Error en la autenticación";
+      }
+    } catch (error) {
+      console.error("Error durante el login", error);
+      return error.response?.data || "Error en la autenticación";
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setJwtToken(null);
-    setIsLoggedIn(false);
-
-    // Eliminar token de la cookie
-    setCookie("jwt", "", -1);
-
-    // Eliminar información del usuario del almacenamiento local
-    localStorage.removeItem("user");
-    localStorage.removeItem("jwt");
-
-    navigate("/");
-  };
-
-  /**Get Cookie */
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
+  // Método para cerrar sesión
+  const logout = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_URL_API}/api/logout`,
+        {},
+        { withCredentials: true }
+      );
+      setUser(null); // Elimina el usuario del contexto
+      navigate("/login"); // Redirige al login
+    } catch (error) {
+      console.error("Error durante logout", error);
     }
   };
 
-  /**Set Cookie */
-  const setCookie = (name, value, days) => {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+  // Valores que se exponen al resto de la aplicación
+  const value = {
+    user,
+    loading,
+    login,
+    logout,
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user, jwtToken, isLoggedIn, login, logout, checkSession }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+// Hook personalizado para usar el contexto de autenticación
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser usado dentro de un AuthProvider");
+  }
+  return context;
 };
