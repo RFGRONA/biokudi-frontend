@@ -1,46 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Navigate, Outlet } from "react-router-dom";
-import { verifyTokenApi } from "../services/authService";
+import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ allowedRoles }) => {
-  const { jwtToken, user, logout } = useAuth();
-  const [isVerified, setIsVerified] = useState(false);
-  const [isUnauthorized, setIsUnauthorized] = useState(false);
+const PrivateRoute = ({ allowedRoles = [] }) => {
+  const token = useSelector((state) => state.auth.token);
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      try {
-        const response = await verifyTokenApi(jwtToken);
-
-        if (response.isValid) {
-          /*Role Verification */
-          if (allowedRoles.includes(user.role)) {
-            setIsVerified(true);
-          } else {
-            setIsUnauthorized(true);
-          }
-        } else {
-          logout();
-          console.log("Token is not valid");
-        }
-      } catch (error) {
-        console.log("Error:", error);
-        logout();
-      }
-    };
-
-    if (jwtToken) {
-      verifyToken();
-    } else {
-      setIsUnauthorized(true);
-    }
-  }, [jwtToken, user.role, logout, allowedRoles]);
-  if (isUnauthorized) {
-    return <Navigate to="/unauthorized" />;
+  if (!token) {
+    return <Navigate to="/login" />;
   }
 
-  return isVerified ? <Outlet /> : <Navigate to="/login" />;
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
+    return <Navigate to="/" />; // Redirige al usuario a la página de inicio
+  }
+
+  return <Outlet />;
 };
 
 export default PrivateRoute;

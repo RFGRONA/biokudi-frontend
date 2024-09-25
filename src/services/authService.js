@@ -15,8 +15,9 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
     });
     if (response.status === 200) {
       console.log("Login exitoso");
-    } else {
+      console.log("Respuesta: ", response);
       return response;
+    } else {
     }
   } catch (error) {
     const { response } = error;
@@ -26,14 +27,24 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
 };
 
 export const verifyTokenApi = async (jwtToken) => {
-  const response = await fetch("/api/verify-token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${jwtToken}`,
-    },
-  });
-
-  const data = await response.json();
-  return data; // Retorna la validación y datos de rol
+  try {
+    if (!jwtToken) {
+      const response = { status: 401 };
+      return response;
+    }
+    const response = axios.post(
+      process.env.REACT_APP_URL_API + "/api/check-session",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+    console.log("Respuesta: ", response);
+    return response;
+  } catch (error) {
+    console.error("Error verificando token:", error);
+    return error;
+  }
 };

@@ -1,11 +1,15 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const PublicRoute = () => {
-  const { isAuthenticated } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+  if (isLoggedIn) {
+    return <Navigate to="/" />; // Redirige al usuario a la página de inicio
+  }
+
+  return <Outlet />;
 };
 
 export default PublicRoute;
