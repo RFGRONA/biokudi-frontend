@@ -5,7 +5,7 @@ import Read from "../CRUD_Layout/Read";
 import { getPlacesApi } from "../../services/places/GetPlaces";
 
 const ListPlaces = () => {
-  const getPlaces = async () => {
+  const places = async () => {
     return await getPlacesApi();
   };
 
@@ -27,6 +27,7 @@ const ListPlaces = () => {
     ["Id2", "Nombre", "Latitud", "Longitud", "Descripción", "Link", "Ciudad"],
     ["Id2", "Nombre", "Latitud", "Longitud", "Descripción", "Link", "Ciudad"],
   ];
+
   return (
     <>
       <Header />
