@@ -16,6 +16,7 @@ import HomePage from "./Components/HomePage/HomePage";
 import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
 import ListPlaces from "./Components/places/ListPlaces";
+import UserSettings from "./Components/SettingsUser/UserSettings";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -31,7 +32,9 @@ root.render(
       <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-
+          
+          {/* temporales(borrar) */}
+          <Route path="/settings" element={< UserSettings />} />
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
@@ -49,6 +52,10 @@ root.render(
           </Route>
 
           {/* Rutas privadas */}
+          {/* Rutas globales privadas */}
+          {/* <Route path="/settings" element={< UserSettings />} /> */}
+
+
           {/* ADMIN */}
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             {/* Agrega aquí tus rutas privadas */}
