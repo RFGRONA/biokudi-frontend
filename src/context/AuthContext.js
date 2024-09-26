@@ -8,43 +8,39 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Para mostrar o no un indicador de carga
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Verificación de sesión desde el backend
   const checkAuth = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_URL_API + "/api/check-session",
+        process.env.REACT_APP_URL_API + "/auth/check-session",
         { withCredentials: true }
       );
-      setUser(response.data.user); // Si la cookie es válida, establece el usuario
+      setUser(response.data.user); 
     } catch (error) {
-      console.error("Error verificando la sesión:", error);
-      setUser(null); // Si hay error, la sesión no es válida
+      setUser(null); 
     } finally {
-      setLoading(false); // Deja de mostrar el indicador de carga
+      setLoading(false);
     }
   };
 
-  // Al cargar la aplicación o recargar la página
   useEffect(() => {
     const restoreSession = async () => {
       try {
-        setLoading(true); // Muestra un indicador de carga mientras se verifica la sesión
-        await checkAuth(); // Verifica si hay una cookie con sesión válida
+        setLoading(true); 
+        await checkAuth(); 
       } catch (error) {
-        console.error("Error restaurando la sesión:", error);
+        console.Warning("No se encontró una sesión valida.");
       } finally {
-        setLoading(false); // Oculta el indicador de carga después de verificar
+        setLoading(false); 
       }
     };
 
-    restoreSession(); // Llama a la función de restaurar sesión al cargar la app
+    restoreSession(); 
   }, [location.pathname]);
 
-  // Método para manejar el login del usuario
   const login = async (email, password, remember, captchaToken) => {
     try {
       const response = await loginApi(email, password, remember, captchaToken);
@@ -70,22 +66,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Método para cerrar sesión
   const logout = async () => {
     try {
       await axios.post(
-        `${process.env.REACT_APP_URL_API}/api/logout`,
+        `${process.env.REACT_APP_URL_API}/auth/logout`,
         {},
         { withCredentials: true }
       );
-      setUser(null); // Elimina el usuario del contexto
-      navigate("/login"); // Redirige al login
+      setUser(null); 
+      navigate("/login"); 
     } catch (error) {
       console.error("Error durante logout", error);
     }
   };
 
-  // Valores que se exponen al resto de la aplicación
   const value = {
     user,
     loading,
@@ -96,7 +90,6 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// Hook personalizado para usar el contexto de autenticación
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

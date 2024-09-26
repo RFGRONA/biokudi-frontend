@@ -2,7 +2,7 @@ import axios from "axios";
 import { CryptoService } from "./cryptoService";
 
 export const loginApi = async (email, password, rememberme, captchatoken) => {
-  const URL_LOGIN = process.env.REACT_APP_URL_API + "/api/login";
+  const URL_LOGIN = process.env.REACT_APP_URL_API + "/auth/login";
   try {
     const { encryptPassword } = CryptoService;
     const passwordEncrypted = await encryptPassword(password);
@@ -34,7 +34,7 @@ export const verifyTokenApi = async (jwtToken) => {
       return response;
     }
     const response = axios.post(
-      process.env.REACT_APP_URL_API + "/api/check-session",
+      process.env.REACT_APP_URL_API + "/auth/check-session",
       {},
       {
         headers: {
