@@ -4,7 +4,7 @@ let publicKey = null;
 
 // Obtiene la clave pública desde el backend
 const fetchPublicKey = async () => {
-  const URL_PUBLIC_KEY = process.env.REACT_APP_URL_API + "/api/public-key";
+  const URL_PUBLIC_KEY = process.env.REACT_APP_URL_API + "/auth/public-key";
   try {
     const response = await axios.get(URL_PUBLIC_KEY);
     if (response.status === 200 && response.data) {
