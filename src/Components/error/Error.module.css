@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: left;
+  background-color: #ffffff; 
+}
+
+.icon {
+  max-width: 70%;
+  height: 70%;
+  margin-right: 50px; 
+}
+
+.textContainer {
+  max-width: 400px;
+}
+
+.title {
+  font-size: 36px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.errorCode {
+  font-size: 120px;
+  font-weight: bold;
+  color: darkgreen;
+  margin-bottom: 10px;
+}
+
+.errorMessage {
+  font-size: 25px;
+  color: #666;
+}
