@@ -1,102 +1,144 @@
 .settingsContainer {
-    background-color: #e4f3e2;
-    padding: 2em;
-    max-width: 900px;
-    margin: 2em auto;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #e4f3e2;
+  padding: 2em;
+  max-width: 900px;
+  margin: 2em auto;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2.5em;
+  color: #204e37;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 1.5em;
+}
+
+.personalInfo {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 2em;
+}
+
+.userImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.userImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex-grow: 1;
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.deactivateButton {
+  background-color: #f3f0b2;
+  color: #555;
+  border: 1px solid #f3f0b2;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.deactivateButton:hover {
+  background-color: #e2db88;
+}
+
+.deleteButton {
+  background-color: #f67924;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #e5661c;
+}
+
+.notifications {
+  margin-top: 2em;
+}
+
+.notifications h2 {
+  font-size: 1.5em;
+  color: #204e37;
+  margin-bottom: 1em;
+  font-family: "Inter", sans-serif;
+}
+
+.notificationItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.notificationItem label {
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+}
+
+.notificationItem input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+.data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .settingsContainer {
+    margin: 1em;
   }
-  
-  .title {
-    font-size: 2.5em;
-    color: #204e37;
-    font-family: "Inter", sans-serif;
-    margin-bottom: 1.5em;
-  }
-  
-  .personalInfo {
-    display: flex;
-    gap: 2em;
-    margin-bottom: 2em;
-  }
-  
   .userImageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100px;
+    height: 100px;
   }
-  
-  .userImage {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .info {
-    flex-grow: 1;
-    font-size: 1.1em;
-    font-family: "Inter", sans-serif;
-  }
-  
-  .actions {
-    display: flex;
+  .personalInfo {
     flex-direction: column;
-    gap: 0.5em;
-  }
-  
-  .deactivateButton {
-    background-color: #f3f0b2;
-    color: #555;
-    border: 1px solid #f3f0b2;
-    border-radius: 5px;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .deactivateButton:hover {
-    background-color: #e2db88;
-  }
-  
-  .deleteButton {
-    background-color: #f67924;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .deleteButton:hover {
-    background-color: #e5661c;
-  }
-  
-  .notifications {
-    margin-top: 2em;
-  }
-  
-  .notifications h2 {
-    font-size: 1.5em;
-    color: #204e37;
-    margin-bottom: 1em;
-    font-family: "Inter", sans-serif;
-  }
-  
-  .notificationItem {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1em;
+  }
+
+  .info {
+    text-align: left;
+  }
+
+  .userImageContainer {
+    min-width: 100px;
+    min-height: 100px;
     margin-bottom: 1em;
   }
-  
-  .notificationItem label {
-    font-size: 1.1em;
-    font-family: "Inter", sans-serif;
+
+  .userImage {
+    width: 100px;
+    height: 100px;
   }
-  
-  .notificationItem input[type="checkbox"] {
-    transform: scale(1.2);
+
+  .actions {
+    align-items: center;
   }
-  
+}
