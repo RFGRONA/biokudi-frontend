@@ -31,8 +31,8 @@ const UserSettings = () => {
   };
 
   return (
-    <div>
-      <Header2 />
+    <div className="mainContainer">
+      <Header />
       <div className={styles.settingsContainer}>
         <h1 className={styles.title}>Mi configuración</h1>
 
