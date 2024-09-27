@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { loginApi } from "../services/authService";
 import { useLocation } from "react-router-dom";
+import { data } from "autoprefixer";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,9 +19,15 @@ export const AuthProvider = ({ children }) => {
         process.env.REACT_APP_URL_API + "/auth/check-session",
         { withCredentials: true }
       );
-      setUser(response.data.user); 
+      const { data } = response;
+      setUser({
+        name: data.nameUser,
+        id: data.userId,
+        email: data.email,
+        role: data.role,
+      });
     } catch (error) {
-      setUser(null); 
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -29,16 +36,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const restoreSession = async () => {
       try {
-        setLoading(true); 
-        await checkAuth(); 
+        setLoading(true);
+        await checkAuth();
       } catch (error) {
         console.Warning("No se encontró una sesión valida.");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
-    restoreSession(); 
+    restoreSession();
   }, [location.pathname]);
 
   const login = async (email, password, remember, captchaToken) => {
@@ -68,13 +75,15 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_URL_API}/auth/logout`,
         {},
         { withCredentials: true }
       );
-      setUser(null); 
-      navigate("/login"); 
+      console.log("Respuesta logout, ", response);
+      setUser(null);
+      console.log(user);
+      navigate("/login");
     } catch (error) {
       console.error("Error durante logout", error);
     }
