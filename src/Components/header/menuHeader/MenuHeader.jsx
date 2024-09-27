@@ -5,8 +5,18 @@ import favorites from "../../../assets/header/menuUser/favorites.svg";
 import list from "../../../assets/header/menuUser/list.svg";
 import help from "../../../assets/header/menuUser/help.svg";
 import exit from "../../../assets/header/menuUser/exit.svg";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 const MenuHeader = ({ showMenu, closeMenu }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const logoutHandler = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <>
       {/* Background */}
@@ -28,8 +38,8 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
             />
           </div>
           <div className={styles.profileInfo}>
-            <p className={styles.profileName}>Nombre de Usuario</p>
-            <p className={styles.profileEmail}>AnUnammedUser@gmail.com</p>
+            <p className={styles.profileName}>{user ? user.name : "Error"}</p>
+            <p className={styles.profileEmail}>{user ? user.email : "Error"}</p>
           </div>
         </div>
 
@@ -62,7 +72,10 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
         </div>
 
         <div className={styles.menuFooter}>
-          <div className={[styles.li, styles.exit].join(" ")}>
+          <div
+            className={[styles.li, styles.exit].join(" ")}
+            onClick={logoutHandler}
+          >
             <div className={styles.menuImage}>
               <img src={exit} alt="icon" />
             </div>
