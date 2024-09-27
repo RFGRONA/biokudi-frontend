@@ -23,8 +23,6 @@ const LoginForm = () => {
     e.preventDefault();
     const response = await login(email, password, remember, captchaToken);
     if (response.status !== 200) {
-      console.log(response);
-      console.log(response.data);
       return setError(response.data);
     }
     navigate("/");
