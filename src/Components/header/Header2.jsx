@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../assets/header/logo.svg";
 import places from "../../assets/header/btnPlaces.svg";
 import map from "../../assets/header/btnMap.svg";
@@ -12,7 +12,7 @@ import { useState } from "react";
 
 const Header2 = () => {
   /*Context*/
-  const user = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const goToPlaces = () => {
@@ -30,6 +30,16 @@ const Header2 = () => {
     setShowMenu(!showMenu);
   };
 
+  /*Manejo de autenticación por rol */
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  useEffect(() => {
+    if (user && user.role) {
+      setIsAuthorized(true);
+    } else {
+      setIsAuthorized(false);
+    }
+  }, [user]);
+
   return (
     <header>
       <div className={styles.logo} onClick={goToHome}>
@@ -44,7 +54,7 @@ const Header2 = () => {
           <img src={map} alt="mapa" className={styles.imgg} />
           <p>Mapa</p>
         </div>
-        {user && user.role ? (
+        {isAuthorized ? (
           ""
         ) : (
           <div className={styles.btnLogin} onClick={goToLogin}>
@@ -54,7 +64,7 @@ const Header2 = () => {
         )}
 
         {/* Lateral Menu */}
-        {user.role && (
+        {isAuthorized ? (
           <div className={styles.btnMenu}>
             <img
               src={btnMenu}
@@ -62,6 +72,8 @@ const Header2 = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
           </div>
+        ) : (
+          ""
         )}
         <MenuHeader showMenu={showMenu} closeMenu={toggleMenu} />
       </div>
