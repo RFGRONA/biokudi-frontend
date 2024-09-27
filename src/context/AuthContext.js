@@ -80,10 +80,7 @@ export const AuthProvider = ({ children }) => {
         {},
         { withCredentials: true }
       );
-      console.log("Respuesta logout, ", response);
       setUser(null);
-      console.log(user);
-      navigate("/login");
     } catch (error) {
       console.error("Error durante logout", error);
     }

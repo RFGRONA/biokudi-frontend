@@ -12,9 +12,9 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const logoutHandler = () => {
-    logout();
-    navigate("/");
+  const logoutHandler = async () => {
+    await logout();
+    navigate("/login");
   };
 
   return (
