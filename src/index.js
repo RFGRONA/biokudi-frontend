@@ -18,6 +18,7 @@ import Error from "./Components/error/Error";
 import ListPlaces from "./Components/places/ListPlaces";
 import ListUsers from "./Components/user/ListUsers";
 import CreatePlace from "./Components/places/CreatePlace";
+import UserSettings from "./Components/SettingsUser/UserSettings";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -38,6 +39,9 @@ root.render(
           <Route path="/ListUsers" element={<ListUsers />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
 
+          {/* temporales(borrar) */}
+          <Route path="/settings" element={<UserSettings />} />
+
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
@@ -54,6 +58,9 @@ root.render(
           </Route>
 
           {/* Rutas privadas */}
+          {/* Rutas globales privadas */}
+          {/* <Route path="/settings" element={< UserSettings />} /> */}
+
           {/* ADMIN */}
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             {/* Agrega aquí tus rutas privadas */}
