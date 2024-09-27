@@ -17,6 +17,7 @@ import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
 import ListPlaces from "./Components/places/ListPlaces";
 import ListUsers from "./Components/user/ListUsers";
+import CreatePlace from "./Components/places/CreatePlace";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -35,6 +36,7 @@ root.render(
 
           <Route path="/places" element={<ListPlaces />} />
           <Route path="/ListUsers" element={<ListUsers />} />
+          <Route path="/CreatePlace" element={<CreatePlace />} />
 
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
