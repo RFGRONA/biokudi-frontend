@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Create.module.css";
 
-const Create = ({ title, fields, onSubmit }) => {
-  // Inicializar el estado
+const Create = ({ title, fields, onSubmit, errors }) => {
+  // Verify if fields is an array
+  const isFieldsArray = Array.isArray(fields);
+
+  // Initial state
   const [formData, setFormData] = useState(
-    fields.reduce((acc, field) => {
-      acc[field.name] = field.defaultValue || "";
-      return acc;
-    }, {})
+    isFieldsArray
+      ? fields.reduce((acc, field) => {
+          acc[field.name] = field.defaultValue || "";
+          return acc;
+        }, {})
+      : {}
   );
 
-  // Refs para los textareas
+  // TextAreas refs
   const textAreaRefs = useRef({});
 
   // Función para ajustar la altura del textarea
@@ -30,14 +35,16 @@ const Create = ({ title, fields, onSubmit }) => {
       [name]: value,
     }));
 
-    // Ajustar la altura si es un textarea
-    const field = fields.find((f) => f.name === name);
-    if (field && field.type === "textarea") {
-      adjustTextareaHeight(name);
+    //Text area auto resize
+    if (isFieldsArray) {
+      const field = fields.find((f) => f.name === name);
+      if (field && field.type === "textarea") {
+        adjustTextareaHeight(name);
+      }
     }
   };
 
-  // Manejador de envío
+  // Handler submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) {
@@ -45,14 +52,16 @@ const Create = ({ title, fields, onSubmit }) => {
     }
   };
 
-  // Ajustar altura inicial de los textareas cuando el componente se monta
+  // init auto resize
   useEffect(() => {
-    fields.forEach((field) => {
-      if (field.type === "textarea") {
-        adjustTextareaHeight(field.name);
-      }
-    });
-  }, [fields]);
+    if (isFieldsArray) {
+      fields.forEach((field) => {
+        if (field.type === "textarea") {
+          adjustTextareaHeight(field.name);
+        }
+      });
+    }
+  }, [fields, isFieldsArray]);
 
   return (
     <div className={"mainContainer"}>
@@ -61,62 +70,74 @@ const Create = ({ title, fields, onSubmit }) => {
           <h1 className={styles.title}>{title}</h1>
           <h1 className={styles.subtitle}>Crear {title}</h1>
         </div>
+
         <div className={styles.contentContainer}>
-          <form className={styles.formContainer} onSubmit={handleSubmit}>
-            {fields.map((field, index) => (
-              <div key={index} className={styles.fieldGroup}>
-                <label htmlFor={field.name} className={styles.label}>
-                  {field.label}
-                </label>
-                {field.type === "select" ? (
-                  <select
-                    name={field.name}
-                    id={field.name}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    className={styles.input}
-                    required
-                  >
-                    <option value="" disabled hidden>
-                      Selecciona una opción
-                    </option>
-                    {field.options &&
-                      field.options.map((option, idx) => (
-                        <option key={idx} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                  </select>
-                ) : field.type === "textarea" ? (
-                  <textarea
-                    name={field.name}
-                    id={field.name}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    className={`${styles.input} ${styles.textarea}`} // Añadir clase específica si es necesario
-                    ref={(el) => (textAreaRefs.current[field.name] = el)}
-                    rows={1} // Empezar con una sola fila
-                    required
-                  />
-                ) : (
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    id={field.name}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    className={styles.input}
-                    required
-                  />
-                )}
+          {!isFieldsArray ? (
+            <div className={styles.notFound}>Not Found</div>
+          ) : (
+            <form className={styles.formContainer} onSubmit={handleSubmit}>
+              {fields.map((field, index) => (
+                <div key={index} className={styles.fieldGroup}>
+                  <label htmlFor={field.name} className={styles.label}>
+                    {field.label}
+                  </label>
+                  {field.type === "select" ? (
+                    <select
+                      name={field.name}
+                      id={field.name}
+                      value={formData[field.name] || ""}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                    >
+                      <option value="" disabled hidden>
+                        Selecciona una opción
+                      </option>
+                      {field.options &&
+                        field.options.map((option, idx) => (
+                          <option key={idx} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                    </select>
+                  ) : field.type === "textarea" ? (
+                    <textarea
+                      name={field.name}
+                      id={field.name}
+                      value={formData[field.name] || ""}
+                      onChange={handleChange}
+                      className={`${styles.input} ${styles.textarea}`} // Añadir clase específica si es necesario
+                      ref={(el) => (textAreaRefs.current[field.name] = el)}
+                      rows={1}
+                      required
+                    />
+                  ) : (
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      id={field.name}
+                      value={formData[field.name] || ""}
+                      onChange={handleChange}
+                      className={styles.input}
+                      required
+                    />
+                  )}
+
+                  {/* Mostrar los errores si existen */}
+                  {errors && errors[field.name] && (
+                    <span className={styles.errorMessage}>
+                      {errors[field.name]}
+                    </span>
+                  )}
+                </div>
+              ))}
+              <div className={styles.buttonContainer}>
+                <button type="submit" className={styles.submitButton}>
+                  Confirmar
+                </button>
               </div>
-            ))}
-            <div className={styles.buttonContainer}>
-              <button type="submit" className={styles.submitButton}>
-                Confirmar
-              </button>
-            </div>
-          </form>
+            </form>
+          )}
         </div>
       </div>
     </div>

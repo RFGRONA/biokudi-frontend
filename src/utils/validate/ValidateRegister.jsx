@@ -1,10 +1,5 @@
 export const ValidateRegister = (input) => {
-  const errors = {
-    name: {},
-    email: {},
-    password: {},
-    confirmPassword: {},
-  }
+  const errors = {};
 
   /**Name */
   if (!input.name) {
@@ -12,7 +7,7 @@ export const ValidateRegister = (input) => {
   } else if (input.name.length < 3) {
     errors.name.length = "Nombre debe tener al menos 3 caracteres";
   }
-  if(input.name.length > 63) {
+  if (input.name.length > 63) {
     errors.name.length = "Nombre debe tener menos de 63 caracteres";
   }
   if (!/^[a-zA-Z ]+$/.test(input.name)) {
@@ -32,18 +27,19 @@ export const ValidateRegister = (input) => {
   } else if (input.password.length < 8) {
     errors.password.length = "Contraseña debe tener al menos 8 caracteres";
   } else if (!/[a-z]/.test(input.password)) {
-    errors.password.lowercase = "Contraseña debe contener al menos una minúscula";
+    errors.password.lowercase =
+      "Contraseña debe contener al menos una minúscula";
   }
-  if(input.password.length > 40) {
+  if (input.password.length > 40) {
     errors.password.length = "Contraseña debe tener menos de 40 caracteres";
   }
-  
+
   /**Confirm password */
   if (!input.confirmPassword) {
     errors.confirmPassword.required = "Contraseña es requerida";
   } else if (input.confirmPassword !== input.password) {
     errors.confirmPassword.match = "Las contraseñas no coinciden";
   }
-  return errors;
 
+  return errors;
 };

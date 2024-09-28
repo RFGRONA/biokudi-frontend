@@ -93,19 +93,13 @@
   border-radius: 10px;
 }
 
-/* Estilos existentes */
-
-/* Añadir estilos específicos para textarea si es necesario */
 .textarea {
-  resize: none; /* Evita que el usuario pueda cambiar manualmente el tamaño */
-  overflow: hidden; /* Oculta las barras de desplazamiento */
-  min-height: 50px; /* Altura mínima */
-  /* Puedes añadir más estilos según tus necesidades */
+  resize: none;
+  overflow: hidden;
+  min-height: 50px;
 }
 
-/* Opcional: ajustar estilos de la clase input para textarea */
 .input.textarea {
-  /* Si deseas compartir algunos estilos entre input y textarea */
   padding: 0.5em;
   font-family: "Inter", sans-serif;
   font-size: 1.2em;
@@ -113,7 +107,6 @@
   box-sizing: border-box;
 }
 
-/* Asegúrate de que los textarea hereden correctamente los estilos */
 textarea.input {
   font-family: "Inter", sans-serif;
   font-size: 1.2em;
@@ -125,6 +118,12 @@ textarea.input {
 
 textarea.input:focus {
   outline: none;
+}
+.errorMessage {
+  color: red;
+  font-size: 1em;
+  font-weight: 800;
+  font-family: "Inter", sans-serif;
 }
 
 @media (max-width: 600px) {

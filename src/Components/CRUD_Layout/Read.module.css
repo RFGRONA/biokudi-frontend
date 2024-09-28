@@ -90,18 +90,19 @@
   border: 1px solid #ddd;
 }
 
+/* Estilos alternos para las filas */
+.evenRow {
+  background-color: #f2f2f2; /* Fondo para filas pares */
+}
+
+.oddRow {
+  background-color: #ffffff; /* Fondo para filas impares */
+}
+
 .actions {
   display: flex;
   justify-content: center;
   gap: 0.5em;
-}
-
-.gridContainer > .gridCell:nth-child(-n) {
-  background-color: #f2f2f2;
-}
-
-.gridCell:nth-child(even) {
-  background-color: #f9f9f9;
 }
 
 .gridCell:hover {

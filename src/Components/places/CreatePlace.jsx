@@ -2,32 +2,45 @@ import React from "react";
 import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
+import placeCreateMapping from "../../utils/mapping/placeMapping";
+import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CreatePlace = () => {
-  //TODO: Llamado a la api
+  const [fields, setFields] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const fetchFields = async () => {
+      const placeMapping = await placeCreateMapping();
+      setFields(placeMapping.fields); // Guardamos los campos en el estado
+    };
+
+    fetchFields();
+  }, []);
+
+  /*Errors handle */
   const handleCreate = (data) => {
-    console.log("Datos del formulario:", data);
-    // Lógica para enviar los datos al backend
+    const errors = ValidatePlaceForm(data);
+    setErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      console.log("Errors", errors);
+      return;
+    }
+    /*TODO: Send data to api */
+    console.log("Data", data);
   };
 
-  //Ejemplo de campos
-  const fields = [
-    { name: "nombre", label: "Nombre", type: "textarea" },
-    {
-      name: "estado",
-      label: "Estado",
-      type: "select",
-      options: [
-        { value: true, label: "Activo" },
-        { value: false, label: "Inactivo" },
-      ],
-    },
-    { name: "descripcion", label: "Descripción", type: "textarea" },
-  ];
   return (
     <>
       <Header2 />
-      <Create title={"Lugares"} fields={fields} onSubmit={handleCreate} />
+      <Create
+        title={"Lugares"}
+        fields={fields}
+        onSubmit={handleCreate}
+        errors={errors}
+      />
       <Footer />
     </>
   );

@@ -3,7 +3,7 @@ import styles from "./RegisterForm.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ValidateRegister } from "../../utils/ValidateRegister";
+import { ValidateRegister } from "../../utils/validate/ValidateRegister";
 import { registerApi } from "../../services/registerService";
 
 const RegisterForm = () => {

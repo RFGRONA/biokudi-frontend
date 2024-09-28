@@ -9,8 +9,9 @@ import edit from "../../assets/CRUD/edit.svg";
 import drop from "../../assets/CRUD/drop.svg";
 
 const Read = ({ title, subtitle, data }) => {
-  const numColumns = subtitle.length + 1; // Número de columnas (subtítulos + columna de acciones)
-  const gridTemplateColumns = `repeat(${numColumns}, 1fr)`; // Define el número de columnas en el grid
+  console.log(data);
+  const numColumns = subtitle.length + 1;
+  const gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
 
   return (
     <div className={"mainContainer"}>
@@ -52,22 +53,28 @@ const Read = ({ title, subtitle, data }) => {
               {row.map((cell, cellIndex) => (
                 <div
                   key={`cell-${rowIndex}-${cellIndex}`}
-                  className={styles.gridCell}
+                  className={`${styles.gridCell} ${
+                    rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
+                  }`}
                 >
                   {cell}
                 </div>
               ))}
-              <div className={[styles.gridCell, styles.actions].join(" ")}>
+              <div
+                className={`${styles.gridCell} ${styles.actions} ${
+                  rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
+                }`}
+              >
                 <button>
                   <img src={details} alt="details" />
                 </button>
                 <button>
                   {" "}
-                  <img src={edit} alt="details" />
+                  <img src={edit} alt="edit" />
                 </button>
                 <button>
                   {" "}
-                  <img src={drop} alt="details" />
+                  <img src={drop} alt="drop" />
                 </button>
               </div>
             </React.Fragment>

@@ -15,10 +15,10 @@ import Login from "./Components/Login/Login";
 import HomePage from "./Components/HomePage/HomePage";
 import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
-import ListPlaces from "./Components/places/ListPlaces";
 import ListUsers from "./Components/user/ListUsers";
 import CreatePlace from "./Components/places/CreatePlace";
 import UserSettings from "./Components/SettingsUser/UserSettings";
+import ListPlaces from "./Components/places/ListPlaces";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -37,6 +37,7 @@ root.render(
 
           <Route path="/places" element={<ListPlaces />} />
           <Route path="/ListUsers" element={<ListUsers />} />
+          <Route path="/ListPlaces" element={<ListPlaces />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
 
           {/* temporales(borrar) */}
