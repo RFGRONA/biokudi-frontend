@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styles from "./UserSettings.module.css";
+import styles from "./UserSettings.module.css"; // Cambia a tu archivo .css
 import Header from "../header/Header2";
 import Footer from "../footer/Footer";
 
 const UserSettings = () => {
-  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [emailNotifications, setEmailNotifications] = useState(false);
   const [popupNotifications, setPopupNotifications] = useState(false);
 
   const handleEmailNotificationChange = () => {
@@ -36,7 +36,7 @@ const UserSettings = () => {
   return (
     <div>
       <Header />
-      <div className="mainContainer">
+      <div className={styles.mainContainer}>
         <div className={styles.settingsContainer}>
           <h1 className={styles.title}>Mi configuración</h1>
 
@@ -88,27 +88,39 @@ const UserSettings = () => {
           {/* Notificaciones */}
           <div className={styles.notifications}>
             <h2>Notificaciones</h2>
-            <div className={styles.notificationItem}>
-              <label htmlFor="emailNotifications">
-                Notificaciones por correo electrónico
-              </label>
-              <input
-                type="checkbox"
-                id="emailNotifications"
-                checked={emailNotifications}
-                onChange={handleEmailNotificationChange}
-              />
+
+            <div>
+              <div
+                className={styles.checkboxCon}
+                onClick={handleEmailNotificationChange}
+              >
+                <input
+                  id="emailNotifications"
+                  type="checkbox"
+                  checked={emailNotifications}
+                />
+                <span className={styles.switchSlider}></span>
+                <label htmlFor="emailNotifications">
+                  Notificaciones por correo electrónico
+                </label>
+              </div>
             </div>
-            <div className={styles.notificationItem}>
+            <div>
+            <div
+              className={styles.checkboxCon}
+              onClick={handlePopupNotificationChange}
+            >
+              <input
+                id="popupNotifications"
+                type="checkbox"
+                checked={popupNotifications}
+              />
+              <span className={styles.switchSlider}></span>
               <label htmlFor="popupNotifications">
                 Notificaciones por POP-UP
               </label>
-              <input
-                type="checkbox"
-                id="popupNotifications"
-                checked={popupNotifications}
-                onChange={handlePopupNotificationChange}
-              />
+            
+            </div>
             </div>
           </div>
         </div>

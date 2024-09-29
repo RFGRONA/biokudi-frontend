@@ -1,3 +1,4 @@
+/* Estilos del contenedor principal y otros elementos */
 .settingsContainer {
   background-color: #e4f3e2;
   padding: 2em;
@@ -98,47 +99,87 @@
   font-family: "Inter", sans-serif;
 }
 
-.notificationItem input[type="checkbox"] {
-  transform: scale(1.2);
-}
-
 .data {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .settingsContainer {
-    margin: 1em;
-  }
-  .userImageContainer {
-    width: 100px;
-    height: 100px;
-  }
-  .personalInfo {
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-  }
-
-  .info {
-    text-align: left;
-  }
-
-  .userImageContainer {
-    min-width: 100px;
-    min-height: 100px;
-    margin-bottom: 1em;
-  }
-
-  .userImage {
-    width: 100px;
-    height: 100px;
-  }
-
-  .actions {
-    align-items: center;
-  }
+/* Contenedor del checkbox */
+.checkboxCon {
+  position: relative;
+  display: flex; /* Esto hace que el contenido se alinee horizontalmente */
+  align-items: center; /* Alinea el switch y el label verticalmente */
+  margin: 10px 0;
+  background-color: red;
 }
+
+/* Oculta el input real */
+.checkboxCon input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Estilo del switch */
+.switchSlider {
+  position: relative;
+  cursor: pointer;
+  width: 48px;
+  height: 27px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.4s;
+}
+
+.switchSlider::before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* Cambia el color del switch cuando está activado */
+.checkboxCon input:checked + .switchSlider {
+  background-color: #02c202;
+}
+
+.checkboxCon input:checked + .switchSlider::before {
+  transform: translateX(20px);
+}
+
+/* Estilo del label (texto) */
+.checkboxCon label {
+  margin-left: 15px; /* Añade espacio entre el switch y el texto */
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  user-select: none;
+  color: #204e37;
+}
+
+/* Interactividad al hacer hover en el switch */
+.switchSlider:hover {
+  background-color: #bfbfbf; /* Color cuando se pasa el mouse sobre el switch */
+}
+
+/* Interactividad para los botones */
+.deactivateButton, .deleteButton {
+  background-color: #f67924;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.deactivateButton:hover, .deleteButton:hover {
+  background-color: #e5661c;
+}
+
