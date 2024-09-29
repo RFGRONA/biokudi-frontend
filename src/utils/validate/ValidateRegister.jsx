@@ -1,5 +1,10 @@
 export const ValidateRegister = (input) => {
-  const errors = {};
+  const errors = {
+    name: {},
+    email: {},
+    password: {},
+    confirmPassword: {},
+  };
 
   /**Name */
   if (!input.name) {

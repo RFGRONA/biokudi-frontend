@@ -26,6 +26,9 @@ export const loginApi = async (email, password, rememberme, captchatoken) => {
   } catch (error) {
     const { response } = error;
     console.log("Error en la autenticación", response);
+    if (response.data) {
+      return { error: "Correo o contraseña incorrectos" };
+    }
     return response;
   }
 };

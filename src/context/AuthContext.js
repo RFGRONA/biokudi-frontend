@@ -1,16 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { loginApi } from "../services/authService";
 import { useLocation } from "react-router-dom";
-import { data } from "autoprefixer";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const checkAuth = async () => {
@@ -65,7 +62,7 @@ export const AuthProvider = ({ children }) => {
         return true;
       } else {
         console.log("Error en la autenticación");
-        return "Error en la autenticación";
+        return response;
       }
     } catch (error) {
       console.error("Error durante el login", error);
@@ -75,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_URL_API}/auth/logout`,
         {},
         { withCredentials: true }

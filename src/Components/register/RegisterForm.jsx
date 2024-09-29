@@ -53,6 +53,9 @@ const RegisterForm = () => {
           formValues.name,
           captchaToken
         );
+        if (response.error) {
+          setErrors({ captcha: { error: response.error } });
+        }
         if (response.status === 204) {
           console.log("Usuario registrado con éxito", response.data);
           navigate("/login");
@@ -73,12 +76,6 @@ const RegisterForm = () => {
     e.preventDefault();
     navigate("/login");
   };
-
-  /*Password visibility 1*/
-  const [showPassword1, setShowPassword1] = useState(false);
-
-  /*Password visibility 2*/
-  const [showPassword2, setShowPassword2] = useState(false);
 
   /**Captcha handle */
   return (
@@ -161,6 +158,15 @@ const RegisterForm = () => {
                 </div>
               </div>
             </div>
+
+            {/* Api errors */}
+            <ul>
+              <li>
+                {errors.error && (
+                  <span className={styles.error}>{errors.error}</span>
+                )}
+              </li>
+            </ul>
           </div>
 
           <div className={styles.formGroup}>
@@ -169,7 +175,6 @@ const RegisterForm = () => {
                 Contraseña
               </label>
               <input
-                type={showPassword1 ? "text" : "password"}
                 id="password1"
                 placeholder="*************"
                 className={styles.inputField}
@@ -211,7 +216,6 @@ const RegisterForm = () => {
               </label>
               <div className={styles.passwordContainer}>
                 <input
-                  type={showPassword2 ? "text" : "password"}
                   id="conPassword"
                   placeholder="*************"
                   className={styles.inputField}

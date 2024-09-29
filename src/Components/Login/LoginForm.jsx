@@ -22,6 +22,9 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await login(email, password, remember, captchaToken);
+    if (response.error) {
+      return setError(response.error);
+    }
     if (response.status !== 200) {
       return setError(response.data);
     }
