@@ -5,20 +5,33 @@ import favorites from "../../../assets/header/menuUser/favorites.svg";
 import list from "../../../assets/header/menuUser/list.svg";
 import help from "../../../assets/header/menuUser/help.svg";
 import exit from "../../../assets/header/menuUser/exit.svg";
+import managmnet from "../../../assets/header/menuUser/managment.svg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
+import { useState } from "react";
+import MenuManag from "./MenuManag";
 
 const MenuHeader = ({ showMenu, closeMenu }) => {
   const { user } = useAuth();
+  console.log(user);
+
+  console.log(user);
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const [menuManag, setMenuManag] = useState(false);
   const logoutHandler = async () => {
     await logout();
     navigate("/login");
   };
 
+  const visibleMenuManag = () => {
+    setMenuManag(!menuManag);
+  };
+
   return (
     <>
+      {/* menuManag */}
+      {menuManag && <MenuManag closeMenu={visibleMenuManag} />}
       {/* Background */}
       <div
         className={`${styles.backdrop} ${showMenu ? styles.showBackdrop : ""}`}
@@ -63,6 +76,15 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
             </div>
             <p>Listas</p>
           </div>
+          {(user?.role === "Admin" || user?.role === "Editor") && (
+            <div className={styles.li} onClick={visibleMenuManag}>
+              <div className={styles.menuImage}>
+                <img src={managmnet} alt="icon" />
+              </div>
+              <p>Gestión</p>
+            </div>
+          )}
+
           <div className={[styles.li, styles.help].join(" ")}>
             <div className={styles.menuImage}>
               <img src={help} alt="icon" />

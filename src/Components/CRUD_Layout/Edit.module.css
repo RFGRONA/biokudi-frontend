@@ -1,0 +1,134 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding: 1em 4em 0em 4em;
+  text-align: left;
+  border-bottom: 1px solid #476930;
+}
+
+.title,
+.subtitle {
+  color: black;
+  font-family: "Bitter", serif;
+  font-size: 2em;
+}
+
+.subtitle {
+  color: #f67924;
+}
+
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3em;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid #f67924;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.label {
+  padding-left: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 1.2em;
+}
+
+.input {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  padding: 0.5em;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.buttonContainer {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submitButton {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: white;
+  font-size: 1.5em;
+  background-color: #f67924;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 50px;
+}
+
+.input.textarea {
+  padding: 0.5em;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  border: none;
+  box-sizing: border-box;
+}
+
+textarea.input {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  padding: 0.5em;
+}
+
+textarea.input:focus {
+  outline: none;
+}
+.errorMessage {
+  color: red;
+  font-size: 1em;
+  font-weight: 800;
+  font-family: "Inter", sans-serif;
+}
+
+@media (max-width: 600px) {
+  .contentContainer {
+    width: 80%;
+  }
+}
