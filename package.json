@@ -24,6 +24,7 @@
     "react-textarea-autosize": "^8.5.3",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.14.1",
     "web-vitals": "^2.1.4"
   },
