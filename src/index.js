@@ -17,6 +17,10 @@ import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
 import ListPlaces from "./Components/places/ListPlaces";
 import ListUsers from "./Components/user/ListUsers";
+import ErrorAlert from "./Components/helpers/alerts/ErrorAlert"
+import SuccessAlert from "./Components/helpers/alerts/SuccessAlert"
+import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
+import Loading from "./Components/helpers/loading/Loading";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -36,6 +40,11 @@ root.render(
           <Route path="/places" element={<ListPlaces />} />
           <Route path="/ListUsers" element={<ListUsers />} />
 
+          <Route path="/ErrorAlert" element={<ErrorAlert message={"No se pudieron guardar los cambios"}/>} />
+          <Route path="/SuccessAlert" element={<SuccessAlert message={"Se ha... satisfactoriamente"}/>} />
+          <Route path="/DecisionAlert" element={<DecisionAlert title1={"Esta seguro de..."} message={"Se ha... satisfactoriamente"} cancelText={"Seguir..."} />}/>
+          <Route path="/Loader" element={<Loading />}/>
+
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
@@ -44,7 +53,7 @@ root.render(
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Error />} />
-
+          
           {/* Rutas publicas, no necesitan auth (No permitidas si estan login) */}
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
