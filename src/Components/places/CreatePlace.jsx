@@ -2,7 +2,7 @@ import React from "react";
 import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
-import placeCreateMapping from "../../utils/mapping/placeMapping";
+import { placeCreateMapping } from "../../utils/mapping/placeMapping";
 import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -14,7 +14,7 @@ const CreatePlace = () => {
   useEffect(() => {
     const fetchFields = async () => {
       const placeMapping = await placeCreateMapping();
-      setFields(placeMapping.fields); // Guardamos los campos en el estado
+      setFields(placeMapping.fields);
     };
 
     fetchFields();
@@ -25,7 +25,6 @@ const CreatePlace = () => {
     const errors = ValidatePlaceForm(data);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
-      console.log("Errors", errors);
       return;
     }
     /*TODO: Send data to api */

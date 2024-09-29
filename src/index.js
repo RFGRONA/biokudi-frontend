@@ -19,6 +19,7 @@ import ListUsers from "./Components/user/ListUsers";
 import CreatePlace from "./Components/places/CreatePlace";
 import UserSettings from "./Components/SettingsUser/UserSettings";
 import ListPlaces from "./Components/places/ListPlaces";
+import EditPlace from "./Components/places/EditPlace";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -36,9 +37,9 @@ root.render(
           <Route path="/" element={<HomePage />} />
 
           <Route path="/places" element={<ListPlaces />} />
-          <Route path="/ListUsers" element={<ListUsers />} />
-          <Route path="/ListPlaces" element={<ListPlaces />} />
+          <Route path="/users" element={<ListUsers />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
+          <Route path="/EditPlace" element={<EditPlace />} />
 
           {/* temporales(borrar) */}
           <Route path="/settings" element={<UserSettings />} />
