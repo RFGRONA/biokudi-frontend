@@ -21,6 +21,11 @@ import UserSettings from "./Components/SettingsUser/UserSettings";
 import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
 
+import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
+import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
+import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
+import Loading from "./Components/helpers/loading/Loading";
+
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
@@ -43,6 +48,28 @@ root.render(
 
           {/* temporales(borrar) */}
           <Route path="/settings" element={<UserSettings />} />
+
+          <Route
+            path="/ErrorAlert"
+            element={
+              <ErrorAlert message={"No se pudieron guardar los cambios"} />
+            }
+          />
+          <Route
+            path="/SuccessAlert"
+            element={<SuccessAlert message={"Se ha... satisfactoriamente"} />}
+          />
+          <Route
+            path="/DecisionAlert"
+            element={
+              <DecisionAlert
+                title1={"Esta seguro de..."}
+                message={"Se ha... satisfactoriamente"}
+                cancelText={"Seguir..."}
+              />
+            }
+          />
+          <Route path="/Loader" element={<Loading />} />
 
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
