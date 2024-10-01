@@ -1,3 +1,9 @@
+:root {
+  --num-images-visible: 5;
+  --animation-duration: 60s;
+  --total-width: 1000px;
+}
+
 .body {
   padding: 20px;
 }
@@ -8,30 +14,32 @@
   text-align: center;
   color: #9f9f9f;
 }
-.mainContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
-.bodyUpper {
-  flex: 1;
+.carouselWrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .imageCarousel {
   display: flex;
-  overflow: hidden;
-  position: relative;
-  gap: 1em;
-  width: 100%;
+  animation: scroll var(--animation-duration) linear infinite;
+  gap: 1em; /* Espacio entre las imágenes */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--total-width)));
+  }
 }
 
 .oneImageCarousel {
-  width: 20em;
-  height: 20em;
-  flex-shrink: 0;
-  transition: transform 0.5s ease-in-out;
-  animation: scroll 15s linear infinite;
+  flex: 0 0 calc((100% - ((var(--num-images-visible) - 1) * 1em)) / var(--num-images-visible));
+  height: 15em;
+  position: relative;
 }
 
 .oneImageCarousel img {
@@ -46,7 +54,6 @@
   bottom: 10px;
   left: 10px;
   width: 80%;
-
   color: white;
   background: rgba(75, 103, 55, 0.65);
   padding: 5px;
@@ -54,34 +61,12 @@
   border-radius: 5px;
   font-size: 1.2em;
 }
+
 .starRaiting {
-  color: yellow;
+  color: #f67924;
 }
 
-/* Animación para evitar espacios vacíos al final */
-@keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(calc(-100% - 1em));
-  }
-}
-
-@media (max-width: 600px) {
-  .imageCarousel {
-    gap: 0.5em;
-  }
-
-  .oneImageCarousel {
-    width: 15em;
-    height: 15em;
-  }
-
-  .bodyTitle {
-    font-size: 18px;
-  }
-  .imageCarrouselInfo {
-    font-size: 0.9em;
-  }
+/* Pausa la animación cuando el usuario pasa el mouse por encima */
+.carouselWrapper:hover .imageCarousel {
+  animation-play-state: paused;
 }
