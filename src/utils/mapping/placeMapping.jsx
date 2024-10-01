@@ -9,8 +9,7 @@ export const placeCreateMapping = async () => {
     title: "Crear Lugar",
     fields: [
       {
-        name: "name",
-
+        name: "namePlace",
         label: "Nombre",
         type: "text",
       },

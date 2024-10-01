@@ -23,13 +23,8 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await login(email, password, remember, captchaToken);
-      console.log("Response from backend:", response);
-      if (response.error) {
-        setError(response.error);
-        return;
-      }
       if (response.status !== 200) {
-        setError(response.data);
+        setError(response.data.error);
         return;
       }
       navigate("/");
@@ -52,8 +47,6 @@ const LoginForm = () => {
   const handleRemember = () => {
     setRemember(!remember);
   };
-
-  console.log("Error: ", error);
 
   return (
     <div className={styles.login}>

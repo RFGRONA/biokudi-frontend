@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
         } else {
           localStorage.removeItem("rememberSession");
         }
+        return response;
       } else {
         return response;
       }

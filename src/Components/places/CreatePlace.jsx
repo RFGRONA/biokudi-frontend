@@ -9,11 +9,14 @@ import { useEffect } from "react";
 import { createPlaceApi } from "../../services/apiModel/PlaceApi";
 import SuccessAlert from "../helpers/alerts/SuccessAlert";
 import { useNavigate } from "react-router-dom";
+import ErrorAlert from "../helpers/alerts/ErrorAlert";
 
 const CreatePlace = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -25,32 +28,31 @@ const CreatePlace = () => {
   }, []);
 
   /*Errors handle */
-  const handleCreate = (data) => {
+  const handleCreate = async (data) => {
     const errors = ValidatePlaceForm(data);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return;
     }
-    /*TODO: Send data to api */
     try {
-      const response = createPlaceApi(data);
-      console.log(data);
-      if (!response.error) {
-        return <SuccessAlert message={"Se ha creado con exito"} />;
+      const response = await createPlaceApi(data);
+      if (response.status === 201) {
+        navigate("/places");
+      } else {
+        setAlertMessage("Error al crear lugar");
+        setShowErrorAlert(true);
       }
     } catch (error) {
-      const { response } = error;
-      setErrors = response;
-      console.log(response);
-      return;
-    } finally {
-      navigate("/places");
+      setErrors({ general: "Error al crear lugar" });
+      setAlertMessage("Error al crear lugar");
+      setShowErrorAlert(true);
     }
   };
 
   return (
     <>
       <Header2 />
+      {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <Create
         title={"Lugares"}
         fields={fields}

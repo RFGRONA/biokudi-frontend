@@ -14,8 +14,6 @@ const Error = ({ message }) => {
       confirmButtonText: "OK",
     });
   });
-
-  return navigate("/");
 };
 
 export default Error;

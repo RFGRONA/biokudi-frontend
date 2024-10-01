@@ -50,7 +50,7 @@ const EditPlace = () => {
       console.log(errors);
       return;
     }
-    /*TODO: Send data to API */
+    /* Send data to API */
     const response = await updatePlaceApi(index, data);
     console.log(response);
   };
