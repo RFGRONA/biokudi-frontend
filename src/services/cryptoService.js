@@ -6,9 +6,11 @@ let publicKey = null;
 const fetchPublicKey = async () => {
   const URL_PUBLIC_KEY = process.env.REACT_APP_URL_API + "/auth/public-key";
   try {
-    const response = await axios.get(URL_PUBLIC_KEY);
+    const response = await axios.get(URL_PUBLIC_KEY, {
+      withCredentials: true,
+    });
     if (response.status === 200 && response.data) {
-      publicKey = response.data.trim(); 
+      publicKey = response.data.trim();
     } else {
       throw new Error("No se pudo obtener la clave pública.");
     }
@@ -33,7 +35,7 @@ const encryptPassword = async (password) => {
 
   try {
     const keyBuffer = pemToArrayBuffer(publicKey);
-    
+
     // Importa la clave pública usando RSA-OAEP con SHA-256
     const importedKey = await window.crypto.subtle.importKey(
       "spki",
@@ -70,10 +72,13 @@ const pemToArrayBuffer = (pem) => {
   if (!pem) {
     throw new Error("La clave PEM proporcionada es inválida.");
   }
-  
+
   // Elimina los saltos de línea y espacios en blanco
-  const b64 = pem.replace(/-----BEGIN PUBLIC KEY-----|-----END PUBLIC KEY-----|\s/g, '');
-  
+  const b64 = pem.replace(
+    /-----BEGIN PUBLIC KEY-----|-----END PUBLIC KEY-----|\s/g,
+    ""
+  );
+
   try {
     const binary = atob(b64);
     const bytes = new Uint8Array(binary.length);
@@ -86,7 +91,6 @@ const pemToArrayBuffer = (pem) => {
     throw new Error("Error al decodificar la clave pública en Base64.");
   }
 };
-
 
 // Convierte ArrayBuffer a Base64
 const arrayBufferToBase64 = (buffer) => {

@@ -1,10 +1,9 @@
 import { getCitiesApi } from "../../services/apiModel/CityApi";
 import { getStatesApi } from "../../services/apiModel/StateApi";
 import { getPlaceById } from "../../services/apiModel/PlaceApi";
-
-export const placeCreateMapping = async () => {
-  const cities = await getCitiesApi();
-  const states = await getStatesApi();
+const cities = await getCitiesApi();
+const states = await getStatesApi();
+export const userCreateMapping = async () => {
   const createPlace = {
     title: "Crear Lugar",
     fields: [
@@ -58,8 +57,6 @@ export const placeCreateMapping = async () => {
 };
 
 export const placeEditMapping = async (id) => {
-  const cities = await getCitiesApi();
-  const states = await getStatesApi();
   const data = await getPlaceById(id);
 
   if (data.error) {

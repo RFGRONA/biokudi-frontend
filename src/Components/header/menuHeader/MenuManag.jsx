@@ -1,21 +1,26 @@
 import React from "react";
 import styles from "./MenuManag.module.css";
 import { useAuth } from "../../../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MenuManag = ({ closeMenu }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
   const goToPlaces = () => {
-    Navigate("/places");
+    navigate("/places");
   };
+
   const goToActivities = () => {
-    Navigate("/activities");
+    navigate("/activities");
   };
+
   const goToUsers = () => {
-    Navigate("/users");
+    navigate("/users");
   };
+
   const goToTickets = () => {
-    Navigate("/tickets");
+    navigate("/tickets");
   };
 
   return (
@@ -26,10 +31,10 @@ const MenuManag = ({ closeMenu }) => {
         </button>
         <h2 className={styles.h2}>Gestión</h2>
         <ul className={styles.menuList}>
-          <li>LISTAR LUGARES</li>
-          <li>LISTAR ACTIVIDADES</li>
-          <li>LISTAR USUARIOS</li>
-          <li>LISTAR TICKETS</li>
+          <li onClick={goToPlaces}>LISTAR LUGARES</li>
+          <li onClick={goToActivities}>LISTAR ACTIVIDADES</li>
+          <li onClick={goToUsers}>LISTAR USUARIOS</li>
+          <li onClick={goToTickets}>LISTAR TICKETS</li>
         </ul>
       </div>
     </div>

@@ -1,23 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { fetchImages } from "../../services/getCarrousel";
 import styles from "./HomeBody.module.css";
-const HomeBody = () => {
-  const [images, setImages] = useState([]);
-
-  //API call to get images
-  useEffect(() => {
-    const getImages = async () => {
-      try {
-        const imageData = await fetchImages();
-        setImages([...imageData, ...imageData]);
-      } catch (error) {
-        console.log("Error fetching images", error);
-      }
-    };
-
-    getImages();
-  }, []);
-
+const HomeBody = ({ images }) => {
   return (
     <div className={styles.body}>
       <div
@@ -30,7 +12,7 @@ const HomeBody = () => {
       >
         Destinos que te pueden interesar
       </div>
-      {images.length > 0 && (
+      {images.length > 0 ? (
         <div className={styles.imageCarousel}>
           {images.map((image, index) => (
             <div className={styles.oneImageCarousel} key={index}>
@@ -51,6 +33,8 @@ const HomeBody = () => {
             </div>
           ))}
         </div>
+      ) : (
+        ""
       )}
     </div>
   );

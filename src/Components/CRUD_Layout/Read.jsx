@@ -7,11 +7,20 @@ import create from "../../assets/CRUD/create.svg";
 import details from "../../assets/CRUD/details.svg";
 import edit from "../../assets/CRUD/edit.svg";
 import drop from "../../assets/CRUD/drop.svg";
+import Loading from "../helpers/loading/Loading";
+import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import { Navigate } from "react-router-dom";
 
-const Read = ({ title, subtitle, data }) => {
-  console.log(data);
+const Read = ({ title, subtitle, data, onEdit, onCreate, onDelete }) => {
   const numColumns = subtitle.length + 1;
   const gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
+
+  if (!Array.isArray(data)) {
+    return <ErrorAlert />;
+  }
+  if (data.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <div className={"mainContainer"}>
@@ -31,7 +40,7 @@ const Read = ({ title, subtitle, data }) => {
               Generar Reporte
               <img src={report} alt="Reporte" />
             </div>
-            <div className={styles.buttonCreate}>
+            <div className={styles.buttonCreate} onClick={onCreate}>
               Crear lugar
               <img src={create} alt="Crear" />
             </div>
@@ -48,37 +57,39 @@ const Read = ({ title, subtitle, data }) => {
           <div className={styles.gridHeaderCell}>Acciones</div>
 
           {/* Filas de datos */}
-          {data.map((row, rowIndex) => (
-            <React.Fragment key={`row-${rowIndex}`}>
-              {row.map((cell, cellIndex) => (
+          {data.map((row, rowIndex) => {
+            const index = row[0];
+            return (
+              <React.Fragment key={`row-${rowIndex}`}>
+                {row.map((cell, cellIndex) => (
+                  <div
+                    key={`cell-${rowIndex}-${cellIndex}`}
+                    className={`${styles.gridCell} ${
+                      rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
+                    }`}
+                  >
+                    {cell}
+                  </div>
+                ))}
                 <div
-                  key={`cell-${rowIndex}-${cellIndex}`}
-                  className={`${styles.gridCell} ${
+                  className={`${styles.gridCell} ${styles.actions} ${
                     rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
                   }`}
                 >
-                  {cell}
+                  <button>
+                    <img src={details} alt="details" />
+                  </button>
+                  <button onClick={() => onEdit(index)}>
+                    <img src={edit} alt="edit" />
+                  </button>
+                  <button>
+                    {" "}
+                    <img src={drop} alt="drop" />
+                  </button>
                 </div>
-              ))}
-              <div
-                className={`${styles.gridCell} ${styles.actions} ${
-                  rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
-                }`}
-              >
-                <button>
-                  <img src={details} alt="details" />
-                </button>
-                <button>
-                  {" "}
-                  <img src={edit} alt="edit" />
-                </button>
-                <button>
-                  {" "}
-                  <img src={drop} alt="drop" />
-                </button>
-              </div>
-            </React.Fragment>
-          ))}
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
     </div>

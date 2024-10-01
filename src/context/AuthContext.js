@@ -7,11 +7,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
   const location = useLocation();
 
+  // Función para verificar la sesión
   const checkAuth = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         process.env.REACT_APP_URL_API + "/auth/check-session",
         { withCredentials: true }
@@ -30,28 +33,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Función para restaurar la sesión si el usuario eligió recordarla
   useEffect(() => {
     const restoreSession = async () => {
-      try {
+      // Verifica si el usuario decidió recordar la sesión
+      const rememberedSession = localStorage.getItem("rememberSession");
+
+      if (firstLoad && rememberedSession === "true") {
         setLoading(true);
         await checkAuth();
-      } catch (error) {
-        console.Warning("No se encontró una sesión valida.");
-      } finally {
         setLoading(false);
       }
+
+      // Una vez hecho el primer check, cambiamos firstLoad a false
+      setFirstLoad(false);
     };
 
-    restoreSession();
-  }, [location.pathname]);
+    if (firstLoad) {
+      restoreSession();
+    }
+  }, [firstLoad]);
 
+  // Función para hacer login
   const login = async (email, password, remember, captchaToken) => {
     try {
+      setLoading(true);
       const response = await loginApi(email, password, remember, captchaToken);
-
       if (response && response.status === 200) {
         const { data } = response;
-        console.log("Login exitoso", data);
         setUser({
           name: data.nameUser,
           id: data.userId,
@@ -59,17 +68,24 @@ export const AuthProvider = ({ children }) => {
           role: data.role,
         });
 
-        return true;
+        // Guardar en localStorage si el usuario decidió recordar la sesión
+        if (remember) {
+          localStorage.setItem("rememberSession", "true");
+        } else {
+          localStorage.removeItem("rememberSession");
+        }
       } else {
-        console.log("Error en la autenticación");
         return response;
       }
     } catch (error) {
       console.error("Error durante el login", error);
       return error.response?.data || "Error en la autenticación";
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Función para hacer logout
   const logout = async () => {
     try {
       await axios.post(
@@ -78,6 +94,7 @@ export const AuthProvider = ({ children }) => {
         { withCredentials: true }
       );
       setUser(null);
+      localStorage.removeItem("rememberSession");
     } catch (error) {
       console.error("Error durante logout", error);
     }
@@ -86,6 +103,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     loading,
+    setLoading,
     login,
     logout,
   };

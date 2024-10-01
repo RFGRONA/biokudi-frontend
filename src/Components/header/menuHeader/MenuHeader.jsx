@@ -55,6 +55,14 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
 
         {/* List */}
         <div className={styles.menuItems}>
+          {(user?.role === "Admin" || user?.role === "Editor") && (
+            <div className={styles.li} onClick={visibleMenuManag}>
+              <div className={styles.menuImage}>
+                <img src={managmnet} alt="icon" />
+              </div>
+              <p>Gestión</p>
+            </div>
+          )}
           <div className={styles.li}>
             <div className={styles.menuImage}>
               <img src={discover} alt="icon" />
@@ -73,14 +81,6 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
             </div>
             <p>Listas</p>
           </div>
-          {(user?.role === "Admin" || user?.role === "Editor") && (
-            <div className={styles.li} onClick={visibleMenuManag}>
-              <div className={styles.menuImage}>
-                <img src={managmnet} alt="icon" />
-              </div>
-              <p>Gestión</p>
-            </div>
-          )}
 
           <div className={[styles.li, styles.help].join(" ")}>
             <div className={styles.menuImage}>

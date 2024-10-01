@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const [error, setError] = useState("");
 
   /**Register redirect */
@@ -21,14 +21,22 @@ const LoginForm = () => {
   /*Submit */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await login(email, password, remember, captchaToken);
-    if (response.error) {
-      return setError(response.error);
+    try {
+      const response = await login(email, password, remember, captchaToken);
+      console.log("Response from backend:", response);
+      if (response.error) {
+        setError(response.error);
+        return;
+      }
+      if (response.status !== 200) {
+        setError(response.data);
+        return;
+      }
+      navigate("/");
+    } catch (err) {
+      console.error("Error during login:", err);
+      setError("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
     }
-    if (response.status !== 200) {
-      return setError(response.data);
-    }
-    navigate("/");
   };
 
   /*Captcha use*/
@@ -44,8 +52,8 @@ const LoginForm = () => {
   const handleRemember = () => {
     setRemember(!remember);
   };
-  /*Password visibility*/
-  const [showPassword, setShowPassword] = useState(false);
+
+  console.log("Error: ", error);
 
   return (
     <div className={styles.login}>

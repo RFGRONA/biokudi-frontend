@@ -1,13 +1,14 @@
 import axios from "axios";
+import { Processor } from "postcss";
 
 export const getPlaceApi = async () => {
-  const URL_PLACE = process.env.REACT_APP_URL_API + "/Place/getcrudplaces";
+  const URL_PLACE = process.env.REACT_APP_URL_API + "/place";
   try {
-    const response = await axios.get(URL_PLACE);
+    const response = await axios.get(URL_PLACE, {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       const { data } = response;
-      console.log("Lugares obtenidos exitosamente");
-      console.log("Respuesta: ", data);
       return data;
     }
   } catch (error) {
@@ -18,9 +19,11 @@ export const getPlaceApi = async () => {
 };
 
 export const createPlaceApi = async (data) => {
-  const URL_PLACE = process.env.REACT_APP_URL_API + "/place/createplace";
+  const URL_PLACE = process.env.REACT_APP_URL_API + "/Place";
   try {
-    const response = await axios.post(URL_PLACE, data);
+    const response = await axios.post(URL_PLACE, data, {
+      withCredentials: true,
+    });
     if (response.status === 201) {
       console.log("Lugar creado exitosamente");
       console.log("Respuesta: ", response);
@@ -34,9 +37,11 @@ export const createPlaceApi = async (data) => {
 };
 
 export const getPlaceById = async (id) => {
-  const URL_PLACE = process.env.REACT_APP_URL_API + `/place/getplacebyid/${id}`;
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
-    const response = await axios.get(URL_PLACE);
+    const response = await axios.get(URL_PLACE, {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       const { data } = response;
       console.log("Lugares obtenidos exitosamente");
@@ -47,6 +52,30 @@ export const getPlaceById = async (id) => {
     return {
       error: true,
       message: "Error obteniendo lugar",
+      status: error.status || 500,
+    };
+  }
+};
+
+export const updatePlaceApi = async (id, data) => {
+  data.city = parseInt(data.city);
+  data.state = parseInt(data.state);
+
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
+  try {
+    const response = await axios.put(URL_PLACE, data, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      console.log("Lugar editado exitosamente");
+      return;
+    }
+  } catch (error) {
+    console.log("Error editando lugar", error);
+    return {
+      error: true,
+      message: "Error editando lugar",
       status: error.status || 500,
     };
   }

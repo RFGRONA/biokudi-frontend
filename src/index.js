@@ -20,11 +20,11 @@ import CreatePlace from "./Components/places/CreatePlace";
 import UserSettings from "./Components/SettingsUser/UserSettings";
 import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
+import ListActivities from "./Components/activity/ListActivities";
 
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
-import Loading from "./Components/helpers/loading/Loading";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -39,12 +39,11 @@ root.render(
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-
-          <Route path="/places" element={<ListPlaces />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
-          <Route path="/EditPlace" element={<EditPlace />} />
+          <Route path="/EditPlace/:index" element={<EditPlace />} />
+          <Route path="/Activities" element={<ListActivities />} />
+          <Route path="/places" element={<ListPlaces />} />
 
           {/* temporales(borrar) */}
           <Route path="/settings" element={<UserSettings />} />
@@ -69,7 +68,6 @@ root.render(
               />
             }
           />
-          <Route path="/Loader" element={<Loading />} />
 
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -79,8 +77,9 @@ root.render(
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Error />} />
+          <Route path="/" element={<HomePage />} />
 
-          {/* Rutas publicas, no necesitan auth (No permitidas si estan login) */}
+          {/* Rutas restringidas, (No permitidas si estan login) */}
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

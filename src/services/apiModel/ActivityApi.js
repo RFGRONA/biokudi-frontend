@@ -1,11 +1,9 @@
 import axios from "axios";
 
-export const getCitiesApi = async () => {
-  const API_URL = process.env.REACT_APP_URL_API + "/city";
+export const getActivitiesApi = async () => {
+  const API_URL = process.env.REACT_APP_URL_API + "/Activity";
   try {
-    const response = await axios.get(API_URL, {
-      withCredentials: true,
-    });
+    const response = await axios.get(API_URL);
     if (response.status === 200) {
       const { data } = response;
       return data;

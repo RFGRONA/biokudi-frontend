@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Create.module.css";
+import Loading from "../helpers/loading/Loading";
 
 const Create = ({ title, fields, onSubmit, errors }) => {
-  // Verify if fields is an array
   const isFieldsArray = Array.isArray(fields);
 
   // Initial state
@@ -27,7 +27,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  // Manejador de cambios
+  // Change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -62,6 +62,11 @@ const Create = ({ title, fields, onSubmit, errors }) => {
       });
     }
   }, [fields, isFieldsArray]);
+
+  /*Loading handler */
+  if (fields.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <div className={"mainContainer"}>

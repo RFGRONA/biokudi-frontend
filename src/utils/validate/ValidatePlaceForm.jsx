@@ -3,12 +3,12 @@ import { useState } from "react";
 export const ValidatePlaceForm = (data) => {
   const errors = {};
 
-  if (!data.name) {
-    errors.name = "Nombre es requerido";
-  } else if (data.name.length < 3) {
-    errors.name = "Nombre debe tener al menos 3 caracteres";
-  } else if (data.name.length > 80) {
-    errors.name = "Nombre debe tener menos de 80 caracteres";
+  if (!data.namePlace) {
+    errors.namePlace = "Nombre es requerido";
+  } else if (data.namePlace.length < 3) {
+    errors.namePlace = "Nombre debe tener al menos 3 caracteres";
+  } else if (data.namePlace.length > 80) {
+    errors.namePlace = "Nombre debe tener menos de 80 caracteres";
   }
 
   if (!data.latitude) {

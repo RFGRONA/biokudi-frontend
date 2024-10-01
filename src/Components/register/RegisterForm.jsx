@@ -177,6 +177,7 @@ const RegisterForm = () => {
               <input
                 id="password1"
                 placeholder="*************"
+                type="password"
                 className={styles.inputField}
                 onChange={handleInputChange}
                 value={formValues.password}
@@ -217,6 +218,7 @@ const RegisterForm = () => {
               <div className={styles.passwordContainer}>
                 <input
                   id="conPassword"
+                  type="password"
                   placeholder="*************"
                   className={styles.inputField}
                   onChange={handleInputChange}

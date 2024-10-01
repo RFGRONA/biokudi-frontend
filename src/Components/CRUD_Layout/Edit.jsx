@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Edit.module.css";
+import { useAuth } from "../../context/AuthContext";
+import Loading from "../helpers/loading/Loading";
 
-const Create = ({ title, fields, onSubmit, errors, initialFormData }) => {
+const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
+  const { loading, setLoading } = useAuth();
   const isFieldsArray = Array.isArray(fields);
 
-  // Inicializamos el formulario con los valores iniciales si existen
-  const [formData, setFormData] = useState(
-    initialFormData || {} // Si no hay datos, inicializa como un objeto vacío
-  );
+  const [formData, setFormData] = useState(initialFormData || {});
 
   useEffect(() => {
     if (initialFormData) {
@@ -48,6 +48,15 @@ const Create = ({ title, fields, onSubmit, errors, initialFormData }) => {
     }
   };
 
+  if (!fields.length > 0) {
+    setLoading(true);
+  } else {
+    setLoading(false);
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className={"mainContainer"}>
       <div className={styles.bodyContainer}>
@@ -129,4 +138,4 @@ const Create = ({ title, fields, onSubmit, errors, initialFormData }) => {
   );
 };
 
-export default Create;
+export default Edit;
