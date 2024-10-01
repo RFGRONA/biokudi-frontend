@@ -29,7 +29,7 @@ const CreatePlace = () => {
 
   /*Errors handle */
   const handleCreate = async (data) => {
-    const errors = ValidatePlaceForm(data);
+    const errors = await ValidatePlaceForm(data);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return;

@@ -6,10 +6,11 @@ import { placeEditMapping } from "../../utils/mapping/placeMapping";
 import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
 import { useAuth } from "../../context/AuthContext";
+import ErrorAlert from "../helpers/alerts/ErrorAlert";
 
 const EditPlace = () => {
   const { index } = useParams();
@@ -18,6 +19,9 @@ const EditPlace = () => {
   const [formData, setFormData] = useState({});
   const [notFound, setNotFound] = useState(false);
   const { loading, setLoading } = useAuth();
+  const navigate = useNavigate();
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -33,7 +37,6 @@ const EditPlace = () => {
         acc[field.name] = field.defaultValue || "";
         return acc;
       }, {});
-      console.log(initialData);
       setFormData(initialData);
     };
 
@@ -43,31 +46,43 @@ const EditPlace = () => {
   /*Errors handle */
   const handleEdit = async (data) => {
     setLoading(true);
-    const errors = ValidatePlaceForm(data);
+    const errors = await ValidatePlaceForm(data);
     setLoading(false);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
-      console.log(errors);
       return;
     }
-    /* Send data to API */
-    const response = await updatePlaceApi(index, data);
-    console.log(response);
+    try {
+      const response = await updatePlaceApi(index, data);
+      if (response.status === 200) {
+        console.log("Lugar actualizado exitosamente");
+        navigate("/places");
+      } else {
+        setAlertMessage("Error al actualizar lugar");
+        setShowErrorAlert(true);
+      }
+    } catch (error) {
+      setErrors({ general: "Error al actualizar lugar" });
+      setAlertMessage("Error al actualizar lugar");
+      setShowErrorAlert(true);
+    }
   };
 
   if (notFound) {
-    return <h1>Place not found</h1>;
+    navigate("/*");
   }
   return (
     <>
       <Header2 />
+      {loading && <Loading />}
+      {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
         <Edit
           title={"Lugares"}
           fields={fields}
           onSubmit={handleEdit}
           errors={errors}
-          initialFormData={formData} // Pasamos el formData inicial
+          initialFormData={formData}
         />
         <Footer />
       </div>

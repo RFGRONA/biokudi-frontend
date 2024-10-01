@@ -44,7 +44,6 @@ export const getPlaceById = async (id) => {
     });
     if (response.status === 200) {
       const { data } = response;
-      console.log("Lugares obtenidos exitosamente");
       return data;
     }
   } catch (error) {
