@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         id: data.userId,
         email: data.email,
         role: data.role,
+        photo: data.profilePicture,
       });
     } catch (error) {
       setUser(null);
@@ -66,6 +67,7 @@ export const AuthProvider = ({ children }) => {
           id: data.userId,
           email: data.email,
           role: data.role,
+          photo: data.profilePicture,
         });
 
         // Guardar en localStorage si el usuario decidió recordar la sesión

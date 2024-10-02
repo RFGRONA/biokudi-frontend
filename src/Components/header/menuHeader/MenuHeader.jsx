@@ -13,6 +13,8 @@ import MenuManag from "./MenuManag";
 
 const MenuHeader = ({ showMenu, closeMenu }) => {
   const { user } = useAuth();
+  console.log(user);
+
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [menuManag, setMenuManag] = useState(false);
@@ -42,7 +44,7 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
         <div className={styles.profile}>
           <div className={styles.profileImg}>
             <img
-              src="https://via.placeholder.com/150"
+              src={user ? user.photo : "https://via.placeholder.com/150"}
               alt="profile"
               className={styles.profileImg}
             />
