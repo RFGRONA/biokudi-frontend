@@ -46,7 +46,7 @@ root.render(
           <Route path="/places" element={<ListPlaces />} />
 
           {/* temporales(borrar) */}
-          <Route path="/settings" element={<UserSettings />} />
+          <Route path="/profile" element={<UserSettings />} />
 
           <Route
             path="/ErrorAlert"

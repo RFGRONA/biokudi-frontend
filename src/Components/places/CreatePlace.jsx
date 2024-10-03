@@ -36,7 +36,11 @@ const CreatePlace = () => {
     }
     try {
       const response = await createPlaceApi(data);
-      if (response.status === 201) {
+      if (response.status === 200) {
+        {
+          /*TODO: Sucessfull screen */
+        }
+
         navigate("/places");
       } else {
         setAlertMessage("Error al crear lugar");

@@ -1,10 +1,12 @@
 import { getCitiesApi } from "../../services/apiModel/CityApi";
 import { getStatesApi } from "../../services/apiModel/StateApi";
 import { getPlaceById } from "../../services/apiModel/PlaceApi";
+import { getActivitiesApi } from "../../services/apiModel/ActivityApi";
 
 export const placeCreateMapping = async () => {
   const cities = await getCitiesApi();
   const states = await getStatesApi();
+  const activities = await getActivitiesApi();
   const createPlace = {
     title: "Crear Lugar",
     fields: [
@@ -29,12 +31,17 @@ export const placeCreateMapping = async () => {
         type: "textarea",
       },
       {
+        name: "address",
+        label: "Dirección",
+        type: "textarea",
+      },
+      {
         name: "link",
         label: "Link",
         type: "textarea",
       },
       {
-        name: "city",
+        name: "cityId",
         label: "Ciudad",
         type: "select",
         options: cities.map((city) => ({
@@ -43,12 +50,22 @@ export const placeCreateMapping = async () => {
         })),
       },
       {
-        name: "state",
+        name: "stateId",
         label: "Estado",
         type: "select",
         options: states.map((states) => ({
           value: states.idState,
           label: states.nameState,
+        })),
+      },
+      {
+        name: "activities",
+        label: "Actividades",
+        type: "select",
+        multiple: true,
+        options: activities.map((activity) => ({
+          value: activity.idActivity,
+          label: activity.nameActivity,
         })),
       },
     ],
@@ -59,6 +76,7 @@ export const placeCreateMapping = async () => {
 export const placeEditMapping = async (id) => {
   const cities = await getCitiesApi();
   const states = await getStatesApi();
+  const activities = await getActivitiesApi();
   const data = await getPlaceById(id);
 
   if (data.error) {
@@ -99,13 +117,19 @@ export const placeEditMapping = async (id) => {
         defaultValue: data.description || "",
       },
       {
+        name: "address",
+        label: "Dirección",
+        type: "textarea",
+        defaultValue: data.address || "",
+      },
+      {
         name: "link",
         label: "Link",
         type: "textarea",
         defaultValue: data.link || "",
       },
       {
-        name: "city",
+        name: "cityId",
         label: "Ciudad",
         type: "select",
         options: cities.map((city) => ({
@@ -115,7 +139,7 @@ export const placeEditMapping = async (id) => {
         defaultValue: data.cityId || "",
       },
       {
-        name: "state",
+        name: "stateId",
         label: "Estado",
         type: "select",
         options: states.map((state) => ({
@@ -123,6 +147,18 @@ export const placeEditMapping = async (id) => {
           label: state.nameState,
         })),
         defaultValue: data.state || "",
+      },
+      {
+        name: "activities",
+        label: "Actividades",
+        type: "select",
+        multiple: true,
+        options: [
+          { value: "1", label: "Actividad 1" },
+          { value: "2", label: "Actividad 2" },
+          { value: "3", label: "Actividad 3" },
+        ],
+        defaultValue: data.activities || [],
       },
     ],
   };

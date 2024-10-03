@@ -31,24 +31,24 @@ export const ValidatePlaceForm = (data) => {
     errors.description = "Descripción debe tener menos de 550 caracteres";
   }
 
-  if (!data.link) {
-    errors.link = "Link es requerido";
-  } else if (data.link.length < 5) {
-    errors.link = "Link debe tener al menos 5 caracteres";
-  } else if (data.link.length > 250) {
-    errors.link = "Link debe tener menos de 250 caracteres";
+  if (!data.address) {
+    errors.address = "Link es requerido";
+  } else if (data.address.length < 5) {
+    errors.address = "Link debe tener al menos 5 caracteres";
+  } else if (data.address.length > 250) {
+    errors.address = "Link debe tener menos de 250 caracteres";
   }
 
-  if (!data.city) {
-    errors.city = "Ciudad es requerida";
+  if (!data.cityId) {
+    errors.cityId = "Ciudad es requerida";
   } else if (data.city === "0") {
-    errors.city = "Ciudad es requerida";
+    errors.cityId = "Ciudad es requerida";
   }
 
-  if (!data.state) {
-    errors.state = "Estado es requerido";
+  if (!data.stateId) {
+    errors.stateId = "Estado es requerido";
   } else if (data.state === "0") {
-    errors.state = "Estado es requerido";
+    errors.stateId = "Estado es requerido";
   }
 
   if (Object.keys(errors).length === 0) {

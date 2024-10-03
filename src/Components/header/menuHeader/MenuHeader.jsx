@@ -13,7 +13,6 @@ import MenuManag from "./MenuManag";
 
 const MenuHeader = ({ showMenu, closeMenu }) => {
   const { user } = useAuth();
-  console.log(user);
 
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -21,6 +20,10 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
   const logoutHandler = async () => {
     await logout();
     navigate("/login");
+  };
+
+  const goToProfile = () => {
+    navigate("/profile");
   };
 
   const visibleMenuManag = () => {
@@ -40,8 +43,7 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
         <button className={styles.closeBtn} onClick={closeMenu}>
           &times;
         </button>
-        {/* TODO: Click to redirect to profile */}
-        <div className={styles.profile}>
+        <div className={styles.profile} onClick={goToProfile}>
           <div className={styles.profileImg}>
             <img
               src={user ? user.photo : "https://via.placeholder.com/150"}

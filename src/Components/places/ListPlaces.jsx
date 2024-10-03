@@ -18,6 +18,7 @@ const ListPlaces = () => {
           place.namePlace,
           place.link,
           place.cityName,
+          place.stateName,
         ]);
 
         setPlaces(transformedPlaces);
@@ -29,7 +30,7 @@ const ListPlaces = () => {
     fetchFields();
   }, []);
 
-  const subtitle = ["Id", "Nombre", "Link", "Ciudad"];
+  const subtitle = ["Id", "Nombre", "Link", "Ciudad", "Estado"];
 
   const handleEdit = (index) => {
     navigate(`/EditPlace/${index}`);

@@ -1,41 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Create.module.css";
+import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
 
 const Create = ({ title, fields, onSubmit, errors }) => {
+  const { loading, setLoading } = useAuth();
   const isFieldsArray = Array.isArray(fields);
 
-  // Initial state
-  const [formData, setFormData] = useState(
-    isFieldsArray
-      ? fields.reduce((acc, field) => {
-          acc[field.name] = field.defaultValue || "";
-          return acc;
-        }, {})
-      : {}
-  );
+  const [formData, setFormData] = useState({});
 
-  // TextAreas refs
   const textAreaRefs = useRef({});
 
-  // Función para ajustar la altura del textarea
   const adjustTextareaHeight = (name) => {
     const textarea = textAreaRefs.current[name];
     if (textarea) {
-      textarea.style.height = "auto"; // Resetear altura
-      textarea.style.height = `${textarea.scrollHeight}px`; // Ajustar a contenido
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
 
-  // Change handler
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-
-    //Text area auto resize
+    const { name, value, type, options } = e.target;
+    if (type === "select-multiple") {
+      const selectedOptions = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => ({ idActivity: parseInt(option.value) }));
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: selectedOptions,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
     if (isFieldsArray) {
       const field = fields.find((f) => f.name === name);
       if (field && field.type === "textarea") {
@@ -44,7 +43,6 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  // Handler submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) {
@@ -52,19 +50,13 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  // init auto resize
-  useEffect(() => {
-    if (isFieldsArray) {
-      fields.forEach((field) => {
-        if (field.type === "textarea") {
-          adjustTextareaHeight(field.name);
-        }
-      });
-    }
-  }, [fields, isFieldsArray]);
+  if (!fields.length > 0) {
+    setLoading(true);
+  } else {
+    setLoading(false);
+  }
 
-  /*Loading handler */
-  if (fields.length === 0) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -86,18 +78,28 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                   <label htmlFor={field.name} className={styles.label}>
                     {field.label}
                   </label>
+
                   {field.type === "select" ? (
                     <select
                       name={field.name}
                       id={field.name}
-                      value={formData[field.name] || ""}
+                      value={
+                        field.multiple
+                          ? formData[field.name]?.map((item) =>
+                              item.idActivity.toString()
+                            ) || []
+                          : formData[field.name] || ""
+                      }
                       onChange={handleChange}
                       className={styles.input}
                       required
+                      multiple={field.multiple}
                     >
-                      <option value="" disabled hidden>
-                        Selecciona una opción
-                      </option>
+                      {!field.multiple && (
+                        <option value="" disabled hidden>
+                          Selecciona una opción
+                        </option>
+                      )}
                       {field.options &&
                         field.options.map((option, idx) => (
                           <option key={idx} value={option.value}>
@@ -111,8 +113,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                       id={field.name}
                       value={formData[field.name] || ""}
                       onChange={handleChange}
-                      className={`${styles.input} ${styles.textarea}`} // Añadir clase específica si es necesario
-                      ref={(el) => (textAreaRefs.current[field.name] = el)}
+                      className={`${styles.input} ${styles.textarea}`}
                       rows={1}
                       required
                     />
@@ -128,7 +129,6 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                     />
                   )}
 
-                  {/* Mostrar los errores si existen */}
                   {errors && errors[field.name] && (
                     <span className={styles.errorMessage}>
                       {errors[field.name]}

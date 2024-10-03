@@ -15,10 +15,8 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
     }
   }, [initialFormData]);
 
-  // TextAreas refs
   const textAreaRefs = useRef({});
 
-  // area function
   const adjustTextareaHeight = (name) => {
     const textarea = textAreaRefs.current[name];
     if (textarea) {
@@ -28,11 +26,21 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    const { name, value, type, options } = e.target;
+    if (type === "select-multiple") {
+      const selectedOptions = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => ({ idActivity: parseInt(option.value) }));
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: selectedOptions,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
     if (isFieldsArray) {
       const field = fields.find((f) => f.name === name);
       if (field && field.type === "textarea") {
@@ -57,6 +65,7 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
   if (loading) {
     return <Loading />;
   }
+
   return (
     <div className={"mainContainer"}>
       <div className={styles.bodyContainer}>
@@ -80,14 +89,23 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
                     <select
                       name={field.name}
                       id={field.name}
-                      value={formData[field.name] || ""} // Aquí se asegura que use formData
+                      value={
+                        field.multiple
+                          ? formData[field.name]?.map((item) =>
+                              item.idActivity.toString()
+                            ) || []
+                          : formData[field.name] || ""
+                      }
                       onChange={handleChange}
                       className={styles.input}
                       required
+                      multiple={field.multiple}
                     >
-                      <option value="" disabled hidden>
-                        Selecciona una opción
-                      </option>
+                      {!field.multiple && (
+                        <option value="" disabled hidden>
+                          Selecciona una opción
+                        </option>
+                      )}
                       {field.options &&
                         field.options.map((option, idx) => (
                           <option key={idx} value={option.value}>
@@ -117,7 +135,6 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
                     />
                   )}
 
-                  {/* Show errors */}
                   {errors && errors[field.name] && (
                     <span className={styles.errorMessage}>
                       {errors[field.name]}

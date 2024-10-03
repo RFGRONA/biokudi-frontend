@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Edit from "../CRUD_Layout/Edit";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import { placeEditMapping } from "../../utils/mapping/placeMapping";
 import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
-import { useState } from "react";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
@@ -34,16 +32,21 @@ const EditPlace = () => {
 
       // Init the form with the default values
       const initialData = placeMapping.fields.reduce((acc, field) => {
-        acc[field.name] = field.defaultValue || "";
+        if (field.name === "activities") {
+          acc[field.name] = field.defaultValue.map((activity) => ({
+            idActivity: parseInt(activity),
+          }));
+        } else {
+          acc[field.name] = field.defaultValue || "";
+        }
         return acc;
       }, {});
       setFormData(initialData);
     };
 
     fetchFields();
-  }, []);
+  }, [index]);
 
-  /*Errors handle */
   const handleEdit = async (data) => {
     setLoading(true);
     const errors = await ValidatePlaceForm(data);
@@ -55,15 +58,16 @@ const EditPlace = () => {
     try {
       const response = await updatePlaceApi(index, data);
       if (response.status === 200) {
-        console.log("Lugar actualizado exitosamente");
+        console.log("Place updated successfully");
         navigate("/places");
       } else {
-        setAlertMessage("Error al actualizar lugar");
+        setAlertMessage("Error updating place");
         setShowErrorAlert(true);
       }
     } catch (error) {
-      setErrors({ general: "Error al actualizar lugar" });
-      setAlertMessage("Error al actualizar lugar");
+      console.error("Error updating place:", error);
+      setErrors({ general: "Error updating place" });
+      setAlertMessage("Error updating place");
       setShowErrorAlert(true);
     }
   };
@@ -71,6 +75,7 @@ const EditPlace = () => {
   if (notFound) {
     navigate("/*");
   }
+
   return (
     <>
       <Header2 />
@@ -78,7 +83,7 @@ const EditPlace = () => {
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
         <Edit
-          title={"Lugares"}
+          title={"Places"}
           fields={fields}
           onSubmit={handleEdit}
           errors={errors}

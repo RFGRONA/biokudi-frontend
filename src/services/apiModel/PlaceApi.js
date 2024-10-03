@@ -19,14 +19,19 @@ export const getPlaceApi = async () => {
 };
 
 export const createPlaceApi = async (data) => {
+  data.cityId = parseInt(data.cityId);
+  data.stateId = parseInt(data.stateId);
+  data.longitude = parseFloat(data.longitude);
+  data.latitude = parseFloat(data.latitude);
   const URL_PLACE = process.env.REACT_APP_URL_API + "/Place";
   try {
     const response = await axios.post(URL_PLACE, data, {
       withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    if (response.status === 201) {
-      console.log("Lugar creado exitosamente");
-      console.log("Respuesta: ", response);
+    if (response.status === 200) {
       return response;
     }
   } catch (error) {
@@ -57,17 +62,22 @@ export const getPlaceById = async (id) => {
 };
 
 export const updatePlaceApi = async (id, data) => {
-  data.city = parseInt(data.city);
-  data.state = parseInt(data.state);
+  data.cityId = parseInt(data.cityId);
+  data.stateId = parseInt(data.stateId);
 
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
     const response = await axios.put(URL_PLACE, data, {
       withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+    console.log("Response: ", response);
     if (response.status === 200) {
-      const { data } = response;
-      console.log("Lugar editado exitosamente");
+      return response;
+    } else {
+      console.log("Error editando lugar", response);
       return;
     }
   } catch (error) {

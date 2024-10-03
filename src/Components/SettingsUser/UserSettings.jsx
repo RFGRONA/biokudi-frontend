@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./UserSettings.module.css"; // Cambia a tu archivo .css
 import Header from "../header/Header2";
 import Footer from "../footer/Footer";
+import { useAuth } from "../../context/AuthContext";
 
 const UserSettings = () => {
+  const { user } = useAuth();
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [popupNotifications, setPopupNotifications] = useState(false);
 
@@ -36,7 +38,7 @@ const UserSettings = () => {
   return (
     <div>
       <Header />
-      <div className={styles.mainContainer}>
+      <div className={"mainContainer"}>
         <div className={styles.settingsContainer}>
           <h1 className={styles.title}>Mi configuración</h1>
 
@@ -44,7 +46,7 @@ const UserSettings = () => {
           <div className={styles.personalInfo}>
             <div className={styles.userImageContainer}>
               <img
-                src="https://via.placeholder.com/150"
+                src={user ? user.photo : ""}
                 alt="Foto de perfil"
                 className={styles.userImage}
               />
@@ -52,22 +54,31 @@ const UserSettings = () => {
             <div className={styles.info}>
               <div className={styles.data}>
                 <p>
-                  <strong>Nombre:</strong> Jose Antonio Perez
+                  <strong>Nombre: </strong>
+                  {user ? user.name : ""}
                 </p>
                 <img alt="Editar" />
               </div>
               <div className={styles.data}>
                 <p>
-                  <strong>Correo:</strong> thisisafakemail@domain.com
+                  <strong>Correo: </strong>
+                  {user ? user.email : ""}
                 </p>
                 <img alt="Editar" />
               </div>
-              <p>
-                <strong>Teléfono:</strong> 3405988700
-              </p>
-              <p>
-                <strong>Contraseña:</strong> ************
-              </p>
+              <div className={styles.data}>
+                <p>
+                  <strong>Teléfono: </strong>
+                  {user ? user.phone : ""}
+                </p>
+                <img alt="Editar" />
+              </div>
+              <div className={styles.data}>
+                <p>
+                  <strong>Contraseña:</strong> ************
+                </p>
+                <img alt="Editar" />
+              </div>
             </div>
             <div className={styles.actions}>
               <button
@@ -89,38 +100,36 @@ const UserSettings = () => {
           <div className={styles.notifications}>
             <h2>Notificaciones</h2>
 
-            <div>
-              <div
-                className={styles.checkboxCon}
-                onClick={handleEmailNotificationChange}
-              >
-                <input
-                  id="emailNotifications"
-                  type="checkbox"
-                  checked={emailNotifications}
-                />
-                <span className={styles.switchSlider}></span>
-                <label htmlFor="emailNotifications">
-                  Notificaciones por correo electrónico
-                </label>
-              </div>
+            <div className={styles.checkboxCon}>
+              <input
+                id="emailNotifications"
+                type="checkbox"
+                checked={emailNotifications}
+                onChange={handleEmailNotificationChange}
+              />
+              <span
+                className={styles.switchSlider}
+                onChange={handleEmailNotificationChange}
+              ></span>
+              <label htmlFor="emailNotifications">
+                Notificaciones por correo electrónico
+              </label>
             </div>
-            <div>
-            <div
-              className={styles.checkboxCon}
-              onClick={handlePopupNotificationChange}
-            >
+
+            <div className={styles.checkboxCon}>
               <input
                 id="popupNotifications"
                 type="checkbox"
                 checked={popupNotifications}
+                onChange={handlePopupNotificationChange}
               />
-              <span className={styles.switchSlider}></span>
+              <span
+                className={styles.switchSlider}
+                onClick={handlePopupNotificationChange}
+              ></span>
               <label htmlFor="popupNotifications">
                 Notificaciones por POP-UP
               </label>
-            
-            </div>
             </div>
           </div>
         </div>
