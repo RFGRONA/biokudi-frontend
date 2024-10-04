@@ -17,6 +17,7 @@ import Register from "./Components/register/Register";
 import Error from "./Components/error/Error";
 import ListPlaces from "./Components/places/ListPlaces";
 import ListUsers from "./Components/user/ListUsers";
+import Activities from "./Components/activities/Activities";
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert"
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert"
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
@@ -38,12 +39,8 @@ root.render(
           <Route path="/" element={<HomePage />} />
 
           <Route path="/places" element={<ListPlaces />} />
-          <Route path="/ListUsers" element={<ListUsers />} />
-
-          <Route path="/ErrorAlert" element={<ErrorAlert message={"No se pudieron guardar los cambios"}/>} />
-          <Route path="/SuccessAlert" element={<SuccessAlert message={"Se ha... satisfactoriamente"}/>} />
-          <Route path="/DecisionAlert" element={<DecisionAlert title1={"Esta seguro de..."} message={"Se ha... satisfactoriamente"} cancelText={"Seguir..."} />}/>
-          <Route path="/Loader" element={<Loading />}/>
+          <Route path="/ListUsers" element={<ListUsers />} />3        
+          <Route path="/activities" element={<Activities />}/>
 
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
