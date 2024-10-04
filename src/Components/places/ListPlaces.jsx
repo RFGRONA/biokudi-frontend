@@ -2,13 +2,18 @@ import React from "react";
 import Header from "../header/Header2";
 import Footer from "../footer/Footer";
 import Read from "../CRUD_Layout/Read";
-import { getPlaceApi } from "../../services/apiModel/PlaceApi";
+import { getPlaceApi, deletePlaceApi } from "../../services/apiModel/PlaceApi";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ErrorAlert from "../helpers/alerts/ErrorAlert";
 
 const ListPlaces = () => {
   const [places, setPlaces] = useState([]);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
   useEffect(() => {
     const fetchFields = async () => {
       const listPlaces = await getPlaceApi();
@@ -43,6 +48,7 @@ const ListPlaces = () => {
     <>
       <Header />
       <div className="mainContainer">
+        {showErrorAlert && <ErrorAlert message={alertMessage} />}
         <Read
           title={"Lugares"}
           subtitle={subtitle}

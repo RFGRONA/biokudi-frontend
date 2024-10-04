@@ -9,9 +9,12 @@ import edit from "../../assets/CRUD/edit.svg";
 import drop from "../../assets/CRUD/drop.svg";
 import Loading from "../helpers/loading/Loading";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
-import { Navigate } from "react-router-dom";
+import { deletePlaceApi } from "../../services/apiModel/PlaceApi";
+import { deleteActivityApi } from "../../services/apiModel/ActivityApi";
+import { useNavigate } from "react-router-dom";
 
-const Read = ({ title, subtitle, data, onEdit, onCreate, onDelete }) => {
+const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
+  const navigate = useNavigate();
   const numColumns = subtitle.length + 1;
   const gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
 
@@ -21,6 +24,34 @@ const Read = ({ title, subtitle, data, onEdit, onCreate, onDelete }) => {
   if (data.length === 0) {
     return <Loading />;
   }
+
+  const apiMap = {
+    Lugares: deletePlaceApi,
+    Actividades: deleteActivityApi,
+    // Agrega aquí más títulos con sus respectivas funciones
+  };
+
+  const onDelete = async (index) => {
+    // Determinamos la API correcta según el título
+    const deleteApi = apiMap[title];
+    if (!deleteApi) {
+      console.error("No se encontró una API para el título proporcionado");
+      return;
+    }
+
+    try {
+      const response = await deleteApi(index);
+      if (response.status === 200) {
+        console.log("Deleted successfully");
+
+        window.location.reload();
+      } else {
+        console.error("Error al eliminar: Respuesta del servidor no exitosa");
+      }
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
 
   return (
     <div className={"mainContainer"}>
@@ -76,14 +107,18 @@ const Read = ({ title, subtitle, data, onEdit, onCreate, onDelete }) => {
                     rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
                   }`}
                 >
-                  <button>
-                    <img src={details} alt="details" />
-                  </button>
+                  {title !== "Actividades" ? (
+                    <button>
+                      <img src={details} alt="details" />
+                    </button>
+                  ) : (
+                    ""
+                  )}
+
                   <button onClick={() => onEdit(index)}>
                     <img src={edit} alt="edit" />
                   </button>
-                  <button>
-                    {" "}
+                  <button onClick={() => onDelete(index)}>
                     <img src={drop} alt="drop" />
                   </button>
                 </div>

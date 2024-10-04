@@ -21,6 +21,7 @@ import UserSettings from "./Components/SettingsUser/UserSettings";
 import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
 import ListActivities from "./Components/activity/ListActivities";
+import EditActivity from "./Components/activity/EditActivity";
 
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
@@ -32,6 +33,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import PublicRoute from "./Components/PublicRoute";
 
 import "https://kit.fontawesome.com/2e0b382a53.js";
+import CreateActivity from "./Components/activity/CreateActivity";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -41,7 +43,9 @@ root.render(
         <Routes>
           <Route path="/users" element={<ListUsers />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
+          <Route path="/CreateActivity" element={<CreateActivity />} />
           <Route path="/EditPlace/:index" element={<EditPlace />} />
+          <Route path="/EditActivity/:index" element={<EditActivity />} />
           <Route path="/Activities" element={<ListActivities />} />
           <Route path="/places" element={<ListPlaces />} />
 

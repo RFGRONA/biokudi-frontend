@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { fetchImages } from "../../services/getCarrousel";
 import styles from "./HomeBody.module.css";
+import Loading from "../helpers/loading/Loading";
 
 const HomeBody = () => {
   const [images, setImages] = useState([]);
@@ -10,7 +11,6 @@ const HomeBody = () => {
     const getImages = async () => {
       try {
         const imageData = await fetchImages();
-        // Duplicamos las imágenes para la animación continua
         setImages([...imageData, ...imageData]);
       } catch (error) {
         console.log("Error fetching images", error);
@@ -86,6 +86,10 @@ const HomeBody = () => {
       window.removeEventListener("resize", calculateTotalWidth);
     };
   }, [images]);
+
+  if (images.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.body}>

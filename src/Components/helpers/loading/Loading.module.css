@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: white; 
+  background-color: white;
 }
 
 .loader {
@@ -11,7 +11,7 @@
   height: 128px;
   position: relative;
   background: #fff;
-  border-radius: 8px; 
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -20,32 +20,32 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 80px; 
-  height: 80px; 
+  width: 80px;
+  height: 80px;
   transform: rotate(45deg) translate(30%, 40%);
   background: rgb(112, 177, 112);
-  box-shadow: 64px -68px 0 10px darkgreen; 
+  box-shadow: 64px -68px 0 10px darkgreen;
   animation: slide 2s infinite ease-in-out alternate;
 }
 
 .loader:after {
   content: "";
   position: absolute;
-  left: 20px; 
-  top: 20px; 
-  width: 32px; 
-  height: 32px; 
+  left: 20px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: orange;
   transform: rotate(0deg);
-  transform-origin: 70px 290px; 
+  transform-origin: 70px 290px;
   animation: rotate 2s infinite ease-in-out;
 }
 
 @keyframes slide {
   0%,
   100% {
-    bottom: -70px; 
+    bottom: -70px;
   }
 
   25%,
@@ -55,7 +55,7 @@
 
   20%,
   80% {
-    bottom: 4px; 
+    bottom: 4px;
   }
 }
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Processor } from "postcss";
 
 export const getPlaceApi = async () => {
   const URL_PLACE = process.env.REACT_APP_URL_API + "/place";
@@ -64,6 +63,7 @@ export const getPlaceById = async (id) => {
 export const updatePlaceApi = async (id, data) => {
   data.cityId = parseInt(data.cityId);
   data.stateId = parseInt(data.stateId);
+  console.log(data);
 
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
@@ -85,6 +85,31 @@ export const updatePlaceApi = async (id, data) => {
     return {
       error: true,
       message: "Error editando lugar",
+      status: error.status || 500,
+    };
+  }
+};
+
+export const deletePlaceApi = async (id) => {
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
+  try {
+    const response = await axios.delete(URL_PLACE, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      return response;
+    } else {
+      console.log("Error eliminando lugar", response);
+      return;
+    }
+  } catch (error) {
+    console.log("Error eliminando lugar", error);
+    return {
+      error: true,
+      message: "Error eliminando lugar",
       status: error.status || 500,
     };
   }

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const ValidatePlaceForm = (data) => {
   const errors = {};
 
@@ -32,11 +30,19 @@ export const ValidatePlaceForm = (data) => {
   }
 
   if (!data.address) {
-    errors.address = "Link es requerido";
+    errors.address = "Dirección es requerido";
   } else if (data.address.length < 5) {
-    errors.address = "Link debe tener al menos 5 caracteres";
+    errors.address = "Dirección debe tener al menos 5 caracteres";
   } else if (data.address.length > 250) {
-    errors.address = "Link debe tener menos de 250 caracteres";
+    errors.address = "Dirección debe tener menos de 250 caracteres";
+  }
+
+  if (!data.link) {
+    errors.link = "Link es requerido";
+  } else if (data.link.length < 5) {
+    errors.link = "Link debe tener al menos 5 caracteres";
+  } else if (data.link.length > 250) {
+    errors.link = "Link debe tener menos de 250 caracteres";
   }
 
   if (!data.cityId) {
