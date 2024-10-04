@@ -1,5 +1,5 @@
 import React from "react";
-import Header1 from "../header/Header1";
+import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import styles from "./Error.module.css";
 import errorIcon from "../../assets/error/error_icon.svg";
@@ -7,7 +7,7 @@ import errorIcon from "../../assets/error/error_icon.svg";
 const Error = ({ errorCode, errorMessage }) => {
   return (
     <div>
-      <Header1 />
+      <Header2 />
       <div className={styles.container}>
         <img src={errorIcon} alt="Error" className={styles.icon} />
         <div className={styles.textContainer}>
