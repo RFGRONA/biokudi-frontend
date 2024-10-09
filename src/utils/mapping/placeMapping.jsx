@@ -160,11 +160,10 @@ export const placeEditMapping = async (id) => {
         label: "Actividades",
         type: "select",
         multiple: true,
-        options: [
-          { value: "1", label: "Actividad 1" },
-          { value: "2", label: "Actividad 2" },
-          { value: "3", label: "Actividad 3" },
-        ],
+        options: activities.map((activity) => ({
+          value: activity.idActivity,
+          label: activity.nameActivity,
+        })),
         defaultValue: data.activities || [],
       },
       {

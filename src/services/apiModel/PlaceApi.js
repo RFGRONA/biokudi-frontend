@@ -29,6 +29,7 @@ export const getPlacesListApi = async () => {
         "Content-Type": "application/json",
       },
     });
+    console.log(response);
     if (response.status === 200) {
       const { data } = response;
       return data;
@@ -48,7 +49,6 @@ export const createPlaceApi = async (data) => {
   data.latitude = parseFloat(data.latitude);
   const pictureUrl = await getUrlPictureApi(data.picture);
   data.picture = pictureUrl;
-  console.log(pictureUrl);
 
   /*Check if there is an error */
   if (pictureUrl.error) throw new Error("Error obteniendo URL de la imagen");
@@ -122,6 +122,7 @@ export const updatePlaceApi = async (id, data) => {
 };
 
 export const deletePlaceApi = async (id) => {
+  console.log(id);
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
     const response = await axios.delete(URL_PLACE, {

@@ -56,7 +56,7 @@ const CreatePlace = () => {
   return (
     <>
       <Header2 />
-      {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
       <Create
         title={"Lugares"}
         fields={fields}

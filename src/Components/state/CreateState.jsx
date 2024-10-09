@@ -56,7 +56,7 @@ const CreateState = () => {
   return (
     <>
       <Header2 />
-      {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
       <Create
         title={"Estados"}
         fields={fields}

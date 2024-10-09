@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const Error = ({ message, redirect }) => {
+const ErrorAlert = ({ message, redirect, reload }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,15 +15,17 @@ const Error = ({ message, redirect }) => {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (redirect === undefined) {
+        if (reload) {
+          window.location.reload();
           return;
+        } else if (redirect === undefined) {
+          navigate(`/${redirect}`);
         }
-        navigate(`/${redirect}`);
       }
     });
-  }, []);
+  }, [message, redirect, navigate]);
 
   return null; // Este componente no necesita renderizar nada
 };
 
-export default Error;
+export default ErrorAlert;

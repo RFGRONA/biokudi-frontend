@@ -56,7 +56,7 @@ const CreateActivity = () => {
   return (
     <>
       <Header2 />
-      {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
       <Create
         title={"Actividades"}
         fields={fields}

@@ -10,14 +10,13 @@ export const getUrlPictureApi = async (picture) => {
 
   /*Add to a formData */
   const formData = new FormData();
-  formData.append("image", picture);
+  formData.append("image", base64Data);
 
   try {
     const response = await axios.post(URL_PICTURE, formData);
     console.log(response);
     if (response.status === 200) {
-      console.log(response);
-      return response;
+      return response.data.data.url;
     } else {
       throw new Error("Error obteniendo URL de la imagen");
     }

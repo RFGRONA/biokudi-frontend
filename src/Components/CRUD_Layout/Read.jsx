@@ -19,6 +19,9 @@ import { useAuth } from "../../context/AuthContext";
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const { loading, setLoading } = useAuth();
   const [alert, setAlert] = useState();
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
+  const [decision, setDecision] = useState();
   const navigate = useNavigate();
   const numColumns = subtitle.length + 1;
   const gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
@@ -45,6 +48,14 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
+  const redirect = {
+    Lugares: "places",
+    Actividades: "activities",
+    Estados: "states",
+    Usuarios: "users",
+    // Agrega aquí más títulos con sus respectivas funciones
+  };
+
   const onDelete = async (index) => {
     // Determinamos la API correcta según el título
     const deleteApi = apiMap[title];
@@ -64,7 +75,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
       }
     } catch (error) {
       console.error("Error deleting:", error);
-      // TODO: Mostrar alerta de error
+      setLoading(false);
+      setError(true);
     }
   };
 
@@ -72,6 +84,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     <div className={"mainContainer"}>
       {loading ? (
         <Loading />
+      ) : error ? (
+        <ErrorAlert message={"Error al eliminar lugar"} reload={true} />
       ) : (
         <>
           {alert ? <DecisionAlert /> : ""}
