@@ -126,6 +126,31 @@ textarea.input:focus {
   font-family: "Inter", sans-serif;
 }
 
+/* File Styles */
+.fileInputContainer {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.fileInputLabel {
+  display: block;
+  margin-top: 10px;
+  color: #888;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileNameDisplay {
+  margin-top: 10px;
+  color: green;
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .contentContainer {
     width: 80%;

@@ -16,7 +16,7 @@ const Header2 = () => {
   const navigate = useNavigate();
 
   const goToPlaces = () => {
-    navigate("/places");
+    navigate("/browse");
   };
   const goToLogin = () => {
     navigate("/login");

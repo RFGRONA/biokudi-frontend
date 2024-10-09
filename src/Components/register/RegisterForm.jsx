@@ -57,7 +57,6 @@ const RegisterForm = () => {
           setErrors({ captcha: { error: response.error } });
         }
         if (response.status === 204) {
-          console.log("Usuario registrado con éxito", response.data);
           navigate("/login");
         } else {
           console.log("Error en el registro", response.data);

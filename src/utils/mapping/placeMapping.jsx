@@ -68,6 +68,13 @@ export const placeCreateMapping = async () => {
           label: activity.nameActivity,
         })),
       },
+      {
+        name: "image",
+        label: "Imagen",
+        type: "file",
+        accept: "image/jpeg, image/png",
+        require: false,
+      },
     ],
   };
   return createPlace;
@@ -159,6 +166,13 @@ export const placeEditMapping = async (id) => {
           { value: "3", label: "Actividad 3" },
         ],
         defaultValue: data.activities || [],
+      },
+      {
+        name: "picture",
+        label: "Imagen",
+        type: "file",
+        accept: "image/jpeg, image/png",
+        require: false,
       },
     ],
   };

@@ -22,9 +22,13 @@ import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
 import ListActivities from "./Components/activity/ListActivities";
 import EditActivity from "./Components/activity/EditActivity";
+import Activities from "./Components/activity/Activities";
+import ListStates from "./Components/state/ListStates";
+import CreateState from "./Components/state/CreateState";
 
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
+
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
 
 /*React Router */
@@ -44,10 +48,13 @@ root.render(
           <Route path="/users" element={<ListUsers />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
           <Route path="/CreateActivity" element={<CreateActivity />} />
+          <Route path="/CreateState" element={<CreateState />} />
           <Route path="/EditPlace/:index" element={<EditPlace />} />
           <Route path="/EditActivity/:index" element={<EditActivity />} />
           <Route path="/Activities" element={<ListActivities />} />
+          <Route path="/States" element={<ListStates />} />
           <Route path="/places" element={<ListPlaces />} />
+          <Route path="/browse" element={<Activities />} />
 
           {/* temporales(borrar) */}
           <Route path="/profile" element={<UserSettings />} />

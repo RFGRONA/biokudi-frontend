@@ -2,14 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./Create.module.css";
 import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
+import { convertToBase64Service } from "../../utils/convert/convertToBase64";
 
 const Create = ({ title, fields, onSubmit, errors }) => {
   const { loading, setLoading } = useAuth();
+  const [fileNames, setFileNames] = useState({});
   const isFieldsArray = Array.isArray(fields);
 
   const [formData, setFormData] = useState({});
 
   const textAreaRefs = useRef({});
+  const fileInputRefs = useRef({});
 
   const adjustTextareaHeight = (name) => {
     const textarea = textAreaRefs.current[name];
@@ -19,6 +22,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
+  /*Handle field change */
   const handleChange = (e) => {
     const { name, value, type, options } = e.target;
     if (type === "select-multiple") {
@@ -43,10 +47,56 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
+  /*Submit */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) {
       onSubmit(formData);
+    }
+  };
+
+  /*Hanlde photo drop */
+  const handleDrop = async (e, fieldName) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && fieldName) {
+      try {
+        const base64 = await convertToBase64Service(file);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [fieldName]: base64,
+        }));
+        setFileNames((prevFileNames) => ({
+          ...prevFileNames,
+          [fieldName]: file.name,
+        }));
+      } catch (error) {
+        console.error("Error al convertir el archivo a Base64:", error);
+      }
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  /*File Change */
+  const handleFileChange = async (e, fieldName) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const base64 = await convertToBase64Service(file);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [fieldName]: base64,
+        }));
+        setFileNames((prevFileNames) => ({
+          ...prevFileNames,
+          [fieldName]: file.name,
+        }));
+      } catch (error) {
+        console.error("Error al convertir el archivo a Base64:", error);
+      }
     }
   };
 
@@ -79,7 +129,32 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                     {field.label}
                   </label>
 
-                  {field.type === "select" ? (
+                  {field.type === "file" ? (
+                    <div
+                      className={styles.fileInputContainer}
+                      onDrop={(e) => handleDrop(e, field.name)}
+                      onDragOver={handleDragOver}
+                    >
+                      <input
+                        type="file"
+                        name={field.name}
+                        id={field.name}
+                        accept={field.accept}
+                        onChange={(e) => handleFileChange(e, field.name)}
+                        className={styles.fileInput}
+                        ref={(el) => (fileInputRefs.current[field.name] = el)}
+                        required={field.required}
+                      />
+                      <label
+                        htmlFor={field.name}
+                        className={styles.fileInputLabel}
+                      >
+                        {fileNames[field.name]
+                          ? `Imagen subida: ${fileNames[field.name]}`
+                          : "Arrastra y suelta una imagen aquí, o haz clic para seleccionar una."}
+                      </label>
+                    </div>
+                  ) : field.type === "select" ? (
                     <select
                       name={field.name}
                       id={field.name}

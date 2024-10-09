@@ -15,8 +15,6 @@ export const registerApi = async (email, password, nameUser, captchaToken) => {
       captchaToken,
     });
 
-    console.log(response);
-
     if (response.status === 204) {
       response.data = "Usuario registrado con éxito";
       return response;

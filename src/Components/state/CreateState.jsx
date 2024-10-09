@@ -2,16 +2,16 @@ import React from "react";
 import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
-import { placeCreateMapping } from "../../utils/mapping/placeMapping";
-import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
+import { ValidateStateForm } from "../../utils/validate/ValidateStateForm";
 import { useState } from "react";
 import { useEffect } from "react";
-import { createPlaceApi } from "../../services/apiModel/PlaceApi";
 import SuccessAlert from "../helpers/alerts/SuccessAlert";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import { createStateApi } from "../../services/apiModel/StateApi";
+import { StateCreateMapping } from "../../utils/mapping/stateMapping";
 
-const CreatePlace = () => {
+const CreateState = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ const CreatePlace = () => {
 
   useEffect(() => {
     const fetchFields = async () => {
-      const placeMapping = await placeCreateMapping();
-      setFields(placeMapping.fields);
+      const stateMapping = await StateCreateMapping();
+      setFields(stateMapping.fields);
     };
 
     fetchFields();
@@ -29,27 +29,26 @@ const CreatePlace = () => {
 
   /*Errors handle */
   const handleCreate = async (data) => {
-    const errors = await ValidatePlaceForm(data);
+    const errors = await ValidateStateForm(data);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return;
     }
     try {
-      console.log("Preview: ", data);
-      const response = await createPlaceApi(data);
+      const response = await createStateApi(data);
       if (response.status === 200) {
         {
           /*TODO: Sucessfull screen */
         }
 
-        navigate("/places");
+        navigate("/States");
       } else {
-        setAlertMessage("Error al crear lugar");
+        setAlertMessage("Error al crear estado");
         setShowErrorAlert(true);
       }
     } catch (error) {
-      setErrors({ general: "Error al crear lugar" });
-      setAlertMessage("Error al crear lugar");
+      setErrors({ general: "Error al crear estado" });
+      setAlertMessage("Error al crear estado");
       setShowErrorAlert(true);
     }
   };
@@ -59,7 +58,7 @@ const CreatePlace = () => {
       <Header2 />
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <Create
-        title={"Lugares"}
+        title={"Estados"}
         fields={fields}
         onSubmit={handleCreate}
         errors={errors}
@@ -69,4 +68,4 @@ const CreatePlace = () => {
   );
 };
 
-export default CreatePlace;
+export default CreateState;

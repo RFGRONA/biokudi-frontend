@@ -23,6 +23,10 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/tickets");
   };
 
+  const goToStates = () => {
+    navigate("/States");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -33,6 +37,7 @@ const MenuManag = ({ closeMenu }) => {
         <ul className={styles.menuList}>
           <li onClick={goToPlaces}>LISTAR LUGARES</li>
           <li onClick={goToActivities}>LISTAR ACTIVIDADES</li>
+          <li onClick={goToStates}>LISTAR ESTADOS</li>
           <li onClick={goToUsers}>LISTAR USUARIOS</li>
           <li onClick={goToTickets}>LISTAR TICKETS</li>
         </ul>

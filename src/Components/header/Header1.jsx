@@ -18,7 +18,7 @@ const Header1 = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const goToPlaces = () => {
-    navigate("/places");
+    navigate("/browse");
   };
   const goToLogin = () => {
     navigate("/login");

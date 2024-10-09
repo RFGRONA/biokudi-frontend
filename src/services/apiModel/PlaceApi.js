@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/*GET FOR READ */
 export const getPlaceApi = async () => {
   const URL_PLACE = process.env.REACT_APP_URL_API + "/place";
   try {
@@ -17,6 +18,28 @@ export const getPlaceApi = async () => {
   }
 };
 
+/*GET FOR USERS LIST */
+export const getPlacesListApi = async () => {
+  const URL_PLACE = process.env.REACT_APP_URL_API + "/place/GetListActivities";
+  try {
+    const response = await axios.get(URL_PLACE, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    const { response } = error;
+    console.log("Error obteniendo lugares", response);
+    return response;
+  }
+};
+
+/*CREATE PLACE */
 export const createPlaceApi = async (data) => {
   data.cityId = parseInt(data.cityId);
   data.stateId = parseInt(data.stateId);

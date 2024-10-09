@@ -24,7 +24,7 @@ const ListUsers = () => {
   return (
     <>
       <Header />
-      <Read title={"Lugares"} subtitle={subtitle} data={temporalUsers} />
+      <Read title={"Usuarios"} subtitle={subtitle} data={temporalUsers} />
       <Footer />
     </>
   );

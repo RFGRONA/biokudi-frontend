@@ -25,8 +25,8 @@
 .buttonChoose {
   font-family: "Inter", sans-serif;
   font-weight: bold;
-  color: #F67924;
-  border: 1px solid #F67924;
+  color: #f67924;
+  border: 1px solid #f67924;
   border-radius: 20px;
   cursor: pointer;
   min-width: 150px;
@@ -52,11 +52,12 @@
 
 .activityContainer {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin: 20px auto;
   position: relative;
-  max-width: 900px;
+  max-width: 80%;
 }
 
 .card {
@@ -67,21 +68,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
-  margin-left: 225px;
+  margin: 20px 0; /* Espaciado entre las tarjetas en lugar de margen lateral */
   min-height: 200px;
-  min-width: 750px;
+  width: 100%; /* Hacer que la tarjeta ocupe todo el ancho */
   display: flex;
-  flex-direction: column; 
 }
 
 .placeImage {
-  position: absolute;
-  left: -120px;
-  top: 0px;
   width: 300px;
   height: 200px;
   z-index: 2;
-  border-radius: 10px;
+
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -106,7 +103,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   font-family: "Bitter", serif;
-  color:black;
+  color: black;
   margin: 0;
 }
 
@@ -120,7 +117,7 @@
   color: orange;
 }
 
-.ratingValue{
+.ratingValue {
   font-size: 1.5rem;
   font-weight: bold;
   margin-left: 8px;
@@ -138,36 +135,35 @@
   align-items: center;
 }
 
-.detailItem h2{
+.detailItem h2 {
   font-size: 1.2rem;
   font-weight: bold;
   font-family: "Inter", serif;
-  color:#476930;
+  color: #476930;
   margin: 0;
 }
 
 .cardRating img {
-  width: 24px; 
+  width: 24px;
   height: auto;
   margin-right: 8px;
 }
 
 .detailItem img {
-  width: 18px; 
+  width: 18px;
   height: auto;
   margin-right: 8px;
 }
 
-.cardDescription{
+.cardDescription {
   display: flex;
   justify-content: space-between;
-
 }
 
-.cardDescription p{
+.cardDescription p {
   max-width: 37rem;
   font-size: 10px;
-  font-family: "Inter",serif;
+  font-family: "Inter", serif;
 }
 
 .cardFooter {
@@ -194,7 +190,7 @@
   margin-right: 20px;
 }
 
-.footerItem h3{
+.footerItem h3 {
   font-size: 0.8rem;
   font-family: "Inter", serif;
 }

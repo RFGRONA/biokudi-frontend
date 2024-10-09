@@ -57,6 +57,10 @@ export const ValidatePlaceForm = (data) => {
     errors.stateId = "Estado es requerido";
   }
 
+  if (!data.image) {
+    errors.image = "La imagen es obligatoria.";
+  }
+
   if (Object.keys(errors).length === 0) {
     return {};
   } else {
