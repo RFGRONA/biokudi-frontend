@@ -35,7 +35,6 @@ const CreatePlace = () => {
       return;
     }
     try {
-      console.log("Preview: ", data);
       const response = await createPlaceApi(data);
       if (response.status === 200) {
         {

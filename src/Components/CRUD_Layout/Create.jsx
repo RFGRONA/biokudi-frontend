@@ -211,6 +211,9 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                   )}
                 </div>
               ))}
+              {errors && errors.general && (
+                <span className={styles.errorMessage}>{errors.general}</span>
+              )}
               <div className={styles.buttonContainer}>
                 <button type="submit" className={styles.submitButton}>
                   Confirmar

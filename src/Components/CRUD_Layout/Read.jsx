@@ -60,10 +60,11 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
 
         window.location.reload();
       } else {
-        console.error("Error al eliminar: Respuesta del servidor no exitosa");
+        throw new Error("Error al eliminar");
       }
     } catch (error) {
       console.error("Error deleting:", error);
+      // TODO: Mostrar alerta de error
     }
   };
 

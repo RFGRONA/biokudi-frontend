@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUrlPictureApi } from "./pictureApi";
 
 /*GET FOR READ */
 export const getPlaceApi = async () => {
@@ -45,6 +46,13 @@ export const createPlaceApi = async (data) => {
   data.stateId = parseInt(data.stateId);
   data.longitude = parseFloat(data.longitude);
   data.latitude = parseFloat(data.latitude);
+  const pictureUrl = await getUrlPictureApi(data.picture);
+  data.picture = pictureUrl;
+  console.log(pictureUrl);
+
+  /*Check if there is an error */
+  if (pictureUrl.error) throw new Error("Error obteniendo URL de la imagen");
+
   const URL_PLACE = process.env.REACT_APP_URL_API + "/Place";
   try {
     const response = await axios.post(URL_PLACE, data, {

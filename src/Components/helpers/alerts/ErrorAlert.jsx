@@ -15,6 +15,9 @@ const Error = ({ message, redirect }) => {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (redirect === undefined) {
+          return;
+        }
         navigate(`/${redirect}`);
       }
     });

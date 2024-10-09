@@ -69,7 +69,7 @@ export const placeCreateMapping = async () => {
         })),
       },
       {
-        name: "image",
+        name: "picture",
         label: "Imagen",
         type: "file",
         accept: "image/jpeg, image/png",

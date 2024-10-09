@@ -68,7 +68,6 @@ export const AuthProvider = ({ children }) => {
   // Función para restaurar la sesión si el usuario eligió recordarla
   useEffect(() => {
     const restoreSession = async () => {
-      sessionStorage.removeItem("user");
       const rememberedSession = localStorage.getItem("rememberSession");
 
       // Solo restaurar la sesión si la flag persistente (localStorage) está activa
