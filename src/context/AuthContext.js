@@ -68,6 +68,7 @@ export const AuthProvider = ({ children }) => {
   // Función para restaurar la sesión si el usuario eligió recordarla
   useEffect(() => {
     const restoreSession = async () => {
+      sessionStorage.removeItem("user");
       const rememberedSession = localStorage.getItem("rememberSession");
 
       // Solo restaurar la sesión si la flag persistente (localStorage) está activa
@@ -132,15 +133,15 @@ export const AuthProvider = ({ children }) => {
   // Función para hacer logout
   const logout = async () => {
     try {
+      setUser(null);
+      sessionStorage.removeItem("user");
+      localStorage.removeItem("rememberSession");
+      authChecked = false; // Resetear para permitir la verificación de autenticación nuevamente
       await axios.post(
         `${process.env.REACT_APP_URL_API}/auth/logout`,
         {},
         { withCredentials: true }
       );
-      setUser(null);
-      sessionStorage.removeItem("user");
-      localStorage.removeItem("rememberSession");
-      authChecked = false; // Resetear para permitir la verificación de autenticación nuevamente
     } catch (error) {
       console.error("Error durante logout", error);
     }
