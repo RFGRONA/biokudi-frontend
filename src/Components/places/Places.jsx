@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
-import styles from "./Activities.module.css";
+import styles from "./Places.module.css";
 import chooseIcon from "../../assets/activities/choose.svg";
 import orderIcon from "../../assets/activities/order.svg";
 import locationIcon from "../../assets/activities/location.svg";
@@ -85,7 +85,9 @@ const Activities = () => {
                           />
                           <h2>
                             {Array.isArray(place.activities)
-                              ? place.activities.join(", ")
+                              ? place.activities
+                                  .map((activity) => activity.nameActivity)
+                                  .join(", ")
                               : "No hay actividades disponibles"}
                           </h2>
                         </div>
