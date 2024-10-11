@@ -20,6 +20,7 @@ html {
 #root {
   display: flex;
   flex-direction: column;
+  content-visibility: auto;
 }
 
 .main-content {

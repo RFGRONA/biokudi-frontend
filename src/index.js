@@ -22,9 +22,11 @@ import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
 import ListActivities from "./Components/activity/ListActivities";
 import EditActivity from "./Components/activity/EditActivity";
-import Activities from "./Components/activity/Activities";
+import Places from "./Components/places/Places";
 import ListStates from "./Components/state/ListStates";
 import CreateState from "./Components/state/CreateState";
+import EditState from "./Components/state/EditState";
+import ListPictures from "./Components/picture/ListPictures";
 
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
@@ -51,14 +53,16 @@ root.render(
           <Route path="/CreateState" element={<CreateState />} />
           <Route path="/EditPlace/:index" element={<EditPlace />} />
           <Route path="/EditActivity/:index" element={<EditActivity />} />
+          <Route path="/EditState/:index" element={<EditState />} />
           <Route path="/Activities" element={<ListActivities />} />
+          <Route path="/Pictures" element={<ListPictures />} />
           <Route path="/States" element={<ListStates />} />
           <Route path="/places" element={<ListPlaces />} />
-          <Route path="/browse" element={<Activities />} />
+          <Route path="/browse" element={<Places />} />
+          <Route path="/error" element={<Error />} />
 
           {/* temporales(borrar) */}
           <Route path="/profile" element={<UserSettings />} />
-
           <Route
             path="/ErrorAlert"
             element={
