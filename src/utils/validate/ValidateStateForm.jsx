@@ -8,10 +8,10 @@ export const ValidateStateForm = (data) => {
     errors.nameState = "Nombre debe tener menos de 25 caracteres";
   }
 
-  if (!data.tableId) {
-    errors.tableId = "Tabla es requerida";
-  } else if (data.tableId === "0") {
-    errors.tableId = "Tabla es requerida";
+  if (!data.tableRelation) {
+    errors.tableRelation = "Tabla es requerida";
+  } else if (data.tableRelation === "0") {
+    errors.tableRelation = "Tabla es requerida";
   }
 
   if (Object.keys(errors).length === 0) {

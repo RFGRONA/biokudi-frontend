@@ -45,20 +45,10 @@ export const ValidatePlaceForm = (data) => {
     errors.link = "Link debe tener menos de 250 caracteres";
   }
 
-  if (!data.cityId) {
-    errors.cityId = "Ciudad es requerida";
-  } else if (data.city === "0") {
-    errors.cityId = "Ciudad es requerida";
-  }
-
   if (!data.stateId) {
     errors.stateId = "Estado es requerido";
   } else if (data.state === "0") {
     errors.stateId = "Estado es requerido";
-  }
-
-  if (!data.picture) {
-    errors.picture = "La imagen es obligatoria.";
   }
 
   if (Object.keys(errors).length === 0) {

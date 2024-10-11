@@ -7,11 +7,13 @@ export const ActivityCreateMapping = async () => {
         name: "nameActivity",
         label: "Nombre",
         type: "text",
+        required: true,
       },
       {
         name: "urlIcon",
         label: "Icono URL",
         type: "textarea",
+        required: true,
       },
     ],
   };
@@ -32,12 +34,14 @@ export const ActivityEditMapping = async (id) => {
         name: "nameActivity",
         label: "Nombre",
         type: "text",
+        required: true,
         defaultValue: data.nameActivity || "",
       },
       {
         name: "urlIcon",
         label: "Icono URL",
         type: "textarea",
+        required: true,
         defaultValue: data.urlIcon || "",
       },
     ],

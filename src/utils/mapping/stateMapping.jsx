@@ -1,41 +1,106 @@
-export const StateCreateMapping = async () => {
-  const TABLES = [
-    {
-      idTable: 1,
-      nameTable: "Test",
-    },
-    {
-      idTable: 2,
-      nameTable: "Test",
-    },
-    {
-      idTable: 3,
-      nameTable: "Test",
-    },
-    {
-      idTable: 4,
-      nameTable: "Test",
-    },
-  ];
+import { getStateById } from "../../services/apiModel/StateApi";
+import { getTablesApi } from "../../services/apiModel/TableApi";
 
-  const createState = {
-    title: "Crear Actividad",
+export const StateCreateMapping = async () => {
+  try {
+    const tables = await getTablesApi();
+
+    if (tables.error) {
+      return {
+        title: "Crear Actividad",
+        fields: [
+          {
+            name: "nameState",
+            label: "Nombre",
+            type: "text",
+            required: true,
+          },
+          {
+            name: "tableId",
+            label: "Tabla",
+            type: "select",
+            required: true,
+            options: [], // Array vacío cuando hay error
+          },
+        ],
+      };
+    }
+    const createState = {
+      title: "Crear Actividad",
+      fields: [
+        {
+          name: "nameState",
+          label: "Nombre",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "tableRelation",
+          label: "Tabla",
+          type: "select",
+          required: true,
+          options: tables.map((table) => ({
+            value: table.idTableRelation,
+            label: table.tableRelation,
+          })),
+        },
+      ],
+    };
+    return createState;
+  } catch (error) {
+    console.log("Error obteniendo tablas", error);
+    return {
+      title: "Crear Actividad",
+      fields: [
+        {
+          name: "nameState",
+          label: "Nombre",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "tableId",
+          label: "Tabla",
+          type: "select",
+          required: true,
+          options: [], // Array vacío cuando hay error
+        },
+      ],
+    };
+  }
+};
+
+export const stateEditMapping = async (id) => {
+  const tables = await getTablesApi();
+  const data = await getStateById(id);
+
+  if (!Array.isArray(tables)) {
+    return { error: "Error al obtener las tablas" };
+  }
+
+  const editState = {
+    title: "Editar Estado",
     fields: [
       {
         name: "nameState",
         label: "Nombre",
         type: "text",
+        required: true,
+        defaultValue: data.nameState,
       },
       {
-        name: "tableId",
+        name: "tableRelation",
         label: "Tabla",
         type: "select",
-        options: TABLES.map((table) => ({
-          value: table.idTable,
-          label: table.nameTable,
+        required: true,
+        options: tables.map((table) => ({
+          value: table.idTableRelation,
+          label: table.tableRelation,
         })),
+        defaultValue: data.tableRelation,
       },
     ],
   };
-  return createState;
+
+  return editState;
 };

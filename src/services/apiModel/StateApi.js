@@ -39,6 +39,50 @@ export const createStateApi = async (data) => {
     return response;
   }
 };
+export const getStateById = async (id) => {
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/State/${id}`;
+  try {
+    const response = await axios.get(URL_PLACE, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo estado", error);
+    return {
+      error: true,
+      message: "Error obteniendo estado",
+      status: error.status || 500,
+    };
+  }
+};
+
+export const updateStateApi = async (id, data) => {
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/State/${id}`;
+  try {
+    const response = await axios.put(URL_PLACE, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      return response;
+    } else {
+      console.log("Error editando estado", response);
+      return;
+    }
+  } catch (error) {
+    console.log("Error editando estado", error);
+    return {
+      error: true,
+      message: "Error editando estado",
+      status: error.status || 500,
+    };
+  }
+};
 
 export const deleteStateApi = async (id) => {
   const API_URL = process.env.REACT_APP_URL_API + `/State/${id}`;

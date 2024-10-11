@@ -29,7 +29,6 @@ export const getPlacesListApi = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     if (response.status === 200) {
       const { data } = response;
       return data;
@@ -43,15 +42,16 @@ export const getPlacesListApi = async () => {
 
 /*CREATE PLACE */
 export const createPlaceApi = async (data) => {
-  data.cityId = parseInt(data.cityId);
-  data.stateId = parseInt(data.stateId);
-  data.longitude = parseFloat(data.longitude);
-  data.latitude = parseFloat(data.latitude);
-  const pictureUrl = await getUrlPictureApi(data.picture);
+  data.cityId = data.cityId ? parseInt(data.cityId) : null;
+  data.stateId = data.stateId ? parseInt(data.stateId) : null;
+  data.latitude = data.latitude ? parseFloat(data.latitude) : null;
+  data.longitude = data.longitude ? parseFloat(data.longitude) : null;
+  const pictureUrl = data.picture ? await getUrlPictureApi(data.picture) : null;
   data.picture = pictureUrl;
 
-  /*Check if there is an error */
-  if (pictureUrl.error) throw new Error("Error obteniendo URL de la imagen");
+  if (pictureUrl && pictureUrl.error) {
+    throw new Error("Error al obtener la imagen");
+  }
 
   const URL_PLACE = process.env.REACT_APP_URL_API + "/Place";
   try {
@@ -92,9 +92,12 @@ export const getPlaceById = async (id) => {
 };
 
 export const updatePlaceApi = async (id, data) => {
-  data.cityId = parseInt(data.cityId);
-  data.stateId = parseInt(data.stateId);
-  console.log(data);
+  data.cityId = data.cityId ? parseInt(data.cityId) : null;
+  data.stateId = data.stateId ? parseInt(data.stateId) : null;
+  data.latitude = data.latitude ? parseFloat(data.latitude) : null;
+  data.longitude = data.longitude ? parseFloat(data.longitude) : null;
+  const pictureUrl = data.picture ? await getUrlPictureApi(data.picture) : null;
+  data.picture = pictureUrl;
 
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
@@ -122,7 +125,6 @@ export const updatePlaceApi = async (id, data) => {
 };
 
 export const deletePlaceApi = async (id) => {
-  console.log(id);
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {
     const response = await axios.delete(URL_PLACE, {
