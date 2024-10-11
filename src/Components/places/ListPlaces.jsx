@@ -10,7 +10,6 @@ import ErrorAlert from "../helpers/alerts/ErrorAlert";
 const ListPlaces = () => {
   const [places, setPlaces] = useState([]);
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
 const ErrorAlert = ({ message, redirect, reload }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   React.useEffect(() => {
     Swal.fire({
@@ -15,15 +13,16 @@ const ErrorAlert = ({ message, redirect, reload }) => {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (reload) {
-          window.location.reload();
-          return;
-        } else if (redirect === undefined) {
+        if (redirect !== undefined) {
           navigate(`/${redirect}`);
+        } else if (reload) {
+          window.location.reload();
+        } else {
+          // No hacer nada
         }
       }
     });
-  }, [message, redirect, navigate]);
+  }, [message, redirect, reload, navigate]);
 
   return null; // Este componente no necesita renderizar nada
 };

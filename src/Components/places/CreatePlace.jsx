@@ -10,10 +10,13 @@ import { createPlaceApi } from "../../services/apiModel/PlaceApi";
 import SuccessAlert from "../helpers/alerts/SuccessAlert";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import { useAuth } from "../../context/AuthContext";
+import Loading from "../helpers/loading/Loading";
 
 const CreatePlace = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
+  const { loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -29,6 +32,7 @@ const CreatePlace = () => {
 
   /*Errors handle */
   const handleCreate = async (data) => {
+    setLoading(true);
     const errors = await ValidatePlaceForm(data);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
@@ -51,12 +55,14 @@ const CreatePlace = () => {
       setAlertMessage("Error al crear lugar");
       setShowErrorAlert(true);
     }
+    setLoading(false);
   };
 
   return (
     <>
       <Header2 />
       {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
+      {loading ? <Loading /> : ""}
       <Create
         title={"Lugares"}
         fields={fields}

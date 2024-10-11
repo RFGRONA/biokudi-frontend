@@ -3,11 +3,13 @@ import styles from "./Create.module.css";
 import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
 import { convertToBase64Service } from "../../utils/convert/convertToBase64";
+import Decision from "../helpers/alerts/DecisionAlert";
 
 const Create = ({ title, fields, onSubmit, errors }) => {
-  const { loading, setLoading } = useAuth();
+  const [localLoading, setLocalLoading] = useState(false);
   const [fileNames, setFileNames] = useState({});
   const isFieldsArray = Array.isArray(fields);
+  const [decisionData, setDecisionData] = useState(null);
 
   const [formData, setFormData] = useState({});
 
@@ -25,20 +27,22 @@ const Create = ({ title, fields, onSubmit, errors }) => {
   /*Handle field change */
   const handleChange = (e) => {
     const { name, value, type, options } = e.target;
+
     if (type === "select-multiple") {
       const selectedOptions = Array.from(options)
         .filter((option) => option.selected)
         .map((option) => ({ idActivity: parseInt(option.value) }));
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: selectedOptions,
+        [name]: selectedOptions.length > 0 ? selectedOptions : null,
       }));
     } else {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: value,
+        [name]: value !== "" ? value : null,
       }));
     }
+
     if (isFieldsArray) {
       const field = fields.find((f) => f.name === name);
       if (field && field.type === "textarea") {
@@ -50,9 +54,12 @@ const Create = ({ title, fields, onSubmit, errors }) => {
   /*Submit */
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit(formData);
-    }
+    const cleanedFormData = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = formData[key] !== "" ? formData[key] : null;
+      return acc;
+    }, {});
+
+    setDecisionData(cleanedFormData); // Establece los datos para la confirmación
   };
 
   /*Hanlde photo drop */
@@ -100,18 +107,50 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  if (!fields.length > 0) {
-    setLoading(true);
-  } else {
-    setLoading(false);
-  }
+  /*Loading Effect */
+  useEffect(() => {
+    if (!fields.length > 0) {
+      setLocalLoading(true);
+    } else {
+      setLocalLoading(false);
+    }
+  }, [fields]);
 
-  if (loading) {
+  if (localLoading) {
     return <Loading />;
   }
 
+  /*Singular */
+  const singular = {
+    Usuarios: "Usuario",
+    Actividades: "Actividad",
+    Estados: "Estado",
+    Lugares: "Lugar",
+    Imagenes: "Imagen",
+  };
   return (
     <div className={"mainContainer"}>
+      {decisionData && (
+        <Decision
+          title1="¿Estás seguro?"
+          message={`Se creará un nuevo item: ${singular[title]}`}
+          cancelText="Cancelar"
+          onConfirm={async () => {
+            setLocalLoading(true);
+            if (onSubmit) {
+              try {
+                await onSubmit(decisionData);
+              } catch (error) {
+                console.error("Error durante el envío del formulario:", error);
+                // Manejar errores si es necesario
+              }
+            }
+            setLocalLoading(false);
+            setDecisionData(null);
+          }}
+          onCancel={() => setDecisionData(null)}
+        />
+      )}
       <div className={styles.bodyContainer}>
         <div className={styles.headerContainer}>
           <h1 className={styles.title}>{title}</h1>
@@ -149,9 +188,13 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                         htmlFor={field.name}
                         className={styles.fileInputLabel}
                       >
-                        {fileNames[field.name]
-                          ? `Imagen subida: ${fileNames[field.name]}`
-                          : "Arrastra y suelta una imagen aquí, o haz clic para seleccionar una."}
+                        {fileNames[field.name] ? (
+                          <span className={styles.infoFile}>
+                            Imagen subida: {fileNames[field.name]}
+                          </span>
+                        ) : (
+                          "Arrastra y suelta una imagen aquí, o haz clic para seleccionar una."
+                        )}
                       </label>
                     </div>
                   ) : field.type === "select" ? (
@@ -167,7 +210,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                       }
                       onChange={handleChange}
                       className={styles.input}
-                      required
+                      required={field.required}
                       multiple={field.multiple}
                     >
                       {!field.multiple && (
@@ -190,7 +233,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                       onChange={handleChange}
                       className={`${styles.input} ${styles.textarea}`}
                       rows={1}
-                      required
+                      required={field.required}
                     />
                   ) : (
                     <input
@@ -200,7 +243,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                       value={formData[field.name] || ""}
                       onChange={handleChange}
                       className={styles.input}
-                      required
+                      required={field.required}
                     />
                   )}
 
@@ -215,7 +258,11 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                 <span className={styles.errorMessage}>{errors.general}</span>
               )}
               <div className={styles.buttonContainer}>
-                <button type="submit" className={styles.submitButton}>
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={localLoading}
+                >
                   Confirmar
                 </button>
               </div>

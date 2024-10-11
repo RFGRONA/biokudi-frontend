@@ -151,6 +151,11 @@ textarea.input:focus {
   font-weight: bold;
 }
 
+.infoFile {
+  color: lightgreen;
+  font-weight: 700;
+}
+
 @media (max-width: 600px) {
   .contentContainer {
     width: 80%;

@@ -9,6 +9,9 @@ import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
 import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import { stateEditMapping } from "../../utils/mapping/stateMapping";
+import { ValidateStateForm } from "../../utils/validate/ValidateStateForm";
+import { updateStateApi } from "../../services/apiModel/StateApi";
 
 const EditPlace = () => {
   const { index } = useParams();
@@ -23,19 +26,18 @@ const EditPlace = () => {
 
   useEffect(() => {
     const fetchFields = async () => {
-      const placeMapping = await placeEditMapping(index);
-      if (placeMapping.error) {
+      const stateMapping = await stateEditMapping(index);
+      if (stateMapping.error) {
         setNotFound(true);
         return;
       }
-      setFields(placeMapping.fields);
+      setFields(stateMapping.fields);
 
       // Init the form with the default values
-      const initialData = placeMapping.fields.reduce((acc, field) => {
+      const initialData = stateMapping.fields.reduce((acc, field) => {
         acc[field.name] = field.defaultValue;
         return acc;
       }, {});
-
       setFormData(initialData);
     };
 
@@ -44,25 +46,25 @@ const EditPlace = () => {
 
   const handleEdit = async (data) => {
     setLoading(true);
-    const errors = await ValidatePlaceForm(data);
+    const errors = await ValidateStateForm(data);
     setLoading(false);
     setErrors(errors);
     if (Object.keys(errors).length > 0) {
       return;
     }
     try {
-      const response = await updatePlaceApi(index, data);
+      const response = await updateStateApi(index, data);
       if (response.status === 200) {
         console.log("Place updated successfully");
-        navigate("/places");
+        navigate("/states");
       } else {
-        setAlertMessage("Error updating place");
+        setAlertMessage("Error updating state");
         setShowErrorAlert(true);
       }
     } catch (error) {
-      console.error("Error updating place:", error);
-      setErrors({ general: "Error updating place" });
-      setAlertMessage("Error updating place");
+      console.error("Error updating state:", error);
+      setErrors({ general: "Error updating state" });
+      setAlertMessage("Error updating state");
       setShowErrorAlert(true);
     }
   };
@@ -78,7 +80,7 @@ const EditPlace = () => {
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
         <Edit
-          title={"Lugares"}
+          title={"Estados"}
           fields={fields}
           onSubmit={handleEdit}
           errors={errors}

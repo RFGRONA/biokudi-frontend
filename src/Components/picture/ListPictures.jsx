@@ -2,49 +2,48 @@ import React from "react";
 import Header from "../header/Header2";
 import Footer from "../footer/Footer";
 import Read from "../CRUD_Layout/Read";
-import { getUsersApi } from "../../services/apiModel/UserApi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import { getPictureApi } from "../../services/apiModel/pictureApi";
 
-const ListUsers = () => {
-  const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+const ListPictures = () => {
+  const [pictures, setPictures] = useState([]);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  /*Api Call */
   useEffect(() => {
     const fetchFields = async () => {
-      const listUsers = await getUsersApi();
-      if (Array.isArray(listUsers)) {
-        const transformedUsers = listUsers.map((user) => [
-          user.idUser,
-          user.nameUser,
-          user.email,
+      const listPictures = await getPictureApi();
+      if (Array.isArray(listPictures)) {
+        const transformedPictures = listPictures.map((picture) => [
+          picture.idPicture,
+          picture.name,
+          picture.typeName,
+          picture.url,
         ]);
 
-        setUsers(transformedUsers);
+        setPictures(transformedPictures);
       } else {
-        setUsers({ error: true, message: "Error obteniendo usuarios" });
+        setPictures({ error: true, message: "Error obteniendo imagenes" });
       }
     };
 
     fetchFields();
   }, []);
-  const subtitle = ["Id", "Nombre", "Correo"];
+
+  const subtitle = ["Id", "Nombre", "Tipo", "Url"];
 
   return (
     <>
       <Header />
       <div className="mainContainer">
         {showErrorAlert && <ErrorAlert message={alertMessage} />}
-        <Read title={"Usuarios"} subtitle={subtitle} data={users} />
+        <Read title={"Imagenes"} subtitle={subtitle} data={pictures} />
       </div>
       <Footer />
     </>
   );
 };
 
-export default ListUsers;
+export default ListPictures;
