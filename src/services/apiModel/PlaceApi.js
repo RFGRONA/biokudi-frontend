@@ -49,6 +49,8 @@ export const createPlaceApi = async (data) => {
   const pictureUrl = data.picture ? await getUrlPictureApi(data.picture) : null;
   data.picture = pictureUrl;
 
+  console.log(data);
+
   if (pictureUrl && pictureUrl.error) {
     throw new Error("Error al obtener la imagen");
   }
@@ -98,6 +100,8 @@ export const updatePlaceApi = async (id, data) => {
   data.longitude = data.longitude ? parseFloat(data.longitude) : null;
   const pictureUrl = data.picture ? await getUrlPictureApi(data.picture) : null;
   data.picture = pictureUrl;
+
+  console.log(data);
 
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {

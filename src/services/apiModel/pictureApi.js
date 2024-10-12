@@ -62,7 +62,6 @@ export const getUrlPictureApi = async (picture) => {
 
   try {
     const response = await axios.post(URL_PICTURE, formData);
-    console.log(response);
     if (response.status === 200) {
       return response.data.data.url;
     } else {

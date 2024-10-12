@@ -35,10 +35,12 @@ const CreatePlace = () => {
     setLoading(true);
     const errors = await ValidatePlaceForm(data);
     setErrors(errors);
+    console.log(errors);
     if (Object.keys(errors).length > 0) {
       return;
     }
     try {
+      console.log(data);
       const response = await createPlaceApi(data);
       if (response.status === 200) {
         {
@@ -54,21 +56,26 @@ const CreatePlace = () => {
       setErrors({ general: "Error al crear lugar" });
       setAlertMessage("Error al crear lugar");
       setShowErrorAlert(true);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <>
       <Header2 />
-      {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
-      {loading ? <Loading /> : ""}
-      <Create
-        title={"Lugares"}
-        fields={fields}
-        onSubmit={handleCreate}
-        errors={errors}
-      />
+      {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Create
+          title={"Lugares"}
+          fields={fields}
+          onSubmit={handleCreate}
+          errors={errors}
+        />
+      )}
+
       <Footer />
     </>
   );

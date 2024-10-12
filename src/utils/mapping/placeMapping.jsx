@@ -143,7 +143,7 @@ export const placeEditMapping = async (id) => {
           value: city.idCity,
           label: city.nameCity,
         })),
-        defaultValue: data.idCity ? data.idCity : "",
+        defaultValue: data.cityId ? data.cityId : "",
       },
       {
         name: "stateId",
@@ -153,7 +153,7 @@ export const placeEditMapping = async (id) => {
           value: state.idState,
           label: state.nameState,
         })),
-        defaultValue: data.idState ? data.idState : "",
+        defaultValue: data.stateId ? data.stateId : "",
       },
       {
         name: "activities",

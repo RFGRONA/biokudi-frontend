@@ -13,33 +13,6 @@ export const getUsersApi = async () => {
   } catch (error) {
     const { response } = error;
     console.log("Error obteniendo usuarios", response);
-    const test = [
-      {
-        idUser: 1,
-        nameUser: "Juan",
-        email: "",
-      },
-      {
-        idUser: 1,
-        nameUser: "Juan",
-        email: "",
-      },
-      {
-        idUser: 1,
-        nameUser: "Juan",
-        email: "",
-      },
-      {
-        idUser: 1,
-        nameUser: "Juan",
-        email: "",
-      },
-      {
-        idUser: 1,
-        nameUser: "Juan",
-        email: "",
-      },
-    ];
     return test;
   }
 };

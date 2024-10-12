@@ -21,8 +21,10 @@ const ListUsers = () => {
       if (Array.isArray(listUsers)) {
         const transformedUsers = listUsers.map((user) => [
           user.idUser,
-          user.nameUser,
+          user.userName,
           user.email,
+          user.roleName,
+          user.stateName,
         ]);
 
         setUsers(transformedUsers);
@@ -33,7 +35,7 @@ const ListUsers = () => {
 
     fetchFields();
   }, []);
-  const subtitle = ["Id", "Nombre", "Correo"];
+  const subtitle = ["Id", "Nombre", "Correo", "Rol", "Estado"];
 
   return (
     <>

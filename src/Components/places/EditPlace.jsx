@@ -51,6 +51,10 @@ const EditPlace = () => {
       return;
     }
     try {
+      // Convert activities array of IDs to array of objects
+      if (Array.isArray(data.activities)) {
+        data.activities = data.activities.map((id) => ({ idActivity: id }));
+      }
       const response = await updatePlaceApi(index, data);
       if (response.status === 200) {
         console.log("Place updated successfully");
