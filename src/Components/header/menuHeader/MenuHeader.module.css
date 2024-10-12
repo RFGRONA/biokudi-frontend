@@ -107,6 +107,10 @@
   transition: 0.3s ease;
 }
 
+.li:hover {
+  transform: scale(1.08);
+}
+
 .li p {
   margin: 0;
   padding-left: 2em;

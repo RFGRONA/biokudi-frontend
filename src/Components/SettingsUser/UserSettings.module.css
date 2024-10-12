@@ -47,32 +47,45 @@
   gap: 0.5em;
 }
 
-.deactivateButton {
+.desactivateButton,
+.deleteButton,
+.editButton,
+.saveButton {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
   background-color: #f3f0b2;
-  color: #555;
-  border: 1px solid #f3f0b2;
-  border-radius: 5px;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.deactivateButton:hover {
-  background-color: #e2db88;
-}
-
-.deleteButton {
-  background-color: #f67924;
-  color: white;
   border: none;
   border-radius: 5px;
   padding: 0.5em 1em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s;
 }
 
-.deleteButton:hover {
-  background-color: #e5661c;
+.desactivateButton:hover,
+.deleteButton:hover,
+.editButton:hover,
+.saveButton:hover {
+  transform: scale(1.05);
+}
+
+.editButton {
+  background-color: #4caf50;
+  color: white;
+}
+.desactivateButton {
+  background-color: #f67924;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #ff2e1d;
+  color: white;
+}
+
+.saveButton {
+  background-color: #2196f3;
+  border-color: #4caf50;
+  color: white;
 }
 
 .notifications {
@@ -100,8 +113,27 @@
 
 .data {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  margin-bottom: 1em;
+}
+
+.data label {
+  width: 120px;
+  color: #204e37;
+  font-family: "Inter", sans-serif;
+}
+
+.data span {
+  flex-grow: 1;
+  font-family: "Inter", sans-serif;
+}
+
+.inputField {
+  flex-grow: 1;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .checkboxCon {
@@ -111,7 +143,7 @@
   margin: 10px 0;
 }
 
-/* Oculta el input real */
+/*Notifications inputs*/
 .checkboxCon input {
   opacity: 0;
   width: 0;
@@ -162,18 +194,10 @@
   background-color: #bfbfbf;
 }
 
-.deactivateButton,
-.deleteButton {
-  background-color: #f67924;
-  color: white;
-  border: none;
+.userImageInput {
+  width: 150px;
+  padding: 0.5em;
+  font-size: 0.9em;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.deactivateButton:hover,
-.deleteButton:hover {
-  background-color: #e5661c;
 }

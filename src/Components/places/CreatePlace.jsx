@@ -37,10 +37,10 @@ const CreatePlace = () => {
     setErrors(errors);
     console.log(errors);
     if (Object.keys(errors).length > 0) {
+      setLoading(false);
       return;
     }
     try {
-      console.log(data);
       const response = await createPlaceApi(data);
       if (response.status === 200) {
         {

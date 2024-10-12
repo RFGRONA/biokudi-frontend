@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./UserSettings.module.css"; // Cambia a tu archivo .css
+import styles from "./UserSettings.module.css";
 import Header from "../header/Header2";
 import Footer from "../footer/Footer";
 import { useAuth } from "../../context/AuthContext";
@@ -9,6 +9,9 @@ const UserSettings = () => {
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [popupNotifications, setPopupNotifications] = useState(false);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({});
+
   const handleEmailNotificationChange = () => {
     setEmailNotifications(!emailNotifications);
   };
@@ -17,7 +20,7 @@ const UserSettings = () => {
     setPopupNotifications(!popupNotifications);
   };
 
-  const handleDeactivateAccount = () => {
+  const handleDesactivateAccount = () => {
     if (window.confirm("¿Estás seguro de que quieres desactivar tu cuenta?")) {
       // Lógica para desactivar cuenta
       alert("Cuenta desactivada");
@@ -35,6 +38,31 @@ const UserSettings = () => {
     }
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+    setFormData({
+      name: user ? user.name : "",
+      email: user ? user.email : "",
+      phone: user ? user.phone : "",
+      photo: user ? user.photo : "",
+    });
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSave = () => {
+    // Aquí enviarías formData al backend
+    console.log("Datos guardados:", formData);
+
+    setIsEditing(false);
+    // Actualizar el usuario con los nuevos datos si es necesario
+  };
+
   return (
     <div>
       <Header />
@@ -45,45 +73,95 @@ const UserSettings = () => {
           {/* Información personal */}
           <div className={styles.personalInfo}>
             <div className={styles.userImageContainer}>
-              <img
-                src={user ? user.photo : ""}
-                alt="Foto de perfil"
-                className={styles.userImage}
-              />
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="photo"
+                  value={formData.photo}
+                  onChange={handleInputChange}
+                  placeholder="URL de la foto"
+                  className={styles.userImageInput}
+                />
+              ) : (
+                <img
+                  src={user ? user.photo : ""}
+                  alt="Foto de perfil"
+                  className={styles.userImage}
+                />
+              )}
             </div>
             <div className={styles.info}>
               <div className={styles.data}>
-                <p>
-                  <strong>Nombre: </strong>
-                  {user ? user.name : ""}
-                </p>
-                <img alt="Editar" />
+                <label>
+                  <strong>Nombre:</strong>
+                </label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Nombre"
+                    className={styles.inputField}
+                  />
+                ) : (
+                  <span>{user ? user.name : ""}</span>
+                )}
               </div>
               <div className={styles.data}>
-                <p>
-                  <strong>Correo: </strong>
-                  {user ? user.email : ""}
-                </p>
-                <img alt="Editar" />
+                <label>
+                  <strong>Correo:</strong>
+                </label>
+                {isEditing ? (
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Correo"
+                    className={styles.inputField}
+                  />
+                ) : (
+                  <span>{user ? user.email : ""}</span>
+                )}
               </div>
               <div className={styles.data}>
-                <p>
-                  <strong>Teléfono: </strong>
-                  {user ? user.phone : ""}
-                </p>
-                <img alt="Editar" />
+                <label>
+                  <strong>Teléfono:</strong>
+                </label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="Teléfono"
+                    className={styles.inputField}
+                  />
+                ) : (
+                  <span>{user ? user.phone : ""}</span>
+                )}
               </div>
               <div className={styles.data}>
-                <p>
-                  <strong>Contraseña:</strong> ************
-                </p>
-                <img alt="Editar" />
+                <label>
+                  <strong>Contraseña:</strong>
+                </label>
+                <span>************</span>
               </div>
             </div>
             <div className={styles.actions}>
+              {isEditing ? (
+                <button className={styles.saveButton} onClick={handleSave}>
+                  Guardar
+                </button>
+              ) : (
+                <button className={styles.editButton} onClick={handleEdit}>
+                  Editar
+                </button>
+              )}
               <button
-                className={styles.deactivateButton}
-                onClick={handleDeactivateAccount}
+                className={styles.desactivateButton}
+                onClick={handleDesactivateAccount}
               >
                 Desactivar cuenta
               </button>
@@ -107,10 +185,7 @@ const UserSettings = () => {
                 checked={emailNotifications}
                 onChange={handleEmailNotificationChange}
               />
-              <span
-                className={styles.switchSlider}
-                onChange={handleEmailNotificationChange}
-              ></span>
+              <span className={styles.switchSlider}></span>
               <label htmlFor="emailNotifications">
                 Notificaciones por correo electrónico
               </label>
@@ -123,10 +198,7 @@ const UserSettings = () => {
                 checked={popupNotifications}
                 onChange={handlePopupNotificationChange}
               />
-              <span
-                className={styles.switchSlider}
-                onClick={handlePopupNotificationChange}
-              ></span>
+              <span className={styles.switchSlider}></span>
               <label htmlFor="popupNotifications">
                 Notificaciones por POP-UP
               </label>
