@@ -38,6 +38,8 @@ import PublicRoute from "./Components/PublicRoute";
 
 import "https://kit.fontawesome.com/2e0b382a53.js";
 import CreateActivity from "./Components/activity/CreateActivity";
+import Sidebar from "./Components/map/SideBar";
+import PlaceInformation from "./Components/map/PlaceInformation";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -58,6 +60,8 @@ root.render(
 
           {/* temporales(borrar) */}
           <Route path="/profile" element={<UserSettings />} />
+          <Route path="/SideBar" element={<Sidebar />} />
+          <Route path="/placeinf" element={<PlaceInformation />} />
 
           <Route
             path="/ErrorAlert"
