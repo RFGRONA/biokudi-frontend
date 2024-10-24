@@ -3,21 +3,23 @@ import Edit from "../CRUD_Layout/Edit";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import { placeEditMapping } from "../../utils/mapping/placeMapping";
-import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
 import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import { stateEditMapping } from "../../utils/mapping/stateMapping";
-import { ValidateStateForm } from "../../utils/validate/ValidateStateForm";
+import {
+  ValidateStateForm,
+  ValidateStateField,
+} from "../../utils/validate/ValidateStateForm";
 import { updateStateApi } from "../../services/apiModel/StateApi";
 
 const EditPlace = () => {
   const { index } = useParams();
   const [fields, setFields] = useState([]);
-  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
   const { loading, setLoading } = useAuth();
   const navigate = useNavigate();
@@ -43,6 +45,23 @@ const EditPlace = () => {
 
     fetchFields();
   }, [index]);
+
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+
+    // Update FormData
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    // Validate specific field
+    const fieldErrors = ValidateStateField(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
+  };
 
   const handleEdit = async (data) => {
     setLoading(true);
@@ -82,9 +101,10 @@ const EditPlace = () => {
         <Edit
           title={"Estados"}
           fields={fields}
+          formData={formData}
           onSubmit={handleEdit}
+          onChange={handleFieldChange}
           errors={errors}
-          initialFormData={formData}
         />
         <Footer />
       </div>

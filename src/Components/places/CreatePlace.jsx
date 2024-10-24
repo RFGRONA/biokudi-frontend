@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import { placeCreateMapping } from "../../utils/mapping/placeMapping";
-import { ValidatePlaceForm } from "../../utils/validate/ValidatePlaceForm";
-import { useState } from "react";
-import { useEffect } from "react";
+import {
+  ValidatePlaceForm,
+  ValidatePlaceField,
+} from "../../utils/validate/ValidatePlaceForm";
 import { createPlaceApi } from "../../services/apiModel/PlaceApi";
-import SuccessAlert from "../helpers/alerts/SuccessAlert";
-import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 const CreatePlace = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({});
   const { loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -30,23 +31,48 @@ const CreatePlace = () => {
     fetchFields();
   }, []);
 
-  /*Errors handle */
+  const handleFieldChange = (e) => {
+    const { name, value, type, options } = e.target;
+
+    let newValue;
+    if (type === "select-multiple") {
+      const selectedOptions = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => ({ idActivity: parseInt(option.value) }));
+      newValue = selectedOptions.length > 0 ? selectedOptions : null;
+    } else {
+      newValue = value !== "" ? value : null;
+    }
+
+    // Actualizar formData
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newValue,
+    }));
+
+    // Validar el campo específico
+    const fieldErrors = ValidatePlaceField(name, newValue);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
+  };
+
   const handleCreate = async (data) => {
     setLoading(true);
-    const errors = await ValidatePlaceForm(data);
+
+    // Validar todo el formulario
+    const errors = ValidatePlaceForm(data);
     setErrors(errors);
-    console.log(errors);
-    if (Object.keys(errors).length > 0) {
+
+    if (Object.keys(errors).some((key) => errors[key])) {
       setLoading(false);
       return;
     }
+
     try {
       const response = await createPlaceApi(data);
       if (response.status === 200) {
-        {
-          /*TODO: Sucessfull screen */
-        }
-
         navigate("/places");
       } else {
         setAlertMessage("Error al crear lugar");
@@ -71,11 +97,12 @@ const CreatePlace = () => {
         <Create
           title={"Lugares"}
           fields={fields}
-          onSubmit={handleCreate}
+          formData={formData}
           errors={errors}
+          onFieldChange={handleFieldChange}
+          onSubmit={handleCreate}
         />
       )}
-
       <Footer />
     </>
   );

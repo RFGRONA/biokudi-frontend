@@ -1,15 +1,19 @@
-import React from 'react';
-import Swal from 'sweetalert2';
+import React from "react";
+import Swal from "sweetalert2";
 
-const Success = ({message}) => {
+const Success = ({ message, onClose }) => {
   React.useEffect(() => {
     Swal.fire({
-      title: "¡Exito!",
+      title: "¡Éxito!",
       text: message,
       icon: "success",
-      confirmButtonText: 'OK',
+      confirmButtonText: "OK",
+    }).then(() => {
+      if (onClose) {
+        onClose();
+      }
     });
-  });
+  }, [message, onClose]);
 
   return null;
 };

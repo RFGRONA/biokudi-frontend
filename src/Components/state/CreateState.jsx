@@ -2,7 +2,10 @@ import React from "react";
 import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
-import { ValidateStateForm } from "../../utils/validate/ValidateStateForm";
+import {
+  ValidateStateForm,
+  ValidateStateField,
+} from "../../utils/validate/ValidateStateForm";
 import { useState } from "react";
 import { useEffect } from "react";
 import SuccessAlert from "../helpers/alerts/SuccessAlert";
@@ -17,6 +20,8 @@ const CreateState = () => {
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -27,20 +32,38 @@ const CreateState = () => {
     fetchFields();
   }, []);
 
+  /*Fields change */
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    const fieldErrors = ValidateStateField(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
+  };
+
   /*Errors handle */
   const handleCreate = async (data) => {
-    const errors = await ValidateStateForm(data);
+    setLoading(true);
+
+    // Validar todo el formulario
+    const errors = ValidateStateForm(data);
     setErrors(errors);
-    if (Object.keys(errors).length > 0) {
+
+    if (Object.keys(errors).some((key) => errors[key])) {
+      setLoading(false);
       return;
     }
+
     try {
       const response = await createStateApi(data);
       if (response.status === 200) {
-        {
-          /*TODO: Sucessfull screen */
-        }
-
         navigate("/States");
       } else {
         setAlertMessage("Error al crear estado");
@@ -50,6 +73,8 @@ const CreateState = () => {
       setErrors({ general: "Error al crear estado" });
       setAlertMessage("Error al crear estado");
       setShowErrorAlert(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,6 +85,8 @@ const CreateState = () => {
       <Create
         title={"Estados"}
         fields={fields}
+        formData={formData}
+        onFieldChange={handleFieldChange}
         onSubmit={handleCreate}
         errors={errors}
       />

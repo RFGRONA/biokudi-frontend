@@ -1,6 +1,6 @@
 import { getActivityById } from "../../services/apiModel/ActivityApi";
 export const ActivityCreateMapping = async () => {
-  const createPlace = {
+  const createActivity = {
     title: "Crear Actividad",
     fields: [
       {
@@ -17,7 +17,7 @@ export const ActivityCreateMapping = async () => {
       },
     ],
   };
-  return createPlace;
+  return createActivity;
 };
 
 export const ActivityEditMapping = async (id) => {

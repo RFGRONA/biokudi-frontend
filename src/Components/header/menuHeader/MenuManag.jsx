@@ -31,6 +31,14 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/Pictures");
   };
 
+  const goToRoles = () => {
+    navigate("/roles");
+  };
+
+  const goToReviews = () => {
+    navigate("/reviews");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -43,7 +51,9 @@ const MenuManag = ({ closeMenu }) => {
           <li onClick={goToActivities}>LISTAR ACTIVIDADES</li>
           <li onClick={goToStates}>LISTAR ESTADOS</li>
           <li onClick={goToUsers}>LISTAR USUARIOS</li>
+          <li onClick={goToRoles}>LISTAR ROLES</li>
           <li onClick={goToPictures}>LISTAR IMAGENES</li>
+          <li onClick={goToReviews}>LISTAR RESEÑAS</li>
           <li onClick={goToTickets}>LISTAR TICKETS</li>
         </ul>
       </div>

@@ -3,16 +3,16 @@ import Create from "../CRUD_Layout/Create";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import {
-  ValidateActivityForm,
-  ValidateActivityField,
-} from "../../utils/validate/ValidateActivityForm";
+  ValidateRoleForm,
+  ValidateRoleField,
+} from "../../utils/validate/ValidateRoleForm";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
-import { createActivityApi } from "../../services/apiModel/ActivityApi";
-import { ActivityCreateMapping } from "../../utils/mapping/activityMapping";
+import { createRoleApi } from "../../services/apiModel/RoleApi";
+import { RoleCreateMapping } from "../../utils/mapping/roleMapping";
 import Loading from "../helpers/loading/Loading";
 
-const CreateActivity = () => {
+const CreateRole = () => {
   const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
@@ -23,8 +23,8 @@ const CreateActivity = () => {
 
   useEffect(() => {
     const fetchFields = async () => {
-      const activityMapping = await ActivityCreateMapping();
-      setFields(activityMapping.fields);
+      const roleMapping = await RoleCreateMapping();
+      setFields(roleMapping.fields);
     };
 
     fetchFields();
@@ -40,7 +40,7 @@ const CreateActivity = () => {
     }));
 
     // Validar el campo específico
-    const fieldErrors = ValidateActivityField(name, value);
+    const fieldErrors = ValidateRoleField(name, value);
     setErrors((prevErrors) => ({
       ...prevErrors,
       ...fieldErrors,
@@ -51,7 +51,7 @@ const CreateActivity = () => {
     setLoading(true);
 
     // Validar todo el formulario
-    const errors = ValidateActivityForm(data);
+    const errors = ValidateRoleForm(data);
     setErrors(errors);
 
     if (Object.keys(errors).some((key) => errors[key])) {
@@ -60,16 +60,16 @@ const CreateActivity = () => {
     }
 
     try {
-      const response = await createActivityApi(data);
+      const response = await createRoleApi(data);
       if (response.status === 200) {
-        navigate("/activities");
+        navigate("/roles");
       } else {
-        setAlertMessage("Error al crear actividad");
+        setAlertMessage("Error al crear rol");
         setShowErrorAlert(true);
       }
     } catch (error) {
-      setErrors({ general: "Error al crear actividad" });
-      setAlertMessage("Error al crear actividad");
+      setErrors({ general: "Error al crear rol" });
+      setAlertMessage("Error al crear rol");
       setShowErrorAlert(true);
     } finally {
       setLoading(false);
@@ -84,7 +84,7 @@ const CreateActivity = () => {
         <Loading />
       ) : (
         <Create
-          title={"Actividades"}
+          title={"Roles"}
           fields={fields}
           formData={formData}
           errors={errors}
@@ -97,4 +97,4 @@ const CreateActivity = () => {
   );
 };
 
-export default CreateActivity;
+export default CreateRole;

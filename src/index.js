@@ -27,6 +27,10 @@ import ListStates from "./Components/state/ListStates";
 import CreateState from "./Components/state/CreateState";
 import EditState from "./Components/state/EditState";
 import ListPictures from "./Components/picture/ListPictures";
+import ListRoles from "./Components/role/ListRoles";
+import CreateRole from "./Components/role/CreateRole";
+import EditUser from "./Components/user/EditUser";
+import ListReviews from "./Components/review/ListReviews";
 
 import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
 import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
@@ -40,6 +44,7 @@ import PublicRoute from "./Components/PublicRoute";
 
 import "https://kit.fontawesome.com/2e0b382a53.js";
 import CreateActivity from "./Components/activity/CreateActivity";
+import EditRole from "./Components/role/EditRole";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -48,11 +53,16 @@ root.render(
       <AuthProvider>
         <Routes>
           <Route path="/users" element={<ListUsers />} />
+          <Route path="/Roles" element={<ListRoles />} />
+          <Route path="/Reviews" element={<ListReviews />} />
           <Route path="/CreatePlace" element={<CreatePlace />} />
           <Route path="/CreateActivity" element={<CreateActivity />} />
           <Route path="/CreateState" element={<CreateState />} />
+          <Route path="/CreateRole" element={<CreateRole />} />
           <Route path="/EditPlace/:index" element={<EditPlace />} />
+          <Route path="/EditRole/:index" element={<EditRole />} />
           <Route path="/EditActivity/:index" element={<EditActivity />} />
+          <Route path="/EditUser/:index" element={<EditUser />} />
           <Route path="/EditState/:index" element={<EditState />} />
           <Route path="/Activities" element={<ListActivities />} />
           <Route path="/Pictures" element={<ListPictures />} />

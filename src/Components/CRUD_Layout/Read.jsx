@@ -18,13 +18,21 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { deleteUserApi } from "../../services/apiModel/UserApi";
 import Decision from "../helpers/alerts/DecisionAlert";
+import { deleteRoleApi } from "../../services/apiModel/RoleApi";
+import { deleteReviewApi } from "../../services/apiModel/ReviewApi";
+import Success from "../helpers/alerts/SuccessAlert";
+import { useEffect } from "react";
 
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const { loading, setLoading } = useAuth();
   const [error, setError] = useState();
   const [decisionData, setDecisionData] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [dataState, setDataState] = useState(data);
+  useEffect(() => {
+    setDataState(data);
+  }, [data]);
 
-  const navigate = useNavigate();
   const numColumns = subtitle.length + 1;
   const gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
 
@@ -41,6 +49,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Estados: deleteStateApi,
     Usuarios: deleteUserApi,
     Imagenes: deletePictureApi,
+    Roles: deleteRoleApi,
+    Reseñas: deleteReviewApi,
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -50,6 +60,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Estados: "Estado",
     Usuarios: "Usuario",
     Imagenes: "Imagen",
+    Roles: "Rol",
+    Reseñas: "Reseña",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -59,21 +71,27 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Estados: "states",
     Usuarios: "users",
     Imagenes: "pictures",
+    Roles: "roles",
+    Reseñas: "reviews",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
   const onDelete = async (index) => {
     const deleteApi = apiMap[title];
-    if (!deleteApi) {
-      console.error("No se encontró una API para el título proporcionado");
-      return;
-    }
-    setLoading(true);
     try {
+      if (!deleteApi) {
+        console.error("No se encontró una API para el título proporcionado");
+        throw new Error("Error al eliminar");
+      }
+      setLoading(true);
       const response = await deleteApi(index);
       if (response.status === 200) {
         console.log("Deleted successfully");
-        window.location.reload();
+        // Update local data
+        const updatedData = dataState.filter((row) => row[0] !== index);
+        setDataState(updatedData);
+        setLoading(false);
+        setShowSuccess(true); // Muestra el mensaje de éxito
       } else {
         throw new Error("Error al eliminar");
       }
@@ -109,6 +127,13 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
               onCancel={() => setDecisionData(null)}
             />
           )}
+          {showSuccess && (
+            <Success
+              message={`${singular[title]} eliminado correctamente`}
+              onClose={() => setShowSuccess(false)}
+            />
+          )}
+
           <div className={styles.bodyContainer}>
             <div className={styles.titleContainer}>
               <h1 className={styles.title}>{title}</h1>
@@ -125,7 +150,9 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                   Generar Reporte
                   <img src={report} alt="Reporte" />
                 </div>
-                {title !== "Usuarios" && title !== "Imagenes" ? (
+                {title !== "Usuarios" &&
+                title !== "Imagenes" &&
+                title != "Reseñas" ? (
                   <div className={styles.buttonCreate} onClick={onCreate}>
                     Crear {singular[title]}
                     <img src={create} alt="Crear" />
@@ -149,7 +176,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
               <div className={styles.gridHeaderCell}>Acciones</div>
 
               {/* Filas de datos */}
-              {data.map((row, rowIndex) => {
+              {dataState.map((row, rowIndex) => {
                 const index = row[0];
                 return (
                   <React.Fragment key={`row-${rowIndex}`}>
@@ -171,7 +198,9 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                       {title !== "Actividades" &&
                       title !== "Estados" &&
                       title !== "Usuarios" &&
-                      title !== "Imagenes" ? (
+                      title !== "Imagenes" &&
+                      title !== "Roles" &&
+                      title !== "Reseñas" ? (
                         <button>
                           <img src={details} alt="details" />
                         </button>
@@ -179,7 +208,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                         ""
                       )}
 
-                      {title !== "Usuarios" && title !== "Imagenes" ? (
+                      {title !== "Imagenes" && title !== "Reseñas" ? (
                         <button onClick={() => onEdit(index)}>
                           <img src={edit} alt="edit" />
                         </button>

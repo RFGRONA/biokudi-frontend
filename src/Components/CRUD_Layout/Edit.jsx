@@ -1,21 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Edit.module.css";
-import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
 import { convertToBase64Service } from "../../utils/convert/convertToBase64";
 
-const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
+const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
   const [localLoading, setLocalLoading] = useState(false);
   const [fileNames, setFileNames] = useState({});
   const isFieldsArray = Array.isArray(fields);
-
-  const [formData, setFormData] = useState(initialFormData || {});
-
-  useEffect(() => {
-    if (initialFormData) {
-      setFormData(initialFormData);
-    }
-  }, [initialFormData]);
 
   const textAreaRefs = useRef({});
   const fileInputRefs = useRef({});
@@ -29,24 +20,21 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, options } = e.target;
-    if (type === "select-multiple") {
-      const selectedOptions = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: selectedOptions,
-      }));
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
+    if (onFieldChange) {
+      onFieldChange(e);
+    }
+
+    const { name } = e.target;
+
+    if (isFieldsArray) {
+      const field = fields.find((f) => f.name === name);
+      if (field && field.type === "textarea") {
+        adjustTextareaHeight(name);
+      }
     }
   };
 
-  /*Loading Effect */
+  /* Efecto de carga */
   useEffect(() => {
     if (!fields.length > 0) {
       setLocalLoading(true);
@@ -76,17 +64,26 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
     setLocalLoading(false);
   };
 
-  /*Hanlde photo drop */
+  /* Manejar arrastrar y soltar de fotos */
   const handleDrop = async (e, fieldName) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && fieldName) {
       try {
         const base64 = await convertToBase64Service(file);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [fieldName]: base64,
-        }));
+
+        // Crear un evento simulado para pasar a onFieldChange
+        const simulatedEvent = {
+          target: {
+            name: fieldName,
+            value: base64,
+          },
+        };
+
+        if (onFieldChange) {
+          onFieldChange(simulatedEvent);
+        }
+
         setFileNames((prevFileNames) => ({
           ...prevFileNames,
           [fieldName]: file.name,
@@ -101,16 +98,25 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
     e.preventDefault();
   };
 
-  /*File Change */
+  /* Manejar cambio de archivo */
   const handleFileChange = async (e, fieldName) => {
     const file = e.target.files[0];
     if (file) {
       try {
         const base64 = await convertToBase64Service(file);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [fieldName]: base64,
-        }));
+
+        // Crear un evento simulado para pasar a onFieldChange
+        const simulatedEvent = {
+          target: {
+            name: fieldName,
+            value: base64,
+          },
+        };
+
+        if (onFieldChange) {
+          onFieldChange(simulatedEvent);
+        }
+
         setFileNames((prevFileNames) => ({
           ...prevFileNames,
           [fieldName]: file.name,
@@ -200,6 +206,7 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
                       className={`${styles.input} ${styles.textarea}`}
                       rows={1}
                       required={field.required}
+                      ref={(el) => (textAreaRefs.current[field.name] = el)}
                     />
                   ) : (
                     <input
@@ -220,6 +227,9 @@ const Edit = ({ title, fields, onSubmit, errors, initialFormData }) => {
                   )}
                 </div>
               ))}
+              {errors && errors.general && (
+                <span className={styles.errorMessage}>{errors.general}</span>
+              )}
               <div className={styles.buttonContainer}>
                 <button type="submit" className={styles.submitButton}>
                   Confirmar

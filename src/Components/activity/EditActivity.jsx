@@ -3,18 +3,21 @@ import Edit from "../CRUD_Layout/Edit";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
 import { ActivityEditMapping } from "../../utils/mapping/activityMapping";
-import { ValidateActivityForm } from "../../utils/validate/ValidateActivityForm";
+import {
+  ValidateActivityField,
+  ValidateActivityForm,
+} from "../../utils/validate/ValidateActivityForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateActivityApi } from "../../services/apiModel/ActivityApi";
 import Loading from "../helpers/loading/Loading";
 import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 
-const EditPlace = () => {
+const EditActivity = () => {
   const { index } = useParams();
   const [fields, setFields] = useState([]);
-  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
   const { loading, setLoading } = useAuth();
   const navigate = useNavigate();
@@ -32,13 +35,7 @@ const EditPlace = () => {
 
       // Init the form with the default values
       const initialData = activityMapping.fields.reduce((acc, field) => {
-        if (field.name === "activities") {
-          acc[field.name] = field.defaultValue.map((activity) => ({
-            idActivity: parseInt(activity),
-          }));
-        } else {
-          acc[field.name] = field.defaultValue || "";
-        }
+        acc[field.name] = field.defaultValue || "";
         return acc;
       }, {});
       setFormData(initialData);
@@ -46,6 +43,23 @@ const EditPlace = () => {
 
     fetchFields();
   }, [index]);
+
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+
+    // Actualizar formData
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    // Validar el campo específico
+    const fieldErrors = ValidateActivityField(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
+  };
 
   const handleEdit = async (data) => {
     setLoading(true);
@@ -85,9 +99,10 @@ const EditPlace = () => {
         <Edit
           title={"Actividades"}
           fields={fields}
+          formData={formData}
+          onFieldChange={handleFieldChange}
           onSubmit={handleEdit}
           errors={errors}
-          initialFormData={formData}
         />
         <Footer />
       </div>
@@ -95,4 +110,4 @@ const EditPlace = () => {
   );
 };
 
-export default EditPlace;
+export default EditActivity;

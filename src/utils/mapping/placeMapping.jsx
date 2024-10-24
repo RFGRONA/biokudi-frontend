@@ -5,7 +5,8 @@ import { getActivitiesApi } from "../../services/apiModel/ActivityApi";
 
 export const placeCreateMapping = async () => {
   const cities = await getCitiesApi();
-  const states = await getStatesApi();
+  const getStates = await getStatesApi();
+  const states = getStates.filter((state) => state.tableRelation === "PLACE");
   const activities = await getActivitiesApi();
   const createPlace = {
     title: "Crear Lugar",
@@ -82,7 +83,8 @@ export const placeCreateMapping = async () => {
 
 export const placeEditMapping = async (id) => {
   const cities = await getCitiesApi();
-  const states = await getStatesApi();
+  const getStates = await getStatesApi();
+  const states = getStates.filter((state) => state.tableRelation === "PLACE");
   const activities = await getActivitiesApi();
   const data = await getPlaceById(id);
 

@@ -18,13 +18,12 @@ const ErrorAlert = ({ message, redirect, reload }) => {
         } else if (reload) {
           window.location.reload();
         } else {
-          // No hacer nada
         }
       }
     });
   }, [message, redirect, reload, navigate]);
 
-  return null; // Este componente no necesita renderizar nada
+  return null;
 };
 
 export default ErrorAlert;

@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Create.module.css";
-import { useAuth } from "../../context/AuthContext";
 import Loading from "../helpers/loading/Loading";
 import { convertToBase64Service } from "../../utils/convert/convertToBase64";
 import Decision from "../helpers/alerts/DecisionAlert";
 
-const Create = ({ title, fields, onSubmit, errors }) => {
+const Create = ({
+  title,
+  fields,
+  formData,
+  errors,
+  onFieldChange,
+  onSubmit,
+}) => {
   const [localLoading, setLocalLoading] = useState(false);
   const [fileNames, setFileNames] = useState({});
   const isFieldsArray = Array.isArray(fields);
   const [decisionData, setDecisionData] = useState(null);
-
-  const [formData, setFormData] = useState({});
 
   const textAreaRefs = useRef({});
   const fileInputRefs = useRef({});
@@ -24,24 +28,13 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  /*Handle field change */
+  /* Handle field change */
   const handleChange = (e) => {
-    const { name, value, type, options } = e.target;
-
-    if (type === "select-multiple") {
-      const selectedOptions = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => ({ idActivity: parseInt(option.value) }));
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: selectedOptions.length > 0 ? selectedOptions : null,
-      }));
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value !== "" ? value : null,
-      }));
+    if (onFieldChange) {
+      onFieldChange(e);
     }
+
+    const { name } = e.target;
 
     if (isFieldsArray) {
       const field = fields.find((f) => f.name === name);
@@ -51,7 +44,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  /*Submit */
+  /* Submit */
   const handleSubmit = (e) => {
     e.preventDefault();
     const cleanedFormData = Object.keys(formData).reduce((acc, key) => {
@@ -62,17 +55,26 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     setDecisionData(cleanedFormData); // Establece los datos para la confirmación
   };
 
-  /*Hanlde photo drop */
+  /* Handle photo drop */
   const handleDrop = async (e, fieldName) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && fieldName) {
       try {
         const base64 = await convertToBase64Service(file);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [fieldName]: base64,
-        }));
+
+        // Crea un evento simulado para pasar a onFieldChange
+        const simulatedEvent = {
+          target: {
+            name: fieldName,
+            value: base64,
+          },
+        };
+
+        if (onFieldChange) {
+          onFieldChange(simulatedEvent);
+        }
+
         setFileNames((prevFileNames) => ({
           ...prevFileNames,
           [fieldName]: file.name,
@@ -87,16 +89,25 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     e.preventDefault();
   };
 
-  /*File Change */
+  /* File Change */
   const handleFileChange = async (e, fieldName) => {
     const file = e.target.files[0];
     if (file) {
       try {
         const base64 = await convertToBase64Service(file);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [fieldName]: base64,
-        }));
+
+        // Crea un evento simulado para pasar a onFieldChange
+        const simulatedEvent = {
+          target: {
+            name: fieldName,
+            value: base64,
+          },
+        };
+
+        if (onFieldChange) {
+          onFieldChange(simulatedEvent);
+        }
+
         setFileNames((prevFileNames) => ({
           ...prevFileNames,
           [fieldName]: file.name,
@@ -107,7 +118,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     }
   };
 
-  /*Loading Effect */
+  /* Loading Effect */
   useEffect(() => {
     if (!fields.length > 0) {
       setLocalLoading(true);
@@ -120,14 +131,16 @@ const Create = ({ title, fields, onSubmit, errors }) => {
     return <Loading />;
   }
 
-  /*Singular */
+  /* Singular */
   const singular = {
     Usuarios: "Usuario",
     Actividades: "Actividad",
     Estados: "Estado",
     Lugares: "Lugar",
     Imagenes: "Imagen",
+    Roles: "Rol",
   };
+
   return (
     <div className={"mainContainer"}>
       {decisionData && (
@@ -142,7 +155,6 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                 await onSubmit(decisionData);
               } catch (error) {
                 console.error("Error durante el envío del formulario:", error);
-                // Manejar errores si es necesario
               }
             }
             setLocalLoading(false);
@@ -234,6 +246,7 @@ const Create = ({ title, fields, onSubmit, errors }) => {
                       className={`${styles.input} ${styles.textarea}`}
                       rows={1}
                       required={field.required}
+                      ref={(el) => (textAreaRefs.current[field.name] = el)}
                     />
                   ) : (
                     <input

@@ -37,12 +37,21 @@ const ListUsers = () => {
   }, []);
   const subtitle = ["Id", "Nombre", "Correo", "Rol", "Estado"];
 
+  const handleEdit = (index) => {
+    navigate(`/EditUser/${index}`);
+  };
+
   return (
     <>
       <Header />
       <div className="mainContainer">
         {showErrorAlert && <ErrorAlert message={alertMessage} />}
-        <Read title={"Usuarios"} subtitle={subtitle} data={users} />
+        <Read
+          title={"Usuarios"}
+          subtitle={subtitle}
+          data={users}
+          onEdit={handleEdit}
+        />
       </div>
       <Footer />
     </>
