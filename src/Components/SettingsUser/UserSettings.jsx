@@ -17,6 +17,7 @@ import Decision from "../helpers/alerts/DecisionAlert";
 import Loading from "../helpers/loading/Loading";
 import Error from "../helpers/alerts/ErrorAlert";
 import Success from "../helpers/alerts/SuccessAlert";
+import { useNavigate } from "react-router-dom";
 
 const UserSettings = () => {
   const [emailNotification, setEmailNotification] = useState(false);
@@ -31,6 +32,7 @@ const UserSettings = () => {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   /* File states */
   const [fileName, setFileName] = useState("");
@@ -109,6 +111,9 @@ const UserSettings = () => {
       setEmailPost(user.emailPost);
     } catch (error) {
       console.error("Error obteniendo usuario", error);
+      setErrorMessage("Error al obtener los datos del usuario");
+      setShowErrorAlert(true);
+      navigate("/");
     }
   };
 

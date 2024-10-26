@@ -31,9 +31,8 @@ import ListRoles from "./Components/role/ListRoles";
 import CreateRole from "./Components/role/CreateRole";
 import EditUser from "./Components/user/EditUser";
 import ListReviews from "./Components/review/ListReviews";
-
-import ErrorAlert from "./Components/helpers/alerts/ErrorAlert";
-import SuccessAlert from "./Components/helpers/alerts/SuccessAlert";
+import Map from "./Components/map/Map";
+import MapView from "./Components/map/MapView";
 
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
 
@@ -77,17 +76,9 @@ root.render(
           <Route path="/profile" element={<UserSettings />} />
           <Route path="/SideBar" element={<Sidebar />} />
           <Route path="/placeinf" element={<PlaceInformation />} />
+          <Route path="/map" element={<MapView />} />
+          <Route path="/maptest" element={<Map />} />
 
-          <Route
-            path="/ErrorAlert"
-            element={
-              <ErrorAlert message={"No se pudieron guardar los cambios"} />
-            }
-          />
-          <Route
-            path="/SuccessAlert"
-            element={<SuccessAlert message={"Se ha... satisfactoriamente"} />}
-          />
           <Route
             path="/DecisionAlert"
             element={
@@ -107,6 +98,7 @@ root.render(
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Error />} />
+          <Route path="/error" element={<Error />} />
           <Route path="/" element={<HomePage />} />
 
           {/* Rutas restringidas, (No permitidas si estan login) */}

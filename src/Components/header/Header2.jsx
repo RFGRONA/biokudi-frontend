@@ -21,6 +21,9 @@ const Header2 = () => {
   const goToLogin = () => {
     navigate("/login");
   };
+  const goToMap = () => {
+    navigate("/map");
+  };
   const goToHome = () => {
     navigate("/");
   };
@@ -50,7 +53,7 @@ const Header2 = () => {
           <img src={places} alt="lugares" className={styles.imgg} />
           <p>Lugares</p>
         </div>
-        <div className={styles.btnMap}>
+        <div className={styles.btnMap} onClick={goToMap}>
           <img src={map} alt="mapa" className={styles.imgg} />
           <p>Mapa</p>
         </div>
