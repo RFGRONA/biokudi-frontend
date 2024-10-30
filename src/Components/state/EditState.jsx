@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import Edit from "../CRUD_Layout/Edit";
 import Header2 from "../header/Header2";
 import Footer from "../footer/Footer";
-import { placeEditMapping } from "../../utils/mapping/placeMapping";
 import { useNavigate, useParams } from "react-router-dom";
-import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
-import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 import { stateEditMapping } from "../../utils/mapping/stateMapping";
 import {
   ValidateStateForm,
@@ -21,9 +19,10 @@ const EditPlace = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -68,14 +67,16 @@ const EditPlace = () => {
     const errors = await ValidateStateForm(data);
     setLoading(false);
     setErrors(errors);
-    if (Object.keys(errors).length > 0) {
+
+    if (Object.keys(errors).some((key) => errors[key])) {
+      setLoading(false);
       return;
     }
     try {
       const response = await updateStateApi(index, data);
       if (response.status === 200) {
-        console.log("Place updated successfully");
-        navigate("/states");
+        setAlertMessage("Estado actualizado correctamente");
+        setShowSuccessAlert(true);
       } else {
         setAlertMessage("Error updating state");
         setShowErrorAlert(true);
@@ -95,17 +96,27 @@ const EditPlace = () => {
   return (
     <>
       <Header2 />
+      {showSuccessAlert && (
+        <Success message={alertMessage} onClose={() => navigate("/States")} />
+      )}
       {loading && <Loading />}
+      {showErrorAlert && (
+        <ErrorAlert
+          message={alertMessage}
+          onClose={() => navigate("/States")}
+        />
+      )}
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
         <Edit
-          title={"Estados"}
+          title={"Actividades"}
           fields={fields}
           formData={formData}
+          onFieldChange={handleFieldChange}
           onSubmit={handleEdit}
-          onChange={handleFieldChange}
           errors={errors}
         />
+
         <Footer />
       </div>
     </>

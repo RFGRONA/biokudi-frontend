@@ -4,13 +4,14 @@ import styles from "./SideBar.module.css";
 import logoIcon from "../../assets/map/logo.svg";
 import favoriteIcon1 from "../../assets/map/favorite1.svg";
 import favoriteIcon2 from "../../assets/map/favorite2.svg";
+import favoriteIcon3 from "../../assets/map/favorite3.svg";
 import locationIcon from "../../assets/map/locationIcon.svg";
 import linkIcon from "../../assets/map/linkIcon.svg";
 import starIcon from "../../assets/map/starIcon.svg";
 import { useNavigate } from "react-router-dom";
-import { point } from "leaflet";
+import ViewMore from "../../assets/map/viewMore.svg";
 
-const Sidebar = ({ points, selectedPlaceId, onPlaceSelect }) => {
+const Sidebar = ({ points, selectedPlaceId, onPlaceSelect, showMore }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ const Sidebar = ({ points, selectedPlaceId, onPlaceSelect }) => {
             alt="Favoritos"
             className={styles.icon}
           />
-          <p className={styles.iconText}>Favoritos</p>
+          <p className={styles.iconText}>Lugares</p>
         </div>
       </div>
       {isMenuOpen && (
@@ -94,22 +95,24 @@ const Sidebar = ({ points, selectedPlaceId, onPlaceSelect }) => {
                       />
                       <p>{point.address || "Dirección no disponible"}</p>
                     </div>
-                    <div className={styles.row}>
-                      <img src={linkIcon} alt="Link" className={styles.icon2} />
-                      {point.website ? (
-                        <a href={point.website}>{point.website}</a>
-                      ) : (
-                        <p>Sin sitio web</p>
-                      )}
+                  </div>
+                  <div className={styles.optionsContainer}>
+                    <div className={styles.heartContainer}>
+                      <img
+                        src={favoriteIcon3}
+                        alt="Heart"
+                        className={styles.iconHeart}
+                      />
                     </div>
                   </div>
-                  <div className={styles.heartContainer}>
-                    <img
-                      src={favoriteIcon2}
-                      alt="Heart"
-                      className={styles.iconHeart}
-                    />
-                  </div>
+                </div>
+                <div className={styles.showMore} onClick={showMore}>
+                  <p className={styles.showMoreText}>Ver más </p>
+                  <img
+                    src={ViewMore}
+                    alt="ViewMore"
+                    className={styles.iconViewMore}
+                  ></img>
                 </div>
               </div>
             ))}

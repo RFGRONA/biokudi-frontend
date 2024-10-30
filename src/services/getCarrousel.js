@@ -8,6 +8,10 @@ export const fetchImages = async () => {
     return response.data;
   } catch (error) {
     console.log("Error fetching images", error);
-    return error;
+    return {
+      error: true,
+      message: "Error fetching images",
+      status: 500,
+    };
   }
 };

@@ -13,12 +13,14 @@ import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import { createStateApi } from "../../services/apiModel/StateApi";
 import { StateCreateMapping } from "../../utils/mapping/stateMapping";
+import Loading from "../helpers/loading/Loading";
 
 const CreateState = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -64,8 +66,11 @@ const CreateState = () => {
     try {
       const response = await createStateApi(data);
       if (response.status === 200) {
-        navigate("/States");
+        console.log("Estado creado con éxito");
+        setAlertMessage("Estado creado con éxito");
+        setShowSuccessAlert(true);
       } else {
+        console.log("Error al crear estado");
         setAlertMessage("Error al crear estado");
         setShowErrorAlert(true);
       }
@@ -81,6 +86,13 @@ const CreateState = () => {
   return (
     <>
       <Header2 />
+      {loading && <Loading />}
+      {showSuccessAlert && (
+        <SuccessAlert
+          message={alertMessage}
+          onClose={() => navigate("/states")}
+        />
+      )}
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <Create
         title={"Estados"}

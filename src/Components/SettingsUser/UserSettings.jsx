@@ -107,6 +107,7 @@ const UserSettings = () => {
     try {
       const user = await getProfileApi();
       setUserData(user);
+      console.log(user);
       setEmailNotification(user.emailNotification);
       setEmailPost(user.emailPost);
     } catch (error) {

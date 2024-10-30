@@ -9,12 +9,10 @@ import edit from "../../assets/CRUD/edit.svg";
 import drop from "../../assets/CRUD/drop.svg";
 import Loading from "../helpers/loading/Loading";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
-import DecisionAlert from "../helpers/alerts/DecisionAlert";
 import { deletePlaceApi } from "../../services/apiModel/PlaceApi";
 import { deleteActivityApi } from "../../services/apiModel/ActivityApi";
 import { deleteStateApi } from "../../services/apiModel/StateApi";
 import { deletePictureApi } from "../../services/apiModel/pictureApi";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { deleteUserApi } from "../../services/apiModel/UserApi";
 import Decision from "../helpers/alerts/DecisionAlert";
@@ -22,13 +20,17 @@ import { deleteRoleApi } from "../../services/apiModel/RoleApi";
 import { deleteReviewApi } from "../../services/apiModel/ReviewApi";
 import Success from "../helpers/alerts/SuccessAlert";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [decisionData, setDecisionData] = useState(null);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const [dataState, setDataState] = useState(data);
+  const navigate = useNavigate();
+  const { user } = useAuth();
   useEffect(() => {
     setDataState(data);
   }, [data]);
@@ -90,13 +92,15 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
         // Update local data
         const updatedData = dataState.filter((row) => row[0] !== index);
         setDataState(updatedData);
+        setAlertMessage(`${singular[title]} eliminado correctamente`);
         setLoading(false);
-        setShowSuccess(true); // Muestra el mensaje de éxito
+        setShowSuccessAlert(true); // Muestra el mensaje de éxito
       } else {
         throw new Error("Error al eliminar");
       }
     } catch (error) {
       console.error("Error deleting:", error);
+      setAlertMessage(`Error al eliminar ${singular[title]}`);
       setLoading(false);
       setError(true);
     }
@@ -107,10 +111,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
       {loading ? (
         <Loading />
       ) : error ? (
-        <ErrorAlert
-          message={`Error al eliminar ${singular[title]}`}
-          reload={true}
-        />
+        <ErrorAlert message={alertMessage} reload={true} />
       ) : (
         <>
           {decisionData && (
@@ -127,10 +128,10 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
               onCancel={() => setDecisionData(null)}
             />
           )}
-          {showSuccess && (
+          {showSuccessAlert && (
             <Success
-              message={`${singular[title]} eliminado correctamente`}
-              onClose={() => setShowSuccess(false)}
+              message={alertMessage}
+              onClose={() => navigate(`/${redirect[title]}`)}
             />
           )}
 
@@ -150,9 +151,10 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                   Generar Reporte
                   <img src={report} alt="Reporte" />
                 </div>
-                {title !== "Usuarios" &&
+                {(title !== "Actividades" || user.role !== "Editor") &&
+                title !== "Usuarios" &&
                 title !== "Imagenes" &&
-                title != "Reseñas" ? (
+                title !== "Reseñas" ? (
                   <div className={styles.buttonCreate} onClick={onCreate}>
                     Crear {singular[title]}
                     <img src={create} alt="Crear" />
@@ -208,7 +210,10 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                         ""
                       )}
 
-                      {title !== "Imagenes" && title !== "Reseñas" ? (
+                      {(title === "Actividades" && user.role !== "Editor") ||
+                      (title !== "Imagenes" &&
+                        title !== "Reseñas" &&
+                        title !== "Actividades") ? (
                         <button onClick={() => onEdit(index)}>
                           <img src={edit} alt="edit" />
                         </button>

@@ -10,8 +10,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { updatePlaceApi } from "../../services/apiModel/PlaceApi";
 import Loading from "../helpers/loading/Loading";
-import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 
 const EditPlace = () => {
   const { index } = useParams();
@@ -19,9 +19,10 @@ const EditPlace = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -86,15 +87,14 @@ const EditPlace = () => {
     }
 
     try {
-      // Convertir el array de IDs de actividades a un array de objetos
       if (Array.isArray(data.activities)) {
         data.activities = data.activities.map((id) => ({ idActivity: id }));
       }
 
       const response = await updatePlaceApi(index, data);
       if (response.status === 200) {
-        console.log("Place updated successfully");
-        navigate("/places");
+        setAlertMessage("Lugar actualizado con éxito");
+        setShowSuccessAlert(true);
       } else {
         setAlertMessage("Error al actualizar el lugar");
         setShowErrorAlert(true);
@@ -116,17 +116,24 @@ const EditPlace = () => {
   return (
     <>
       <Header2 />
-      {loading && <Loading />}
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {showSuccessAlert && (
+        <Success message={alertMessage} redirect={navigate("/places")} />
+      )}
       <div className="mainContainer">
-        <Edit
-          title={"Lugares"}
-          fields={fields}
-          formData={formData}
-          errors={errors}
-          onFieldChange={handleFieldChange}
-          onSubmit={handleEdit}
-        />
+        {loading ? (
+          <Loading />
+        ) : (
+          <Edit
+            title={"Lugares"}
+            fields={fields}
+            formData={formData}
+            errors={errors}
+            onFieldChange={handleFieldChange}
+            onSubmit={handleEdit}
+          />
+        )}
+
         <Footer />
       </div>
     </>

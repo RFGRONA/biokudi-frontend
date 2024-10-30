@@ -1,10 +1,11 @@
 .place {
-  position: absoulte;
+  position: absolute;
   top: 0px;
   background-color: #d8eece;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   z-index: 1000;
+  margin-left: 65px;
   width: 550px;
   min-height: 100vh;
   max-height: 100vh;
@@ -257,4 +258,21 @@
   color: #476930;
   margin: 20px 0 0 0;
   text-align: center;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+}
+
+.backButton:hover {
+  cursor: pointer;
+}
+
+.backText {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f67924;
+  margin-left: 10px;
 }

@@ -1,8 +1,11 @@
-import React from "react";
+import { useRef } from "react";
 import Swal from "sweetalert2";
 
 const Success = ({ message, onClose }) => {
-  React.useEffect(() => {
+  const hasShownRef = useRef(false);
+
+  if (!hasShownRef.current) {
+    hasShownRef.current = true;
     Swal.fire({
       title: "¡Éxito!",
       text: message,
@@ -13,7 +16,7 @@ const Success = ({ message, onClose }) => {
         onClose();
       }
     });
-  }, [message, onClose]);
+  }
 
   return null;
 };

@@ -12,6 +12,7 @@ import { updateRoleApi } from "../../services/apiModel/RoleApi";
 import Loading from "../helpers/loading/Loading";
 import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 
 const EditRole = () => {
   const { index } = useParams();
@@ -19,9 +20,10 @@ const EditRole = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -47,13 +49,13 @@ const EditRole = () => {
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
 
-    // Actualizar formData
+    // Update formData
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
 
-    // Validar el campo específico
+    // Validate specific field
     const fieldErrors = ValidateRoleField(name, value);
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -64,7 +66,7 @@ const EditRole = () => {
   const handleEdit = async (data) => {
     setLoading(true);
 
-    // Validar todo el formulario
+    // Validate all fields
     const errors = ValidateRoleForm(data);
     setErrors(errors);
 
@@ -76,7 +78,8 @@ const EditRole = () => {
       const response = await updateRoleApi(index, data);
       if (response.status === 200) {
         console.log("Role updated successfully");
-        navigate("/roles");
+        setAlertMessage("Rol actualizado correctamente");
+        setShowSuccess(true);
       } else {
         setAlertMessage("Error al actualizar el rol");
         setShowErrorAlert(true);
@@ -91,24 +94,26 @@ const EditRole = () => {
     }
   };
 
-  if (notFound) {
-    navigate("/*");
-  }
-
   return (
     <>
       <Header2 />
-      {loading && <Loading />}
+      {showSuccess && (
+        <Success message={alertMessage} onClose={() => navigate("/roles")} />
+      )}
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
-        <Edit
-          title={"Roles"}
-          fields={fields}
-          formData={formData}
-          errors={errors}
-          onFieldChange={handleFieldChange}
-          onSubmit={handleEdit}
-        />
+        {loading ? (
+          <Loading />
+        ) : (
+          <Edit
+            title={"Roles"}
+            fields={fields}
+            formData={formData}
+            errors={errors}
+            onFieldChange={handleFieldChange}
+            onSubmit={handleEdit}
+          />
+        )}
         <Footer />
       </div>
     </>

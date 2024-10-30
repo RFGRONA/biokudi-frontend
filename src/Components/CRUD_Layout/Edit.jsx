@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./Edit.module.css";
 import Loading from "../helpers/loading/Loading";
 import { convertToBase64Service } from "../../utils/convert/convertToBase64";
+import Decision from "../helpers/alerts/DecisionAlert";
 
 const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
   const [localLoading, setLocalLoading] = useState(false);
   const [fileNames, setFileNames] = useState({});
   const isFieldsArray = Array.isArray(fields);
+  const [decisionData, setDecisionData] = useState(null);
 
   const textAreaRefs = useRef({});
   const fileInputRefs = useRef({});
@@ -43,25 +45,24 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     }
   }, [fields]);
 
-  if (localLoading) {
-    return <Loading />;
-  }
+  /* Singular */
+  const singular = {
+    Usuarios: "Usuario",
+    Actividades: "Actividad",
+    Estados: "Estado",
+    Lugares: "Lugar",
+    Imagenes: "Imagen",
+    Roles: "Rol",
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLocalLoading(true);
     const cleanedFormData = Object.keys(formData).reduce((acc, key) => {
       acc[key] = formData[key] !== "" ? formData[key] : null;
       return acc;
     }, {});
-    if (onSubmit) {
-      try {
-        await onSubmit(cleanedFormData);
-      } catch (error) {
-        console.error("Error durante el envío del formulario:", error);
-      }
-    }
-    setLocalLoading(false);
+
+    setDecisionData(cleanedFormData); // Establece los datos para la confirmación
   };
 
   /* Manejar arrastrar y soltar de fotos */
@@ -127,8 +128,32 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     }
   };
 
+  if (localLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className={"mainContainer"}>
+      {decisionData && (
+        <Decision
+          title1="¿Estás seguro?"
+          message={`Se actualizará el item: ${singular[title]}`}
+          cancelText="Cancelar"
+          onConfirm={async () => {
+            setLocalLoading(true);
+            if (onSubmit) {
+              try {
+                await onSubmit(decisionData);
+              } catch (error) {
+                console.error("Error durante el envío del formulario:", error);
+              }
+            }
+            setLocalLoading(false);
+            setDecisionData(null);
+          }}
+          onCancel={() => setDecisionData(null)}
+        />
+      )}
       <div className={styles.bodyContainer}>
         <div className={styles.headerContainer}>
           <h1 className={styles.title}>{title}</h1>
@@ -231,7 +256,11 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
                 <span className={styles.errorMessage}>{errors.general}</span>
               )}
               <div className={styles.buttonContainer}>
-                <button type="submit" className={styles.submitButton}>
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={localLoading}
+                >
                   Confirmar
                 </button>
               </div>

@@ -53,44 +53,9 @@ root.render(
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/users" element={<ListUsers />} />
-          <Route path="/Roles" element={<ListRoles />} />
-          <Route path="/Reviews" element={<ListReviews />} />
-          <Route path="/CreatePlace" element={<CreatePlace />} />
-          <Route path="/CreateActivity" element={<CreateActivity />} />
-          <Route path="/CreateState" element={<CreateState />} />
-          <Route path="/CreateRole" element={<CreateRole />} />
-          <Route path="/EditPlace/:index" element={<EditPlace />} />
-          <Route path="/EditRole/:index" element={<EditRole />} />
-          <Route path="/EditActivity/:index" element={<EditActivity />} />
-          <Route path="/EditUser/:index" element={<EditUser />} />
-          <Route path="/EditState/:index" element={<EditState />} />
-          <Route path="/Activities" element={<ListActivities />} />
-          <Route path="/Pictures" element={<ListPictures />} />
-          <Route path="/States" element={<ListStates />} />
-          <Route path="/places" element={<ListPlaces />} />
-          <Route path="/browse" element={<Places />} />
-          <Route path="/error" element={<Error />} />
-
-          {/* temporales(borrar) */}
-          <Route path="/profile" element={<UserSettings />} />
-          <Route path="/SideBar" element={<Sidebar />} />
-          <Route path="/placeinf" element={<PlaceInformation />} />
-          <Route path="/map" element={<MapView />} />
-          <Route path="/maptest" element={<Map />} />
-
-          <Route
-            path="/DecisionAlert"
-            element={
-              <DecisionAlert
-                title1={"Esta seguro de..."}
-                message={"Se ha... satisfactoriamente"}
-                cancelText={"Seguir..."}
-              />
-            }
-          />
-
           {/* Rutas publicas, no necesitan auth*/}
+          <Route path="/browse" element={<Places />} />
+          <Route path="/map" element={<MapView />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/legal" element={<Legal />} />
@@ -111,17 +76,42 @@ root.render(
           {/* Rutas globales privadas */}
           {/* <Route path="/settings" element={< UserSettings />} /> */}
 
+          {/* LOGGED */}
+          <Route
+            element={
+              <PrivateRoute allowedRoles={["Admin", "Editor", "User"]} />
+            }
+          >
+            <Route path="/profile" element={<UserSettings />} />
+          </Route>
+
+          {/* ADMIN, EDITOR */}
+          <Route element={<PrivateRoute allowedRoles={["Admin", "Editor"]} />}>
+            <Route path="/places" element={<ListPlaces />} />
+            <Route path="/Activities" element={<ListActivities />} />
+            <Route path="/EditPlace/:index" element={<EditPlace />} />
+            <Route path="/CreatePlace" element={<CreatePlace />} />
+            <Route path="/Reviews" element={<ListReviews />} />
+          </Route>
+
           {/* ADMIN */}
-          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-            {/* Agrega aquí tus rutas privadas */}
-            {/* <Route path="/private" element={<PrivatePage />} /> */}
+          <Route element={<PrivateRoute allowedRoles={["Admin"]} />}>
+            <Route path="/States" element={<ListStates />} />
+            <Route path="/Pictures" element={<ListPictures />} />
+            <Route path="/EditState/:index" element={<EditState />} />
+            <Route path="/EditUser/:index" element={<EditUser />} />
+            <Route path="/EditActivity/:index" element={<EditActivity />} />
+            <Route path="/EditRole/:index" element={<EditRole />} />
+            <Route path="/CreateActivity" element={<CreateActivity />} />
+            <Route path="/CreateState" element={<CreateState />} />
+            <Route path="/CreateRole" element={<CreateRole />} />
+            <Route path="/users" element={<ListUsers />} />
+            <Route path="/Roles" element={<ListRoles />} />
           </Route>
 
           {/* USER */}
-          <Route element={<PrivateRoute allowedRoles={["editor"]} />}>
-            {/* Agrega aquí tus rutas privadas */}
-            {/* <Route path="/private" element={<PrivatePage />} /> */}
-          </Route>
+          <Route element={<PrivateRoute allowedRoles={["Editor"]} />}></Route>
+          <Route element={<PrivateRoute allowedRoles={["User"]} />}></Route>
         </Routes>
       </AuthProvider>
     </Router>

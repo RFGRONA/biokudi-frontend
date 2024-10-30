@@ -39,12 +39,13 @@ export const getUserById = async (id) => {
 
 export const updateUserApi = async (id, data) => {
   console.log(data);
-  data.roleId = parseInt(data.roleId);
-  data.stateId = parseInt(data.stateId);
-
+  const roleId = {
+    roleId: parseInt(data),
+  };
+  console.log(roleId);
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Person/${id}`;
   try {
-    const response = await axios.put(URL_PLACE, data, {
+    const response = await axios.put(URL_PLACE, roleId, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -114,11 +115,11 @@ export const updateProfileApi = async (data) => {
   delete data.userName;
   data.telephone = data.phoneNumber;
   delete data.phoneNumber;
-  data.stateId = parseInt(0); //TODO: Cambiar cuando se habilite el estado
   data.accountDeleted = false;
   data.emailList = false;
   data.picture = data.profilePicture;
   delete data.profilePicture;
+  console.log(data);
   const URL_PLACE = process.env.REACT_APP_URL_API + "/Auth/update-profile";
   try {
     const response = await axios.put(URL_PLACE, data, {

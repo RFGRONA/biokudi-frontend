@@ -9,7 +9,7 @@ import {
 } from "../../utils/validate/ValidatePlaceForm";
 import { createPlaceApi } from "../../services/apiModel/PlaceApi";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
-import { useAuth } from "../../context/AuthContext";
+import Success from "../helpers/alerts/SuccessAlert";
 import Loading from "../helpers/loading/Loading";
 import { useNavigate } from "react-router-dom";
 
@@ -17,9 +17,10 @@ const CreatePlace = () => {
   const [fields, setFields] = useState([]);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({});
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -73,7 +74,8 @@ const CreatePlace = () => {
     try {
       const response = await createPlaceApi(data);
       if (response.status === 200) {
-        navigate("/places");
+        setAlertMessage("Lugar creado con éxito");
+        setShowSuccessAlert(true);
       } else {
         setAlertMessage("Error al crear lugar");
         setShowErrorAlert(true);
@@ -91,6 +93,9 @@ const CreatePlace = () => {
     <>
       <Header2 />
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {showSuccessAlert && (
+        <Success message={alertMessage} redirect={navigate("/places")} />
+      )}
       {loading ? (
         <Loading />
       ) : (

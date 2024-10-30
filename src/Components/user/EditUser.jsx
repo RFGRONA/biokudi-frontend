@@ -10,8 +10,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { updateUserApi } from "../../services/apiModel/UserApi";
 import Loading from "../helpers/loading/Loading";
-import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 
 const EditUser = () => {
   const { index } = useParams();
@@ -19,9 +19,10 @@ const EditUser = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -70,9 +71,10 @@ const EditUser = () => {
       return;
     }
     try {
-      const response = await updateUserApi(index, data);
+      const response = await updateUserApi(index, data.roleId);
       if (response.status === 200) {
-        navigate("/users");
+        setAlertMessage("Usuario actualizado correctamente");
+        setShowSuccessAlert(true);
       } else {
         setAlertMessage("Error al actualizar el usuario");
         setShowErrorAlert(true);
@@ -95,10 +97,19 @@ const EditUser = () => {
     <>
       <Header2 />
       {loading && <Loading />}
+      {showSuccessAlert && (
+        <Success
+          message={alertMessage}
+          onClose={() => {
+            setShowSuccessAlert(false);
+            navigate("/users");
+          }}
+        />
+      )}
       {showErrorAlert && <ErrorAlert message={alertMessage} />}
       <div className="mainContainer">
         <Edit
-          title={"Usuario"}
+          title={"Usuarios"}
           fields={fields}
           formData={formData}
           errors={errors}

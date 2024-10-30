@@ -10,8 +10,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { updateActivityApi } from "../../services/apiModel/ActivityApi";
 import Loading from "../helpers/loading/Loading";
-import { useAuth } from "../../context/AuthContext";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 
 const EditActivity = () => {
   const { index } = useParams();
@@ -19,26 +19,30 @@ const EditActivity = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     const fetchFields = async () => {
+      setLoading(true);
       const activityMapping = await ActivityEditMapping(index);
       if (activityMapping.error) {
         setNotFound(true);
+        setLoading(false);
         return;
       }
       setFields(activityMapping.fields);
 
-      // Init the form with the default values
+      // Inicializar formData con los valores predeterminados de los campos
       const initialData = activityMapping.fields.reduce((acc, field) => {
         acc[field.name] = field.defaultValue || "";
         return acc;
       }, {});
       setFormData(initialData);
+      setLoading(false);
     };
 
     fetchFields();
@@ -63,49 +67,68 @@ const EditActivity = () => {
 
   const handleEdit = async (data) => {
     setLoading(true);
+
     const errors = await ValidateActivityForm(data);
-    setLoading(false);
+    console.log(errors);
     setErrors(errors);
-    if (Object.keys(errors).length > 0) {
+
+    if (Object.keys(errors).some((key) => errors[key])) {
+      setLoading(false);
       return;
     }
+
     try {
       const response = await updateActivityApi(index, data);
-      if (response.status === 200) {
-        console.log("Activity updated successfully");
-        navigate("/activities");
+      console.log(response);
+      if (response.status === 200 || response.status === 204) {
+        setAlertMessage("Actividad actualizada correctamente");
+        setShowSuccessAlert(true);
       } else {
-        setAlertMessage("Error updating Activity");
+        setAlertMessage("Error al actualizar la actividad");
         setShowErrorAlert(true);
       }
     } catch (error) {
-      console.error("Error updating Activity:", error);
-      setErrors({ general: "Error updating Activity" });
-      setAlertMessage("Error updating Activity");
+      console.error("Error al actualizar la actividad:", error);
+      setErrors({ general: "Error al actualizar la actividad" });
+      setAlertMessage("Error al actualizar la actividad");
       setShowErrorAlert(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   if (notFound) {
     navigate("/*");
+    return null;
   }
 
   return (
     <>
       <Header2 />
-      {loading && <Loading />}
-      {showErrorAlert && <ErrorAlert message={alertMessage} />}
-      <div className="mainContainer">
-        <Edit
-          title={"Actividades"}
-          fields={fields}
-          formData={formData}
-          onFieldChange={handleFieldChange}
-          onSubmit={handleEdit}
-          errors={errors}
+      {showSuccessAlert && (
+        <Success
+          message={alertMessage}
+          onClose={() => {
+            navigate("/activities");
+          }}
         />
-        <Footer />
-      </div>
+      )}
+      {showErrorAlert && <ErrorAlert message={alertMessage} />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="mainContainer">
+          <Edit
+            title={"Actividades"}
+            fields={fields}
+            formData={formData}
+            onFieldChange={handleFieldChange}
+            onSubmit={handleEdit}
+            errors={errors}
+          />
+          <Footer />
+        </div>
+      )}
     </>
   );
 };

@@ -8,12 +8,14 @@ const Error = ({ errorCode, errorMessage }) => {
   return (
     <div>
       <Header2 />
-      <div className={styles.container}>
-        <img src={errorIcon} alt="Error" className={styles.icon} />
-        <div className={styles.textContainer}>
-          <h1 className={styles.title}>¡Algo pasó!</h1>
-          <h2 className={styles.errorCode}>{errorCode}</h2>
-          <h3 className={styles.errorMessage}>{errorMessage}</h3>
+      <div className="mainContainer">
+        <div className={styles.container}>
+          <img src={errorIcon} alt="Error" className={styles.icon} />
+          <div className={styles.textContainer}>
+            <h1 className={styles.title}>¡Algo pasó!</h1>
+            <h2 className={styles.errorCode}>{errorCode}</h2>
+            <h3 className={styles.errorMessage}>{errorMessage}</h3>
+          </div>
         </div>
       </div>
       <Footer />

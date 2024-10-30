@@ -8,7 +8,6 @@ export const getPoints = async () => {
     });
     if (response.status === 200) {
       const { data } = response;
-      console.log(data);
       return data;
     } else {
       throw new Error("Error obteniendo puntos");

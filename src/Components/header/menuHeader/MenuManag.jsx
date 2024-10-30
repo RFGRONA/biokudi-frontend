@@ -49,10 +49,27 @@ const MenuManag = ({ closeMenu }) => {
         <ul className={styles.menuList}>
           <li onClick={goToPlaces}>LISTAR LUGARES</li>
           <li onClick={goToActivities}>LISTAR ACTIVIDADES</li>
-          <li onClick={goToStates}>LISTAR ESTADOS</li>
-          <li onClick={goToUsers}>LISTAR USUARIOS</li>
-          <li onClick={goToRoles}>LISTAR ROLES</li>
-          <li onClick={goToPictures}>LISTAR IMAGENES</li>
+          {user.role !== "Editor" ? (
+            <li onClick={goToStates}>LISTAR ESTADOS</li>
+          ) : (
+            ""
+          )}
+          {user.role !== "Editor" ? (
+            <li onClick={goToUsers}>LISTAR USUARIOS</li>
+          ) : (
+            ""
+          )}
+          {user.role !== "Editor" ? (
+            <li onClick={goToRoles}>LISTAR ROLES</li>
+          ) : (
+            ""
+          )}
+          {user.role !== "Editor" ? (
+            <li onClick={goToPictures}>LISTAR IMAGENES</li>
+          ) : (
+            ""
+          )}
+
           <li onClick={goToReviews}>LISTAR RESEÑAS</li>
           <li onClick={goToTickets}>LISTAR TICKETS</li>
         </ul>

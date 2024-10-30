@@ -4,19 +4,45 @@ import Sidebar from "./SideBar";
 import Map from "./Map";
 import { getPoints } from "../../services/apiModel/MapApi";
 import PlaceInformation from "./PlaceInformation";
+import Loading from "../helpers/loading/Loading";
+import { useNavigate } from "react-router-dom";
+import Error from "../error/Error";
 
 const MapView = () => {
   const [points, setPoints] = useState([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const [showMore, setShowMore] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [errorCode, setErrorCode] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   /* Obtener los puntos */
   useEffect(() => {
     const fetchPoint = async () => {
       try {
         const response = await getPoints();
+        console.log(response);
+        if (response.error) {
+          setErrorCode(response.status);
+          setErrorMessage(response.message);
+          return; // Salir de la función si hay error
+        }
         setPoints(response);
       } catch (error) {
         console.log("Error obteniendo puntos", error);
+        if (error.response) {
+          setErrorCode(error.response.status);
+          setErrorMessage(error.response.data.message || error.message);
+        } else if (error.request) {
+          setErrorCode(null);
+          setErrorMessage("No hay respuesta del servidor");
+        } else {
+          setErrorCode(null);
+          setErrorMessage(error.message);
+        }
+      } finally {
+        setLoading(false);
       }
     };
     fetchPoint();
@@ -27,22 +53,38 @@ const MapView = () => {
     setSelectedPlaceId(id);
   }, []);
 
+  const handleShowMore = useCallback(() => {
+    setShowMore((prevShowMore) => !prevShowMore);
+  }, []);
+
   return (
-    <div className={styles.mainContainer}>
-      <Sidebar
-        points={points}
-        selectedPlaceId={selectedPlaceId}
-        onPlaceSelect={handlePlaceSelect}
-      />
-      <Map
-        points={points}
-        selectedPlaceId={selectedPlaceId}
-        onPlaceSelect={handlePlaceSelect}
-      />
-      {selectedPlaceId && (
-        <PlaceInformation selectedPlaceId={selectedPlaceId} />
+    <>
+      {loading ? (
+        <Loading />
+      ) : errorMessage ? (
+        <Error errorCode={errorCode} errorMessage={errorMessage} />
+      ) : (
+        <div className={styles.mainContainer}>
+          <Sidebar
+            points={points}
+            selectedPlaceId={selectedPlaceId}
+            onPlaceSelect={handlePlaceSelect}
+            showMore={handleShowMore}
+          />
+          <Map
+            points={points}
+            selectedPlaceId={selectedPlaceId}
+            onPlaceSelect={handlePlaceSelect}
+          />
+          {showMore && selectedPlaceId && (
+            <PlaceInformation
+              selectedPlaceId={selectedPlaceId}
+              showMore={handleShowMore}
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

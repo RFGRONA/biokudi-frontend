@@ -1,25 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { fetchImages } from "../../services/getCarrousel";
+import React, { useEffect, useRef } from "react";
 import styles from "./HomeBody.module.css";
-import Loading from "../helpers/loading/Loading";
 
-const HomeBody = () => {
-  const [images, setImages] = useState([]);
+const HomeBody = ({ images }) => {
   const carouselRef = useRef(null);
 
-  useEffect(() => {
-    const getImages = async () => {
-      try {
-        const imageData = await fetchImages();
-        setImages([...imageData, ...imageData]);
-      } catch (error) {
-        console.log("Error fetching images", error);
-      }
-    };
-
-    getImages();
-  }, []);
-
+  // Efecto para actualizar variables CSS en función del tamaño de la ventana
   useEffect(() => {
     const updateVariables = () => {
       const width = window.innerWidth;
@@ -58,6 +43,7 @@ const HomeBody = () => {
     };
   }, []);
 
+  // Efecto para calcular el ancho total del carrusel
   useEffect(() => {
     const calculateTotalWidth = () => {
       if (carouselRef.current && images.length > 0) {
@@ -86,10 +72,6 @@ const HomeBody = () => {
       window.removeEventListener("resize", calculateTotalWidth);
     };
   }, [images]);
-
-  if (images.length === 0) {
-    return <Loading />;
-  }
 
   return (
     <div className={styles.body}>

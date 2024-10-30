@@ -8,6 +8,7 @@ import {
 } from "../../utils/validate/ValidateRoleForm";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Success from "../helpers/alerts/SuccessAlert";
 import { createRoleApi } from "../../services/apiModel/RoleApi";
 import { RoleCreateMapping } from "../../utils/mapping/roleMapping";
 import Loading from "../helpers/loading/Loading";
@@ -20,6 +21,7 @@ const CreateRole = () => {
   const [loading, setLoading] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -33,13 +35,13 @@ const CreateRole = () => {
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
 
-    // Actualizar formData
+    // Update formData
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
 
-    // Validar el campo específico
+    // Validate specific field
     const fieldErrors = ValidateRoleField(name, value);
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -50,7 +52,7 @@ const CreateRole = () => {
   const handleCreate = async (data) => {
     setLoading(true);
 
-    // Validar todo el formulario
+    // Validate all fields
     const errors = ValidateRoleForm(data);
     setErrors(errors);
 
@@ -62,7 +64,8 @@ const CreateRole = () => {
     try {
       const response = await createRoleApi(data);
       if (response.status === 200) {
-        navigate("/roles");
+        setAlertMessage("Rol creado correctamente");
+        setShowSuccess(true);
       } else {
         setAlertMessage("Error al crear rol");
         setShowErrorAlert(true);
@@ -79,6 +82,9 @@ const CreateRole = () => {
   return (
     <>
       <Header2 />
+      {showSuccess && (
+        <Success message={alertMessage} onClose={() => navigate("/roles")} />
+      )}
       {showErrorAlert && <ErrorAlert message={alertMessage} redirect={""} />}
       {loading ? (
         <Loading />

@@ -9,7 +9,7 @@ export const registerApi = async (email, password, nameUser, captchaToken) => {
     const encryptedPassword = await encryptPassword(password);
 
     const response = await axios.post(URL_REGISTER, {
-      email,
+      email: email.toLowerCase(),
       password: encryptedPassword,
       nameUser,
       captchaToken,
