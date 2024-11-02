@@ -31,8 +31,9 @@ import ListRoles from "./Components/role/ListRoles";
 import CreateRole from "./Components/role/CreateRole";
 import EditUser from "./Components/user/EditUser";
 import ListReviews from "./Components/review/ListReviews";
-import Map from "./Components/map/Map";
 import MapView from "./Components/map/MapView";
+import ListTickets from "./Components/ticket/ListTickets";
+import EditTicket from "./Components/ticket/EditTicket";
 
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
 
@@ -61,7 +62,6 @@ root.render(
           <Route path="/legal" element={<Legal />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Error />} />
           <Route path="/error" element={<Error />} />
           <Route path="/" element={<HomePage />} />
@@ -83,6 +83,7 @@ root.render(
             }
           >
             <Route path="/profile" element={<UserSettings />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
 
           {/* ADMIN, EDITOR */}
@@ -92,6 +93,8 @@ root.render(
             <Route path="/EditPlace/:index" element={<EditPlace />} />
             <Route path="/CreatePlace" element={<CreatePlace />} />
             <Route path="/Reviews" element={<ListReviews />} />
+            <Route path="/Tickets" element={<ListTickets />} />
+            <Route path="/EditTicket/:index" element={<EditTicket />} />
           </Route>
 
           {/* ADMIN */}

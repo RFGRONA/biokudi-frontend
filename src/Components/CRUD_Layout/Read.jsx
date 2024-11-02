@@ -21,6 +21,11 @@ import { deleteReviewApi } from "../../services/apiModel/ReviewApi";
 import Success from "../helpers/alerts/SuccessAlert";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  deleteTicketApi,
+  scaleTicketApi,
+} from "../../services/apiModel/TicketApi";
+import scale from "../../assets/CRUD/scale.svg";
 
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const [loading, setLoading] = useState(false);
@@ -53,6 +58,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Imagenes: deletePictureApi,
     Roles: deleteRoleApi,
     Reseñas: deleteReviewApi,
+    Tickets: deleteTicketApi,
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -64,6 +70,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Imagenes: "Imagen",
     Roles: "Rol",
     Reseñas: "Reseña",
+    Tickets: "Ticket",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -75,9 +82,31 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Imagenes: "pictures",
     Roles: "roles",
     Reseñas: "reviews",
+    Tickets: "tickets",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
+  /*Scale Action */
+  const onScale = async (index) => {
+    setLoading(true);
+    try {
+      const response = await scaleTicketApi(index);
+      if (response.status === 200) {
+        console.log("Scaled successfully");
+        setAlertMessage(`Ticket escalado correctamente`);
+        setLoading(false);
+        setShowSuccessAlert(true);
+      } else {
+        throw new Error("Error al escalar");
+      }
+    } catch (error) {
+      console.error("Error scaling:", error);
+      setAlertMessage(`Error al escalar Ticket`);
+      setLoading(false);
+      setError(true);
+    }
+  };
+  /* Delete Action */
   const onDelete = async (index) => {
     const deleteApi = apiMap[title];
     try {
@@ -131,7 +160,11 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
           {showSuccessAlert && (
             <Success
               message={alertMessage}
-              onClose={() => navigate(`/${redirect[title]}`)}
+              onClose={() => {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
+              }}
             />
           )}
 
@@ -153,6 +186,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                 </div>
                 {(title !== "Actividades" || user.role !== "Editor") &&
                 title !== "Usuarios" &&
+                title !== "Tickets" &&
                 title !== "Imagenes" &&
                 title !== "Reseñas" ? (
                   <div className={styles.buttonCreate} onClick={onCreate}>
@@ -197,11 +231,19 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                         rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow
                       }`}
                     >
+                      {title === "Tickets" ? (
+                        <button onClick={() => onScale(index)}>
+                          <img src={scale} alt="Scale" />
+                        </button>
+                      ) : (
+                        ""
+                      )}
                       {title !== "Actividades" &&
                       title !== "Estados" &&
                       title !== "Usuarios" &&
                       title !== "Imagenes" &&
                       title !== "Roles" &&
+                      title !== "Tickets" &&
                       title !== "Reseñas" ? (
                         <button>
                           <img src={details} alt="details" />

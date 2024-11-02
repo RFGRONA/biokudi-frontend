@@ -53,6 +53,7 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     Lugares: "Lugar",
     Imagenes: "Imagen",
     Roles: "Rol",
+    Tickets: "Ticket",
   };
 
   const handleSubmit = (e) => {
@@ -167,7 +168,12 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
             <form className={styles.formContainer} onSubmit={handleSubmit}>
               {fields.map((field, index) => (
                 <div key={index} className={styles.fieldGroup}>
-                  <label htmlFor={field.name} className={styles.label}>
+                  <label
+                    htmlFor={field.name}
+                    className={`${styles.label} ${
+                      field.blocked ? styles.blockedLabel : ""
+                    }`}
+                  >
                     {field.label}
                   </label>
 
@@ -186,6 +192,7 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
                         className={styles.fileInput}
                         ref={(el) => (fileInputRefs.current[field.name] = el)}
                         required={field.required}
+                        disabled={field.blocked} // Deshabilitamos si está bloqueado
                       />
                       <label
                         htmlFor={field.name}
@@ -201,47 +208,110 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
                       </label>
                     </div>
                   ) : field.type === "select" ? (
-                    <select
-                      name={field.name}
-                      id={field.name}
-                      value={formData[field.name] || (field.multiple ? [] : "")}
-                      onChange={handleChange}
-                      className={styles.input}
-                      required={field.required}
-                      multiple={field.multiple}
-                    >
-                      {!field.multiple && (
-                        <option value="" disabled hidden>
-                          Selecciona una opción
-                        </option>
-                      )}
-                      {field.options &&
-                        field.options.map((option, idx) => (
-                          <option key={idx} value={option.value}>
-                            {option.label}
+                    <>
+                      <select
+                        name={field.name}
+                        id={field.name}
+                        value={
+                          formData[field.name] !== undefined
+                            ? formData[field.name]
+                            : field.defaultValue || (field.multiple ? [] : "")
+                        }
+                        onChange={handleChange}
+                        className={`${styles.input} ${
+                          field.blocked ? styles.blockedInput : ""
+                        }`}
+                        required={field.required}
+                        multiple={field.multiple}
+                        disabled={field.blocked} // Deshabilitamos si está bloqueado
+                      >
+                        {!field.multiple && (
+                          <option value="" disabled hidden>
+                            Selecciona una opción
                           </option>
-                        ))}
-                    </select>
+                        )}
+                        {field.options &&
+                          field.options.map((option, idx) => (
+                            <option key={idx} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                      </select>
+                      {field.blocked && (
+                        <input
+                          type="hidden"
+                          name={field.name}
+                          value={
+                            formData[field.name] !== undefined
+                              ? formData[field.name]
+                              : field.defaultValue || ""
+                          }
+                        />
+                      )}
+                    </>
                   ) : field.type === "textarea" ? (
                     <textarea
                       name={field.name}
                       id={field.name}
-                      value={formData[field.name] || ""}
+                      value={
+                        formData[field.name] !== undefined
+                          ? formData[field.name]
+                          : field.defaultValue || ""
+                      }
                       onChange={handleChange}
-                      className={`${styles.input} ${styles.textarea}`}
+                      className={`${styles.input} ${styles.textarea} ${
+                        field.blocked ? styles.blockedInput : ""
+                      }`}
                       rows={1}
                       required={field.required}
                       ref={(el) => (textAreaRefs.current[field.name] = el)}
+                      readOnly={field.blocked} // Solo lectura si está bloqueado
                     />
+                  ) : field.type === "checkbox" ? (
+                    <>
+                      <input
+                        type="checkbox"
+                        name={field.name}
+                        id={field.name}
+                        checked={
+                          formData[field.name] !== undefined
+                            ? formData[field.name]
+                            : field.defaultValue || false
+                        }
+                        onChange={handleChange}
+                        className={`${styles.input} ${
+                          field.blocked ? styles.blockedInput : ""
+                        }`}
+                        required={field.required}
+                        disabled={field.blocked} // Deshabilitamos si está bloqueado
+                      />
+                      {/* Input oculto si es necesario */}
+                      {field.blocked && (
+                        <input
+                          type="hidden"
+                          name={field.name}
+                          value={
+                            formData[field.name] !== undefined
+                              ? formData[field.name]
+                              : field.defaultValue || ""
+                          }
+                        />
+                      )}
+                    </>
                   ) : (
                     <input
                       type={field.type}
                       name={field.name}
                       id={field.name}
-                      value={formData[field.name] || ""}
+                      value={
+                        formData[field.name] !== undefined
+                          ? formData[field.name]
+                          : field.defaultValue || ""
+                      }
                       onChange={handleChange}
                       className={styles.input}
                       required={field.required}
+                      readOnly={field.blocked} // Solo lectura si está bloqueado
                     />
                   )}
 
@@ -271,5 +341,4 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     </div>
   );
 };
-
 export default Edit;
