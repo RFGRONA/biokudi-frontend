@@ -63,7 +63,7 @@ export const getTicketById = async (id) => {
 };
 
 export const updateTicketApi = async (id, data) => {
-  delete data.addair;
+  delete data.affair;
   delete data.dateCreated;
   delete data.dateAnswered;
   delete data.typeId;

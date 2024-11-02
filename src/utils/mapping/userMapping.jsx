@@ -21,12 +21,14 @@ export const userEditMapping = async (id) => {
         name: "nameUser",
         label: "Nombre",
         type: "text",
+        blocked: true,
         defaultValue: data.nameUser || "",
       },
       {
         name: "emailUser",
         label: "Correo",
         type: "text",
+        blocked: true,
         defaultValue: data.email || 0,
       },
       {

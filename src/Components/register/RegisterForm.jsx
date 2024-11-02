@@ -70,6 +70,7 @@ const RegisterForm = () => {
           setSuccess(true);
         } else {
           console.log("Error en el registro", response.data);
+          setErrors({ error: response.data });
           throw new Error("Error en el registro");
         }
       } catch (error) {
@@ -121,21 +122,21 @@ const RegisterForm = () => {
                   <div className={styles.errors}>
                     <ul>
                       <li>
-                        {errors.name.required && (
+                        {errors.name && errors.name.required && (
                           <span className={styles.error}>
                             {errors.name.required}
                           </span>
                         )}
                       </li>
                       <li>
-                        {errors.name.length && (
+                        {errors.name && errors.name.length && (
                           <span className={styles.error}>
                             {errors.name.length}
                           </span>
                         )}
                       </li>
                       <li>
-                        {errors.name.invalid && (
+                        {errors.name && errors.name.invalid && (
                           <span className={styles.error}>
                             {errors.name.invalid}
                           </span>
@@ -164,14 +165,14 @@ const RegisterForm = () => {
                     <div className={styles.errors}>
                       <ul>
                         <li>
-                          {errors.email.required && (
+                          {errors.email && errors.email.required && (
                             <span className={styles.error}>
                               {errors.email.required}
                             </span>
                           )}
                         </li>
                         <li>
-                          {errors.email.invalid && (
+                          {errors.email && errors.email.invalid && (
                             <span className={styles.error}>
                               {errors.email.invalid}
                             </span>
@@ -181,15 +182,6 @@ const RegisterForm = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Api errors */}
-                <ul>
-                  <li>
-                    {errors.error && (
-                      <span className={styles.error}>{errors.error}</span>
-                    )}
-                  </li>
-                </ul>
               </div>
 
               <div className={styles.formGroup}>
@@ -211,21 +203,21 @@ const RegisterForm = () => {
                   <div className={styles.errors}>
                     <ul>
                       <li>
-                        {errors.password.required && (
+                        {errors.password && errors.password.required && (
                           <span className={styles.error}>
                             {errors.password.required}
                           </span>
                         )}
                       </li>
                       <li>
-                        {errors.password.length && (
+                        {errors.password && errors.password.length && (
                           <span className={styles.error}>
                             {errors.password.length}
                           </span>
                         )}
                       </li>
                       <li>
-                        {errors.password.lowercase && (
+                        {errors.password && errors.password.lowercase && (
                           <span className={styles.error}>
                             {errors.password.lowercase}
                           </span>
@@ -253,23 +245,35 @@ const RegisterForm = () => {
                     <div className={styles.errors}>
                       <ul>
                         <li>
-                          {errors.confirmPassword.required && (
-                            <span className={styles.error}>
-                              {errors.confirmPassword.required}
-                            </span>
-                          )}
+                          {errors.confirmPassword &&
+                            errors.confirmPassword.required && (
+                              <span className={styles.error}>
+                                {errors.confirmPassword.required}
+                              </span>
+                            )}
                         </li>
                         <li>
-                          {errors.confirmPassword.match && (
-                            <span className={styles.error}>
-                              {errors.confirmPassword.match}
-                            </span>
-                          )}
+                          {errors.confirmPassword &&
+                            errors.confirmPassword.match && (
+                              <span className={styles.error}>
+                                {errors.confirmPassword.match}
+                              </span>
+                            )}
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
+              </div>
+              {/* Api errors */}
+              <div className={styles.errors}>
+                <ul>
+                  <li>
+                    {errors.error && (
+                      <span className={styles.error}>{errors.error}</span>
+                    )}
+                  </li>
+                </ul>
               </div>
               <div className={styles.formGroup}></div>
               <div className={styles.bottomGroup}>
