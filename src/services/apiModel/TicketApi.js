@@ -67,7 +67,6 @@ export const updateTicketApi = async (id, data) => {
   delete data.dateCreated;
   delete data.dateAnswered;
   delete data.typeId;
-  data.stateId = parseInt(data.stateId);
   console.log(data);
   const URL_TICKET = process.env.REACT_APP_URL_API + `/Ticket/${id}`;
   try {

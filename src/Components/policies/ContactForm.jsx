@@ -52,14 +52,6 @@ const ContactForm = ({ fields, formData, errors, onFieldChange, onSubmit }) => {
     setDecisionData(cleanedFormData);
   };
 
-  useEffect(() => {
-    if (!fields.length > 0) {
-      setLocalLoading(true);
-    } else {
-      setLocalLoading(false);
-    }
-  }, [fields]);
-
   if (localLoading) {
     return <Loading />;
   }
@@ -158,10 +150,10 @@ const ContactForm = ({ fields, formData, errors, onFieldChange, onSubmit }) => {
         </button>
       </form>
 
+      <hr className={styles.separator} />
       <p className={styles.separatorText}>
         También puedes visitarnos en nuestras redes sociales
       </p>
-      <hr className={styles.separator} />
 
       <div className={styles.socialNetworksIcons}>
         <img src={FacebookIcon} alt="Facebook" className={styles.iconCont} />

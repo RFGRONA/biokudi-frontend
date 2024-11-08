@@ -124,6 +124,8 @@
 .input {
   padding: 10px;
   margin-bottom: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
 }
 
 .textareaContact {

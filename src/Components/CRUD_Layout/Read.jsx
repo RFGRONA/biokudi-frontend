@@ -50,6 +50,10 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     return <Loading />;
   }
 
+  const goToReport = () => {
+    navigate(`/${reportView[title]}`);
+  };
+
   const apiMap = {
     Lugares: deletePlaceApi,
     Actividades: deleteActivityApi,
@@ -59,6 +63,18 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Roles: deleteRoleApi,
     Reseñas: deleteReviewApi,
     Tickets: deleteTicketApi,
+    // Agrega aquí más títulos con sus respectivas funciones
+  };
+
+  const reportView = {
+    Lugares: "reportPlace",
+    Actividades: "reportActivity",
+    Estados: "reportState",
+    Usuarios: "reportUser",
+    Imagenes: "reportPicture",
+    Roles: "reportRole",
+    Reseñas: "reportReview",
+    Tickets: "reportTicket",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -180,7 +196,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                   Escoger
                   <img src={choose} alt="Escoger" />
                 </div>
-                <div className={styles.buttonRep}>
+                <div className={styles.buttonRep} onClick={goToReport}>
                   Generar Reporte
                   <img src={report} alt="Reporte" />
                 </div>

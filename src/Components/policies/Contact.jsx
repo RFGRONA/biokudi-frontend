@@ -89,6 +89,14 @@ const Contact = () => {
     }
   };
 
+  useEffect(() => {
+    if (!fields.length > 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [fields]);
+
   return (
     <>
       {notFound ? (
@@ -97,7 +105,7 @@ const Contact = () => {
           errorMessage={"No es posible cargar el formulario"}
         />
       ) : (
-        <Layout icon={Icon} title="Contacto">
+        <>
           {showErrorAlert && <ErrorAlert message={alertMessage} />}
           {showSuccessAlert && (
             <Success message={alertMessage} redirect={navigate("/")} />
@@ -105,15 +113,19 @@ const Contact = () => {
           {loading ? (
             <Loading />
           ) : (
-            <ContactForm
-              fields={fields}
-              formData={formData}
-              errors={errors}
-              onFieldChange={handleFieldChange}
-              onSubmit={handleCreate}
-            />
+            <>
+              <Layout icon={Icon} title="Contacto">
+                <ContactForm
+                  fields={fields}
+                  formData={formData}
+                  errors={errors}
+                  onFieldChange={handleFieldChange}
+                  onSubmit={handleCreate}
+                />
+              </Layout>
+            </>
           )}
-        </Layout>
+        </>
       )}
     </>
   );

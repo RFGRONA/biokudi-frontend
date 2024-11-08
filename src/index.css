@@ -33,6 +33,7 @@ code {
 
 .mainContainer {
   min-height: 85vh;
+  overflow-x: auto;
 }
 
 .bitter {

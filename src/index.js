@@ -34,6 +34,14 @@ import ListReviews from "./Components/review/ListReviews";
 import MapView from "./Components/map/MapView";
 import ListTickets from "./Components/ticket/ListTickets";
 import EditTicket from "./Components/ticket/EditTicket";
+import ReportPlace from "./Components/places/ReportPlace";
+import ReportActivity from "./Components/activity/ReportActivity";
+import ReportState from "./Components/state/ReportState";
+import ReportUser from "./Components/user/ReportUser";
+import ReportRole from "./Components/role/ReportRole";
+import ReportPicture from "./Components/picture/ReportPicture";
+import ReportReview from "./Components/review/ReportReview";
+import ReportTicket from "./Components/ticket/ReportTicket";
 
 import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
 
@@ -95,6 +103,14 @@ root.render(
             <Route path="/Reviews" element={<ListReviews />} />
             <Route path="/Tickets" element={<ListTickets />} />
             <Route path="/EditTicket/:index" element={<EditTicket />} />
+            <Route path="/ReportPlace" element={<ReportPlace />} />
+            <Route path="/ReportActivity" element={<ReportActivity />} />
+            <Route path="/ReportState" element={<ReportState />} />
+            <Route path="/ReportUser" element={<ReportUser />} />
+            <Route path="/ReportRole" element={<ReportRole />} />
+            <Route path="/ReportPicture" element={<ReportPicture />} />
+            <Route path="/ReportReview" element={<ReportReview />} />
+            <Route path="/ReportTicket" element={<ReportTicket />} />
           </Route>
 
           {/* ADMIN */}

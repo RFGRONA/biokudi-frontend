@@ -91,25 +91,17 @@ export const ticketEditMapping = async (id) => {
         defaultValue: ticket.dateAnswered,
       },
       {
-        name: "stateId",
-        label: "Estado",
-        type: "select",
-        options: states.map((state) => ({
-          value: state.idState,
-          label: state.nameState,
-        })),
-        defaultValue: ticket.stateId,
+        name: "email",
+        label: "Correo de respuesta",
+        type: "text",
+        defaultValue: ticket.personEmail,
+        blocked: true,
       },
       {
         name: "response",
         label: "Respuesta",
         type: "textarea",
         defaultValue: ticket.response,
-      },
-      {
-        name: "email",
-        label: "Correo de respuesta",
-        type: "text",
       },
     ],
   };
