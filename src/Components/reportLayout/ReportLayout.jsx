@@ -165,8 +165,8 @@ const ReportLayout = ({ title, data, sendEmail }) => {
     <div className={styles.main}>
       {desicion && (
         <Decision
-          title1="¿Estás seguro de querer descargar el reporte?"
-          message="Una vez descargado, no podrás deshacer esta acción."
+          title1="¿Descargar el reporte?"
+          message="¿Estas seguro de descargar este reporte?"
           cancelText="Cancelar"
           onConfirm={confirmDownload}
           onCancel={() => setDesicion(false)}
