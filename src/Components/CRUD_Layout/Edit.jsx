@@ -54,6 +54,8 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     Imagenes: "Imagen",
     Roles: "Rol",
     Tickets: "Ticket",
+    Departamentos: "Departamento",
+    Ciudades: "Ciudad",
   };
 
   const handleSubmit = (e) => {

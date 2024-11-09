@@ -39,6 +39,14 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/reviews");
   };
 
+  const goToCities = () => {
+    navigate("/cities");
+  };
+
+  const goToDepartments = () => {
+    navigate("/departments");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -66,6 +74,16 @@ const MenuManag = ({ closeMenu }) => {
           )}
           {user.role !== "Editor" ? (
             <li onClick={goToPictures}>LISTAR IMAGENES</li>
+          ) : (
+            ""
+          )}
+          {user.role !== "Editor" ? (
+            <li onClick={goToCities}>LISTAR CIUDADES</li>
+          ) : (
+            ""
+          )}
+          {user.role !== "Editor" ? (
+            <li onClick={goToDepartments}>LISTAR DEPARTAMENTOS</li>
           ) : (
             ""
           )}

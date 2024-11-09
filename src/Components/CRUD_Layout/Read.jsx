@@ -26,6 +26,8 @@ import {
   scaleTicketApi,
 } from "../../services/apiModel/TicketApi";
 import scale from "../../assets/CRUD/scale.svg";
+import { deleteCityApi } from "../../services/apiModel/CityApi";
+import { deleteDepartmentApi } from "../../services/apiModel/DepartmentApi";
 
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const [loading, setLoading] = useState(false);
@@ -63,6 +65,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Roles: deleteRoleApi,
     Reseñas: deleteReviewApi,
     Tickets: deleteTicketApi,
+    Ciudades: deleteCityApi,
+    Departamentos: deleteDepartmentApi,
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -75,6 +79,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Roles: "reportRole",
     Reseñas: "reportReview",
     Tickets: "reportTicket",
+    Ciudades: "reportCity",
+    Departamentos: "reportDepartment",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -87,6 +93,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Roles: "Rol",
     Reseñas: "Reseña",
     Tickets: "Ticket",
+    Ciudades: "Ciudad",
+    Departamentos: "Departamento",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -99,6 +107,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Roles: "roles",
     Reseñas: "reviews",
     Tickets: "tickets",
+    Ciudades: "cities",
+    Departamentos: "departments",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -260,6 +270,8 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                       title !== "Imagenes" &&
                       title !== "Roles" &&
                       title !== "Tickets" &&
+                      title !== "Ciudades" &&
+                      title !== "Departamentos" &&
                       title !== "Reseñas" ? (
                         <button>
                           <img src={details} alt="details" />

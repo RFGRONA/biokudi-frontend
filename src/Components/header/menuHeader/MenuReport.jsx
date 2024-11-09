@@ -39,6 +39,18 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/ReportTicket");
   };
 
+  const goToReportAudit = () => {
+    navigate("/ReportAudit");
+  };
+
+  const goToReportCity = () => {
+    navigate("/ReportCity");
+  };
+
+  const goToReportDepartment = () => {
+    navigate("/ReportDepartment");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -47,6 +59,7 @@ const MenuManag = ({ closeMenu }) => {
         </button>
         <h2 className={styles.h2}>Reportes</h2>
         <ul className={styles.menuList}>
+          <li onClick={goToReportAudit}>AUDITORÍA</li>
           <li onClick={goToReportPlaces}>LUGARES</li>
           <li onClick={goToReportActivities}>ACTIVIDADES</li>
           <li onClick={goToReportStates}>ESTADOS</li>
@@ -55,6 +68,8 @@ const MenuManag = ({ closeMenu }) => {
           <li onClick={goToReportPictures}>IMÁGENES</li>
           <li onClick={goToReportReviews}>RESEÑAS</li>
           <li onClick={goToReportTickets}>TICKETS</li>
+          <li onClick={goToReportCity}>CIUDADES</li>
+          <li onClick={goToReportDepartment}>DEPARTAMENTOS</li>
         </ul>
       </div>
     </div>

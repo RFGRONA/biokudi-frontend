@@ -2,38 +2,38 @@ import React from "react";
 import Header from "../header/Header2.jsx";
 import Footer from "../footer/Footer.jsx";
 import Read from "../CRUD_Layout/Read.jsx";
-import { getStatesApi } from "../../services/apiModel/StateApi.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCitiesApi } from "../../services/apiModel/CityApi.js";
 
 const ListStates = () => {
-  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchFields = async () => {
-      const listStates = await getStatesApi();
-      if (Array.isArray(listStates)) {
-        const transformedStates = listStates.map((state) => [
-          state.idState,
-          state.nameState,
-          state.tableRelation,
+      const listCities = await getCitiesApi();
+      if (Array.isArray(listCities)) {
+        const transformedStates = listCities.map((city) => [
+          city.idCity,
+          city.nameCity,
+          city.departmentCity,
         ]);
 
-        setStates(transformedStates);
+        setCities(transformedStates);
       } else {
-        setStates({ error: true, message: "Error obteniendo estados" });
+        setCities({ error: true, message: "Error obteniendo ciudades" });
       }
     };
 
     fetchFields();
   }, []);
 
-  const subtitle = ["Id", "Nombre", "Tabla"];
+  const subtitle = ["Id", "Nombre", "Departamento"];
   const handleEdit = (index) => {
-    navigate(`/EditState/${index}`);
+    navigate(`/EditCity/${index}`);
   };
   const handleCreate = () => {
-    navigate("/CreateState");
+    navigate("/CreateCity");
   };
 
   return (
@@ -41,9 +41,9 @@ const ListStates = () => {
       <Header />
       <div className="mainContainer">
         <Read
-          title={"Estados"}
+          title={"Ciudades"}
           subtitle={subtitle}
-          data={states}
+          data={cities}
           onEdit={handleEdit}
           onCreate={handleCreate}
         />

@@ -42,8 +42,15 @@ import ReportRole from "./Components/role/ReportRole";
 import ReportPicture from "./Components/picture/ReportPicture";
 import ReportReview from "./Components/review/ReportReview";
 import ReportTicket from "./Components/ticket/ReportTicket";
-
-import DecisionAlert from "./Components/helpers/alerts/DecisionAlert";
+import ReportAudit from "./Components/audit/ReportAudit";
+import ListCities from "./Components/city/ListCities";
+import ListDepartment from "./Components/deparment/ListDepartment";
+import CreateDepartment from "./Components/deparment/CreateDepartment";
+import EditDepartment from "./Components/deparment/EditDepartment";
+import EditCity from "./Components/city/EditCity";
+import CreateCity from "./Components/city/CreateCity";
+import ReportCity from "./Components/city/ReportCity";
+import ReportDepartment from "./Components/deparment/ReportDepartment";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -53,8 +60,6 @@ import PublicRoute from "./Components/PublicRoute";
 import "https://kit.fontawesome.com/2e0b382a53.js";
 import CreateActivity from "./Components/activity/CreateActivity";
 import EditRole from "./Components/role/EditRole";
-import Sidebar from "./Components/map/SideBar";
-import PlaceInformation from "./Components/map/PlaceInformation";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -111,6 +116,9 @@ root.render(
             <Route path="/ReportPicture" element={<ReportPicture />} />
             <Route path="/ReportReview" element={<ReportReview />} />
             <Route path="/ReportTicket" element={<ReportTicket />} />
+            <Route path="/ReportAudit" element={<ReportAudit />} />
+            <Route path="/ReportCity" element={<ReportCity />} />
+            <Route path="/ReportDepartment" element={<ReportDepartment />} />
           </Route>
 
           {/* ADMIN */}
@@ -121,11 +129,17 @@ root.render(
             <Route path="/EditUser/:index" element={<EditUser />} />
             <Route path="/EditActivity/:index" element={<EditActivity />} />
             <Route path="/EditRole/:index" element={<EditRole />} />
+            <Route path="/EditCity/:index" element={<EditCity />} />
             <Route path="/CreateActivity" element={<CreateActivity />} />
             <Route path="/CreateState" element={<CreateState />} />
             <Route path="/CreateRole" element={<CreateRole />} />
+            <Route path="/CreateCity" element={<CreateCity />} />
             <Route path="/users" element={<ListUsers />} />
             <Route path="/Roles" element={<ListRoles />} />
+            <Route path="/Cities" element={<ListCities />} />
+            <Route path="/Departments" element={<ListDepartment />} />
+            <Route path="/CreateDepartment" element={<CreateDepartment />} />
+            <Route path="/EditDepartment/:index" element={<EditDepartment />} />
           </Route>
 
           {/* USER */}

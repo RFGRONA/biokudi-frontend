@@ -139,6 +139,8 @@ const Create = ({
     Lugares: "Lugar",
     Imagenes: "Imagen",
     Roles: "Rol",
+    Departamentos: "Departamento",
+    Ciudades: "Ciudad",
   };
 
   return (

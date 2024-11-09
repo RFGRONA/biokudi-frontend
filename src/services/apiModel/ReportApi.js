@@ -160,6 +160,66 @@ export const getTicketReport = async () => {
   }
 };
 
+export const getAuditReport = async () => {
+  const API_URL = process.env.REACT_APP_URL_API + "/Report/Audit";
+  try {
+    const response = await axios.get(API_URL, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo reporte de auditorías", error);
+    return {
+      error: true,
+      message: "Error obteniendo reporte de auditorías",
+      status: error.status || 500,
+    };
+  }
+};
+
+export const getCityReport = async () => {
+  const API_URL = process.env.REACT_APP_URL_API + "/Report/City";
+  try {
+    const response = await axios.get(API_URL, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo reporte de ciudades", error);
+    return {
+      error: true,
+      message: "Error obteniendo reporte de ciudades",
+      status: error.status || 500,
+    };
+  }
+};
+
+export const getDepartmentReport = async () => {
+  const API_URL = process.env.REACT_APP_URL_API + "/Report/Department";
+  try {
+    const response = await axios.get(API_URL, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo reporte de departamentos", error);
+    return {
+      error: true,
+      message: "Error obteniendo reporte de departamentos",
+      status: error.status || 500,
+    };
+  }
+};
+
 export const sendReportByEmail = (recipientEmail, tableName, fileBase64) => {
   const API_URL = process.env.REACT_APP_URL_API + "/Report/SendByEmail";
   return axios.post(
