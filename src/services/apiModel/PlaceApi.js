@@ -128,6 +128,33 @@ export const updatePlaceApi = async (id, data) => {
   }
 };
 
+/*BAR SEARCH */
+
+export const getPlaceBySearch = async (search) => {
+  const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/Search/`;
+  const data = {
+    search: search,
+  };
+  console.log(data);
+  try {
+    const response = await axios.post(URL_PLACE, data, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      console.log("Response: ", response);
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo lugar", error);
+    return {
+      error: true,
+      message: "Error obteniendo lugar",
+      status: error.status || 500,
+    };
+  }
+};
+
 export const deletePlaceApi = async (id) => {
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Place/${id}`;
   try {

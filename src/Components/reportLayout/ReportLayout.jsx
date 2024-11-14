@@ -37,7 +37,7 @@ const ReportLayout = ({ title, data, sendEmail }) => {
   const generatePDF = () => {
     const input = reportRef.current;
     const opt = {
-      margin: [10, 10, 10, 10], // Margin
+      margin: [10, 10, 10, 10],
       filename: `${title}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2 },

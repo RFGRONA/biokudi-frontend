@@ -2,6 +2,7 @@ import axios from "axios";
 import { CryptoService } from "./cryptoService";
 
 export const registerApi = async (email, password, nameUser, captchaToken) => {
+  email = email ? email.toLowerCase() : email;
   const URL_REGISTER = process.env.REACT_APP_URL_API + "/auth/register";
 
   try {

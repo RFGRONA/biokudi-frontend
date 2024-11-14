@@ -51,6 +51,10 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/ReportDepartment");
   };
 
+  const goToReportType = () => {
+    navigate("/ReportType");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -70,6 +74,7 @@ const MenuManag = ({ closeMenu }) => {
           <li onClick={goToReportTickets}>TICKETS</li>
           <li onClick={goToReportCity}>CIUDADES</li>
           <li onClick={goToReportDepartment}>DEPARTAMENTOS</li>
+          <li onClick={goToReportType}>TIPOS</li>
         </ul>
       </div>
     </div>

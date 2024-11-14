@@ -9,19 +9,23 @@ import showMoreIcon from "../../assets/map/showMore.svg";
 import webPageIcon from "../../assets/map/webPage.svg";
 import logo from "../../assets/map/logo.svg";
 import BackButton from "../../assets/map/backButton.svg";
+import Loading from "../helpers/loading/Loading";
 
-import {
-  getFullInfoPlace,
-  getPlaceReviews,
-} from "../../services/apiModel/MapApi";
+import { getFullInfoPlace } from "../../services/apiModel/MapApi";
+import { useAuth } from "../../context/AuthContext";
 
-const PlaceInformation = ({ selectedPlaceId, showMore }) => {
+const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
   const [placeData, setPlaceData] = useState(null);
-  console.log(placeData);
-  //Get information of the selected place
+  const { user } = useAuth();
+
+  const handleReviewClick = () => {
+    console.log("Crear reseña");
+  };
+
   useEffect(() => {
     const fetchPlaceData = async () => {
       try {
+        setIsPlaceLoading(true);
         const response = await getFullInfoPlace(selectedPlaceId);
         if (response.error) {
           throw new Error("Error obteniendo información");
@@ -29,15 +33,22 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
         setPlaceData(response);
       } catch (error) {
         console.log("Error obteniendo información", error);
+      } finally {
+        setIsPlaceLoading(false);
       }
     };
 
-    fetchPlaceData();
-  }, [selectedPlaceId]);
+    if (selectedPlaceId) {
+      fetchPlaceData();
+    }
+  }, [selectedPlaceId, setIsPlaceLoading]);
 
-  //If the place is not selected
   if (!placeData) {
-    return null;
+    return (
+      <div className={styles.place}>
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -51,7 +62,11 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
         </div>
         <div className={styles.imageContainer}>
           <img
-            src={placeData.pictures[0] ? placeData.pictures[0].url : logo}
+            src={
+              placeData.pictures && placeData.pictures[0]
+                ? placeData.pictures[0].url
+                : logo
+            }
             alt="Imagen del lugar"
             className={styles.placeImage}
           />
@@ -78,7 +93,7 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
         <div className={styles.activities}>
           <img src={activitieIcon} alt="Lista" className={styles.icon} />
           <p>
-            {placeData.activities.length > 0
+            {placeData.activities && placeData.activities.length > 0
               ? placeData.activities.map((activity, index) => {
                   return <span key={index}>{activity.nameActivity} </span>;
                 })
@@ -95,12 +110,16 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
               className={styles.ratingIcon}
             />
             <span className={styles.ratingValue}>
-              {placeData.rating || "No asignado"}
+              {placeData.rating
+                ? placeData.rating
+                : placeData.rating === 0
+                ? 0
+                : "No asignado"}
             </span>
           </div>
         </div>
 
-        {placeData.reviews.length > 0 ? (
+        {placeData.reviews && placeData.reviews.length > 0 ? (
           <div className={styles.reviewList}>
             {placeData.reviews.map((review) => (
               <div key={review.idReview} className={styles.reviewItem}>
@@ -122,11 +141,11 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
             ))}
           </div>
         ) : (
-          <div className={styles.noInfo}>"No hay reseñas disponibles"</div>
+          <div className={styles.noInfo}>No hay reseñas disponibles</div>
         )}
 
         <div className={styles.placeDetails}>
-          {placeData.reviews.length > 0 ? (
+          {placeData.reviews && placeData.reviews.length > 0 ? (
             <button className={styles.showMore}>
               <img
                 src={showMoreIcon}
@@ -135,10 +154,7 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
               />
               Ver más
             </button>
-          ) : (
-            ""
-          )}
-
+          ) : null}
           {placeData.link ? (
             <a href={placeData.link} className={styles.website}>
               <img
@@ -149,15 +165,20 @@ const PlaceInformation = ({ selectedPlaceId, showMore }) => {
               Página web
             </a>
           ) : (
-            <a className={styles.website}>
+            <div className={styles.website}>
               <img
                 src={webPageIcon}
                 alt="Página web"
                 className={styles.iconDetail}
               />
-              Página web
-            </a>
+              Página web no disponible
+            </div>
           )}
+          {/* {user && user.role && ( */}
+          <div className={styles.createReview} onClick={handleReviewClick}>
+            <button className={styles.button}>Crear reseña</button>
+          </div>
+          {/* )} */}
         </div>
       </div>
     </>

@@ -1,20 +1,40 @@
-import React from "react";
+// BarSearch.js
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import searchBar from "../../assets/homePage/iconSearch.svg";
 import styles from "./HomePage.module.css";
+
 const BarSearch = () => {
-  const text = "Descubre tu ecolugar";
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchTerm.trim() !== "") {
+      navigate(`/browse?searchTerm=${encodeURIComponent(searchTerm)}`);
+    }
+  };
 
   return (
-    <div className={styles.inputWrapper}>
-      <input
-        className={[styles.searchBar, "bitter"].join(" ")}
-        type="text"
-        placeholder={text}
-      />
-      <span className={styles.searchIcon}>
-        <img src={searchBar} alt="Buscar" />
-      </span>
-    </div>
+    <form onSubmit={handleSearchSubmit}>
+      <div className={styles.inputWrapper}>
+        <input
+          className={[styles.searchBar, "bitter"].join(" ")}
+          type="text"
+          placeholder="Descubre tu ecolugar"
+          value={searchTerm}
+          onChange={handleInputChange}
+          maxLength={100}
+        />
+        <button type="submit" className={styles.searchIcon}>
+          <img src={searchBar} alt="Buscar" />
+        </button>
+      </div>
+    </form>
   );
 };
 

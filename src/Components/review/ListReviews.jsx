@@ -42,7 +42,7 @@ const ListReviews = () => {
     "Comentario",
     "Lugar",
     "Fecha creación",
-    "Creado por:",
+    "Creado por",
   ];
 
   return (

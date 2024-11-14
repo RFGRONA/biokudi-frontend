@@ -47,6 +47,10 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/departments");
   };
 
+  const goToTypes = () => {
+    navigate("/types");
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.menuManagContainer}>
@@ -87,7 +91,11 @@ const MenuManag = ({ closeMenu }) => {
           ) : (
             ""
           )}
-
+          {user.role !== "Editor" ? (
+            <li onClick={goToTypes}>LISTAR TIPOS</li>
+          ) : (
+            ""
+          )}
           <li onClick={goToReviews}>LISTAR RESEÑAS</li>
           <li onClick={goToTickets}>LISTAR TICKETS</li>
         </ul>

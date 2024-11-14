@@ -141,6 +141,7 @@ const Create = ({
     Roles: "Rol",
     Departamentos: "Departamento",
     Ciudades: "Ciudad",
+    Tipos: "Tipo",
   };
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const ErrorAlert = ({ message, redirect, reload }) => {
+const ErrorAlert = ({ message, redirect, reload, onClose }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -12,6 +12,9 @@ const ErrorAlert = ({ message, redirect, reload }) => {
       icon: "error",
       confirmButtonText: "OK",
     }).then((result) => {
+      if (onClose) {
+        onClose();
+      }
       if (result.isConfirmed) {
         if (redirect !== undefined) {
           navigate(`/${redirect}`);

@@ -220,6 +220,26 @@ export const getDepartmentReport = async () => {
   }
 };
 
+export const getTypeReport = async () => {
+  const API_URL = process.env.REACT_APP_URL_API + "/Report/Type";
+  try {
+    const response = await axios.get(API_URL, {
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      const { data } = response;
+      return data;
+    }
+  } catch (error) {
+    console.log("Error obteniendo reporte de tipos", error);
+    return {
+      error: true,
+      message: "Error obteniendo reporte de tipos",
+      status: error.status || 500,
+    };
+  }
+};
+
 export const sendReportByEmail = (recipientEmail, tableName, fileBase64) => {
   const API_URL = process.env.REACT_APP_URL_API + "/Report/SendByEmail";
   return axios.post(

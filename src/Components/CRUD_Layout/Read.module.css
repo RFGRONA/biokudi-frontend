@@ -108,3 +108,73 @@
 .gridCell:hover {
   background-color: #ddd;
 }
+
+/******************************************/
+
+/* Estilos para el formulario dentro del modal */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldContainer {
+  margin-bottom: 16px;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.fieldInput,
+.fieldTextarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.fieldTextarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.buttonOrd {
+  position: relative;
+}
+
+.orderMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #476930;
+  border: 1px solid #ccc;
+  min-width: 160px;
+  z-index: 1000;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.orderMenuItem {
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s;
+  transition: font-size 0.3s;
+  border-radius: 10px;
+}
+
+.orderMenuItem:hover {
+  background-color: #659445;
+  font-size: 1.2em;
+}

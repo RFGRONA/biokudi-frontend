@@ -1,138 +1,90 @@
+/* Contenedor principal del centro de ayuda */
+.helpContainer {
+  padding: 2em;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Inter, sans-serif;
+  font-size: 1.2em;
+}
+
+/* Párrafos de texto */
+.helpP {
+  text-align: justify;
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+/* Lista de opciones */
+.helpList {
+  margin-left: 2em;
+  margin-bottom: 1em;
+  list-style-type: disc;
+}
+
+.helpList li {
+  margin-bottom: 0.5em;
+}
+
+/* Enlaces dentro de la lista */
+.helpList a {
+  color: blue;
+  text-decoration: underline;
+}
+
+/* Contenedor para centrar el botón */
 .help {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
-.formGroup {
-    border: 1px solid darkorange;
-    border-radius: 10px;
-    padding: 0.5em;
-    width: 30%;
-    height: 3.5em;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.formGroup label {
-    margin-top: -0.5em;
-    display: block;
-    font-weight: bold;
-    color: black;
-    font-size: 1em;
-}
-
-.formGroupSelect {
-    border: 1px solid darkorange;
-    border-radius: 10px;
-    padding: 0.1em;
-    width: 17.5%;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.messageField{
-    border: 1px solid darkorange;
-    border-radius: 10px;
-    padding: 0.5em;
-    width: 66%;
-    height: auto;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.textareaHelp {
-    width: 100%;
-    padding: 0.1em;
-    font-size: 1em;
-    border: none;
-    color: #888;
-    font-family: "Inter", sans-serif;
-    font-weight: 200;
-}
-
-.textareaHelp:focus {
-    outline: none;
-}
-
-.inputField {
-    width: 100%;
-    padding: 0.05em;
-    font-size: 1em;
-    line-height: 0.05em;
-    border: none;
-    color: #888;
-    font-family: "Inter", sans-serif;
-    font-weight: 200;
-}
-
-.inputField:focus {
-    outline: none;
-}
-
-.selectField {
-    width: 100%;
-    padding: 0.1em;
-    font-size: 1em;
-    border: none;
-    color: black;
-    font-family: "Inter", sans-serif;
-    font-weight: bold;
-}
-
-.selectField:focus {
-    outline: none;
-}
-
-.middleText {
-    font-weight: bold;
-    color: black;
-    font-size: 1em;
-    text-align: justify;
-    line-height: 1;
-    margin: 0;
-}
-
+/* Estilo del botón de confirmación */
 .confirmButton {
-    background-color: orange;
-    border: none;
-    border-radius: 10px;
-    padding: 0.5em 2em;
-    color: white;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: orange;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em 2em;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .confirmButton:hover {
-    background-color: darkorange; 
+  background-color: darkorange;
 }
 
+/* Contenedor de contacto */
 .contactContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
 }
 
+/* Texto de contacto */
 .helpText {
-    font-weight: bold;
-    color: black;
-    font-size: 1.2em;
-    margin: 0; 
-    text-align: center;
+  font-weight: bold;
+  color: black;
+  font-size: 1.2em;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 0.5em;
 }
 
+/* Correo electrónico de contacto */
 .helpEmail {
-    color: green;
-    font-style: italic;
-    font-size: 1.1em;
-    margin: 0em;
-    text-align: center;
+  color: green;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0em;
+  text-align: center;
 }
 
-.helpP {
-    text-align: center;
+li .a {
+  color: #f67924;
+  font-weight: bold;
+  text-decoration: underline;
 }

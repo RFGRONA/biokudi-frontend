@@ -11,6 +11,10 @@ const LoginForm = () => {
   const { login, loading } = useAuth();
   const [error, setError] = useState("");
 
+  const goToRecovery = () => {
+    navigate("/recovery-password");
+  };
+
   /**Register redirect */
   const navigate = useNavigate();
   const goToRegister = (e) => {
@@ -133,7 +137,7 @@ const LoginForm = () => {
           />
           <label htmlFor="recordUser">Recordar usuario</label>
         </div>
-        <div className={styles.forgotPassword}>
+        <div className={styles.forgotPassword} onClick={goToRecovery}>
           <a href="#" className={[styles.recoveryPasswordButton]}>
             Recuperar contraseña
           </a>

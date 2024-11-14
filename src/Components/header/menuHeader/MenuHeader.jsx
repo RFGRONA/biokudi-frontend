@@ -48,6 +48,10 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
     setMenuReport(!menuReport);
   };
 
+  const goToMap = () => {
+    navigate("/map");
+  };
+
   return (
     <>
       {/* menuManag */}
@@ -94,13 +98,16 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
               </div>
             </>
           )}
-          <div className={styles.li}>
+          <div className={styles.li} onClick={goToMap}>
             <div className={styles.menuImage}>
               <img src={discover} alt="icon" />
             </div>
             <p>Descubre lugares</p>
           </div>
-          <div className={styles.li}>
+
+          {/* TODO: Listas y Favoritos */}
+
+          {/* <div className={styles.li}>
             <div className={styles.menuImage}>
               <img src={favorites} alt="icon" />
             </div>
@@ -111,7 +118,7 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
               <img src={list} alt="icon" />
             </div>
             <p>Listas</p>
-          </div>
+          </div> */}
 
           <div
             className={[styles.li, styles.help].join(" ")}

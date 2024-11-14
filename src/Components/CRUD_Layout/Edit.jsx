@@ -56,6 +56,7 @@ const Edit = ({ title, fields, onSubmit, errors, formData, onFieldChange }) => {
     Tickets: "Ticket",
     Departamentos: "Departamento",
     Ciudades: "Ciudad",
+    Tipos: "Tipo",
   };
 
   const handleSubmit = (e) => {

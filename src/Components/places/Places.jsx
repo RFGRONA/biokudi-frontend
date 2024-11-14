@@ -12,114 +12,81 @@ import { getPlacesListApi } from "../../services/apiModel/PlaceApi";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import Loading from "../helpers/loading/Loading";
 
-const Activities = () => {
-  const [list, setList] = useState([]);
-  useEffect(() => {
-    const getList = async () => {
-      const list = await getPlacesListApi();
-      if (Array.isArray(list)) {
-        setList(list);
-      } else {
-        setList({ error: "Error obteniendo lugares" });
-      }
-    };
-    getList();
-  }, []);
-
+const Places = ({ data }) => {
+  const list = data;
   return (
     <div>
-      <Header2 />
-      <div className="mainContainer">
-        {Array.isArray(list) ? (
-          list.length === 0 ? (
-            <Loading />
-          ) : (
-            <div>
-              <div className={styles.mainContainer}>
-                <h1 className={styles.title}>Lugares a explorar</h1>
-                <div className={styles.buttonActions}>
-                  <div className={styles.buttonOrder}>
-                    Ordenar
-                    <img src={orderIcon} alt="Ordenar" />
+      <div>
+        <div className={styles.mainContainer}>
+          <h1 className={styles.title}>Lugares a explorar</h1>
+          <div className={styles.buttonActions}>
+            <div className={styles.buttonOrder}>
+              Ordenar
+              <img src={orderIcon} alt="Ordenar" />
+            </div>
+            <div className={styles.buttonChoose}>
+              Escoger
+              <img src={chooseIcon} alt="Escoger" />
+            </div>
+          </div>
+        </div>
+        <div className={styles.activityContainer}>
+          {list.map((place) => (
+            <div key={place.idPlace} className={styles.card}>
+              <div className={styles.placeImage}>
+                <img src={place.image} alt={place.namePlace} />
+              </div>
+              <div className={styles.cardContent}>
+                <div className={styles.cardTitle}>
+                  <h1>{place.namePlace}</h1>
+                  <div className={styles.cardRating}>
+                    <img src={starIcon} alt="Rating" className={styles.icon} />
+                    <span className={styles.ratingValue}>
+                      {place.rating || "No disponible"}
+                    </span>
                   </div>
-                  <div className={styles.buttonChoose}>
-                    Escoger
-                    <img src={chooseIcon} alt="Escoger" />
+                </div>
+                <div className={styles.cardDetails}>
+                  <div className={styles.detailItem}>
+                    <img
+                      src={locationIcon}
+                      alt="Localidad"
+                      className={styles.icon}
+                    />
+                    <h2>{place.cityName || "Ciudad no disponible"}</h2>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <img
+                      src={activitiesIcon}
+                      alt="Actividades"
+                      className={styles.icon}
+                    />
+                    <h2>
+                      {Array.isArray(place.activities)
+                        ? place.activities
+                            .map((activity) => activity.nameActivity)
+                            .join(", ")
+                        : "No hay actividades disponibles"}
+                    </h2>
+                  </div>
+                </div>
+                <div className={styles.cardDescription}>
+                  <p>{place.description || "Descripción no disponible"}</p>
+                  <div className={styles.cardFooter}>
+                    <div className={styles.footerItem}>
+                      <img src={mapIcon} alt="Mapa" className={styles.icon} />
+                      <h3>Ver más</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className={styles.activityContainer}>
-                {list.map((place) => (
-                  <div key={place.idPlace} className={styles.card}>
-                    <div className={styles.placeImage}>
-                      <img src={place.image} alt={place.namePlace} />
-                    </div>
-                    <div className={styles.cardContent}>
-                      <div className={styles.cardTitle}>
-                        <h1>{place.namePlace}</h1>
-                        <div className={styles.cardRating}>
-                          <img
-                            src={starIcon}
-                            alt="Rating"
-                            className={styles.icon}
-                          />
-                          <span className={styles.ratingValue}>
-                            {place.rating || "No disponible"}
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.cardDetails}>
-                        <div className={styles.detailItem}>
-                          <img
-                            src={locationIcon}
-                            alt="Localidad"
-                            className={styles.icon}
-                          />
-                          <h2>{place.cityName || "Ciudad no disponible"}</h2>
-                        </div>
-                        <div className={styles.detailItem}>
-                          <img
-                            src={activitiesIcon}
-                            alt="Actividades"
-                            className={styles.icon}
-                          />
-                          <h2>
-                            {Array.isArray(place.activities)
-                              ? place.activities
-                                  .map((activity) => activity.nameActivity)
-                                  .join(", ")
-                              : "No hay actividades disponibles"}
-                          </h2>
-                        </div>
-                      </div>
-                      <div className={styles.cardDescription}>
-                        <p>
-                          {place.description || "Descripción no disponible"}
-                        </p>
-                        <div className={styles.cardFooter}>
-                          <div className={styles.footerItem}>
-                            <img
-                              src={mapIcon}
-                              alt="Mapa"
-                              className={styles.icon}
-                            />
-                            <h3>Ver más</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
-          )
-        ) : (
-          <ErrorAlert message={"Error obteniendo lugares"} redirect={""} />
-        )}
+          ))}
+        </div>
       </div>
-      <Footer />
+      )
     </div>
   );
 };
 
-export default Activities;
+export default Places;

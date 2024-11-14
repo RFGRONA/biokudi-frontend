@@ -16,6 +16,7 @@ const MapView = () => {
   const navigate = useNavigate();
   const [errorCode, setErrorCode] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isPlaceLoading, setIsPlaceLoading] = useState(false);
 
   /* Obtener los puntos */
   useEffect(() => {
@@ -54,6 +55,7 @@ const MapView = () => {
   }, []);
 
   const handleShowMore = useCallback(() => {
+    setIsPlaceLoading(true);
     setShowMore((prevShowMore) => !prevShowMore);
   }, []);
 
@@ -70,6 +72,8 @@ const MapView = () => {
             selectedPlaceId={selectedPlaceId}
             onPlaceSelect={handlePlaceSelect}
             showMore={handleShowMore}
+            setIsPlaceLoading={setIsPlaceLoading}
+            isPlaceLoading={isPlaceLoading}
           />
           <Map
             points={points}
@@ -80,6 +84,7 @@ const MapView = () => {
             <PlaceInformation
               selectedPlaceId={selectedPlaceId}
               showMore={handleShowMore}
+              setIsPlaceLoading={setIsPlaceLoading}
             />
           )}
         </div>

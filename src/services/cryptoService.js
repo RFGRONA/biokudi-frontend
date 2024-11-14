@@ -2,7 +2,6 @@ import axios from "axios";
 
 let publicKey = null;
 
-// Obtiene la clave pública desde el backend
 const fetchPublicKey = async () => {
   const URL_PUBLIC_KEY = process.env.REACT_APP_URL_API + "/auth/public-key";
   try {

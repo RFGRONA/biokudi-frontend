@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Read.module.css";
 import choose from "../../assets/CRUD/choose.svg";
 import order from "../../assets/CRUD/order.svg";
@@ -17,9 +17,11 @@ import { useAuth } from "../../context/AuthContext";
 import { deleteUserApi } from "../../services/apiModel/UserApi";
 import Decision from "../helpers/alerts/DecisionAlert";
 import { deleteRoleApi } from "../../services/apiModel/RoleApi";
-import { deleteReviewApi } from "../../services/apiModel/ReviewApi";
+import {
+  deleteReviewApi,
+  deleteReviewByAdminApi,
+} from "../../services/apiModel/ReviewApi";
 import Success from "../helpers/alerts/SuccessAlert";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   deleteTicketApi,
@@ -28,6 +30,55 @@ import {
 import scale from "../../assets/CRUD/scale.svg";
 import { deleteCityApi } from "../../services/apiModel/CityApi";
 import { deleteDepartmentApi } from "../../services/apiModel/DepartmentApi";
+import { deleteTypeApi } from "../../services/apiModel/TypeApi";
+import { deleteReviewMapping } from "../../utils/mapping/deleteReviewMapping";
+import {
+  ValidateDeleteReviewField,
+  ValidateDeleteReviewForm,
+} from "../../utils/validate/ValidateDeleteReview";
+import Modal from "./Modal";
+import { getPlaceOrderAttributes } from "../../utils/filterData/PlaceFilter";
+import { sortPlaces } from "../../utils/filterData/PlaceFilter";
+import {
+  getActivityOrderAttributes,
+  sortActivities,
+} from "../../utils/filterData/ActivityFilter";
+import {
+  getStateOrderAttributes,
+  sortStates,
+} from "../../utils/filterData/StateFilter";
+import {
+  getUserOrderAttributes,
+  sortUsers,
+} from "../../utils/filterData/UserFilter";
+import {
+  getRoleOrderAttributes,
+  sortRoles,
+} from "../../utils/filterData/RoleFilter";
+import {
+  getPictureOrderAttributes,
+  sortPictures,
+} from "../../utils/filterData/PictureFilter";
+import {
+  getCityOrderAttributes,
+  sortCities,
+} from "../../utils/filterData/CityFilter";
+import {
+  getDepartmentOrderAttributes,
+  sortDepartments,
+} from "../../utils/filterData/DepartmentFilter";
+import {
+  getTypeOrderAttributes,
+  sortTypes,
+} from "../../utils/filterData/TypeFilter";
+import {
+  getReviewOrderAttributes,
+  sortReviews,
+} from "../../utils/filterData/ReviewFilter";
+import {
+  getTicketOrderAttributes,
+  sortTickets,
+} from "../../utils/filterData/TicketFilter";
 
 const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const [loading, setLoading] = useState(false);
@@ -38,6 +89,13 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
   const [dataState, setDataState] = useState(data);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [showDeleteReviewModal, setShowDeleteReviewModal] = useState(false);
+  const [deleteReviewFormData, setDeleteReviewFormData] = useState({});
+  const [deleteReviewFormErrors, setDeleteReviewFormErrors] = useState({});
+  const [deleteReviewMappingData, setDeleteReviewMappingData] = useState(null);
+  const [reviewToDelete, setReviewToDelete] = useState(null);
+  const [showOrderMenu, setShowOrderMenu] = useState(false);
+
   useEffect(() => {
     setDataState(data);
   }, [data]);
@@ -67,7 +125,22 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Tickets: deleteTicketApi,
     Ciudades: deleteCityApi,
     Departamentos: deleteDepartmentApi,
+    Tipos: deleteTypeApi,
     // Agrega aquí más títulos con sus respectivas funciones
+  };
+
+  const orderAttributes = {
+    Lugares: getPlaceOrderAttributes,
+    Actividades: getActivityOrderAttributes,
+    Estados: getStateOrderAttributes,
+    Usuarios: getUserOrderAttributes,
+    Roles: getRoleOrderAttributes,
+    Imagenes: getPictureOrderAttributes,
+    Ciudades: getCityOrderAttributes,
+    Departamentos: getDepartmentOrderAttributes,
+    Tipos: getTypeOrderAttributes,
+    Reseñas: getReviewOrderAttributes,
+    Tickets: getTicketOrderAttributes,
   };
 
   const reportView = {
@@ -81,11 +154,12 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Tickets: "reportTicket",
     Ciudades: "reportCity",
     Departamentos: "reportDepartment",
+    Tipos: "reportType",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
   const singular = {
-    Lugares: "lugar",
+    Lugares: "Lugar",
     Actividades: "Actividad",
     Estados: "Estado",
     Usuarios: "Usuario",
@@ -95,6 +169,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Tickets: "Ticket",
     Ciudades: "Ciudad",
     Departamentos: "Departamento",
+    Tipos: "Tipo",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
@@ -109,10 +184,49 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
     Tickets: "tickets",
     Ciudades: "cities",
     Departamentos: "departments",
+    Tipos: "types",
     // Agrega aquí más títulos con sus respectivas funciones
   };
 
-  /*Scale Action */
+  const sortFunctions = {
+    Lugares: sortPlaces,
+    Actividades: sortActivities,
+    Estados: sortStates,
+    Usuarios: sortUsers,
+    Roles: sortRoles,
+    Imagenes: sortPictures,
+    Ciudades: sortCities,
+    Departamentos: sortDepartments,
+    Tipos: sortTypes,
+    Reseñas: sortReviews,
+    Tickets: sortTickets,
+  };
+
+  /*Filter action */
+  const handleOrder = (attribute) => {
+    setLoading(true);
+    try {
+      const sortFunction = sortFunctions[title];
+      if (!sortFunction) {
+        throw new Error(
+          `No se encontró una función de ordenamiento para ${title}`
+        );
+      }
+      const sortedData = sortFunction(dataState, attribute, subtitle);
+      setDataState(sortedData);
+      setAlertMessage(`Datos ordenados por ${attribute} correctamente`);
+      setLoading(false);
+      setShowSuccessAlert(true);
+      setShowOrderMenu(false);
+    } catch (error) {
+      console.error("Error sorting:", error);
+      setAlertMessage(`Error al ordenar por ${attribute}`);
+      setLoading(false);
+      setError(true);
+    }
+  };
+
+  /*Scale Action (FOR TICKET)*/
   const onScale = async (index) => {
     setLoading(true);
     try {
@@ -132,24 +246,98 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
       setError(true);
     }
   };
+
   /* Delete Action */
   const onDelete = async (index) => {
-    const deleteApi = apiMap[title];
-    try {
-      if (!deleteApi) {
-        console.error("No se encontró una API para el título proporcionado");
-        throw new Error("Error al eliminar");
+    if (title === "Reseñas") {
+      setReviewToDelete(index);
+      setShowDeleteReviewModal(true);
+      // Cargar mapeo y datos iniciales
+      deleteReviewMapping(index).then((mapping) => {
+        if (mapping.error) {
+          console.error(mapping.message);
+          setAlertMessage(mapping.message);
+          setError(true);
+          return;
+        }
+        setDeleteReviewMappingData(mapping);
+        // Inicializar datos del formulario
+        const initialFormData = {};
+        mapping.fields.forEach((field) => {
+          initialFormData[field.name] = field.defaultValue || "";
+        });
+        setDeleteReviewFormData(initialFormData);
+        setDeleteReviewFormErrors({});
+      });
+    } else {
+      const deleteApi = apiMap[title];
+      try {
+        if (!deleteApi) {
+          console.error("No se encontró una API para el título proporcionado");
+          throw new Error("Error al eliminar");
+        }
+        setLoading(true);
+        const response = await deleteApi(index);
+        if (response.status === 200) {
+          console.log("Deleted successfully");
+          // Actualizar datos locales
+          const updatedData = dataState.filter((row) => row[0] !== index);
+          setDataState(updatedData);
+          setAlertMessage(`${singular[title]} eliminado correctamente`);
+          setLoading(false);
+          setShowSuccessAlert(true); // Muestra el mensaje de éxito
+        } else {
+          throw new Error("Error al eliminar");
+        }
+      } catch (error) {
+        console.error("Error deleting:", error);
+        setAlertMessage(`Error al eliminar ${singular[title]}`);
+        setLoading(false);
+        setError(true);
       }
+    }
+  };
+
+  const handleDeleteReviewInputChange = (fieldName, value) => {
+    setDeleteReviewFormData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+
+    // Validar campo
+    const fieldErrors = ValidateDeleteReviewField(fieldName, value);
+    setDeleteReviewFormErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
+  };
+
+  const handleDeleteReviewSubmit = async () => {
+    const errors = ValidateDeleteReviewForm(deleteReviewFormData);
+    if (Object.keys(errors).some((key) => errors[key])) {
+      setDeleteReviewFormErrors(errors);
+      return;
+    }
+
+    try {
       setLoading(true);
-      const response = await deleteApi(index);
+      console.log("Deleting review:", reviewToDelete);
+      console.log("Data:", deleteReviewFormData);
+      const response = await deleteReviewByAdminApi(
+        reviewToDelete,
+        deleteReviewFormData
+      );
       if (response.status === 200) {
         console.log("Deleted successfully");
-        // Update local data
-        const updatedData = dataState.filter((row) => row[0] !== index);
+        // Actualizar datos locales
+        const updatedData = dataState.filter(
+          (row) => row[0] !== reviewToDelete
+        );
         setDataState(updatedData);
         setAlertMessage(`${singular[title]} eliminado correctamente`);
         setLoading(false);
         setShowSuccessAlert(true); // Muestra el mensaje de éxito
+        setShowDeleteReviewModal(false);
       } else {
         throw new Error("Error al eliminar");
       }
@@ -186,21 +374,89 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
           {showSuccessAlert && (
             <Success
               message={alertMessage}
-              onClose={() => {
-                setTimeout(() => {
-                  window.location.reload();
-                }, 1000);
-              }}
+              onClose={() => setShowSuccessAlert(false)}
             />
+          )}
+
+          {/* Modal for review */}
+          {showDeleteReviewModal && deleteReviewMappingData && (
+            <Modal
+              title={deleteReviewMappingData.title}
+              onClose={() => setShowDeleteReviewModal(false)}
+              onSubmit={handleDeleteReviewSubmit}
+            >
+              <form className={styles.modalForm}>
+                {deleteReviewMappingData.fields.map((field) => (
+                  <div key={field.name} className={styles.fieldContainer}>
+                    <label htmlFor={field.name} className={styles.fieldLabel}>
+                      {field.label}
+                    </label>
+                    {field.type === "text" ? (
+                      <input
+                        type="text"
+                        id={field.name}
+                        name={field.name}
+                        className={styles.fieldInput}
+                        value={deleteReviewFormData[field.name] || ""}
+                        maxLength={field.maxLength}
+                        onChange={(e) =>
+                          handleDeleteReviewInputChange(
+                            field.name,
+                            e.target.value
+                          )
+                        }
+                        disabled={field.blocked}
+                      />
+                    ) : field.type === "textarea" ? (
+                      <textarea
+                        id={field.name}
+                        name={field.name}
+                        className={styles.fieldTextarea}
+                        value={deleteReviewFormData[field.name] || ""}
+                        maxLength={field.maxLength}
+                        onChange={(e) =>
+                          handleDeleteReviewInputChange(
+                            field.name,
+                            e.target.value
+                          )
+                        }
+                        disabled={field.blocked}
+                      />
+                    ) : null}
+                    {deleteReviewFormErrors[field.name] && (
+                      <span className={styles.error}>
+                        {deleteReviewFormErrors[field.name]}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </form>
+            </Modal>
           )}
 
           <div className={styles.bodyContainer}>
             <div className={styles.titleContainer}>
               <h1 className={styles.title}>{title}</h1>
               <div className={styles.buttonActions}>
-                <div className={styles.buttonOrd}>
+                <div
+                  className={styles.buttonOrd}
+                  onClick={() => setShowOrderMenu(!showOrderMenu)}
+                >
                   Ordenar
                   <img src={order} alt="Ordenar" />
+                  {showOrderMenu && (
+                    <div className={styles.orderMenu}>
+                      {orderAttributes[title]().map((attribute) => (
+                        <div
+                          key={attribute}
+                          className={styles.orderMenuItem}
+                          onClick={() => handleOrder(attribute)}
+                        >
+                          {attribute}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.buttonEsc}>
                   Escoger
@@ -272,6 +528,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                       title !== "Tickets" &&
                       title !== "Ciudades" &&
                       title !== "Departamentos" &&
+                      title !== "Tipos" &&
                       title !== "Reseñas" ? (
                         <button>
                           <img src={details} alt="details" />
@@ -290,7 +547,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                       ) : (
                         ""
                       )}
-                      <button onClick={() => setDecisionData(index)}>
+                      <button onClick={() => onDelete(index)}>
                         <img src={drop} alt="drop" />
                       </button>
                     </div>

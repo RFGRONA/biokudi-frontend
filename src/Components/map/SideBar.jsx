@@ -11,7 +11,14 @@ import starIcon from "../../assets/map/starIcon.svg";
 import { useNavigate } from "react-router-dom";
 import ViewMore from "../../assets/map/viewMore.svg";
 
-const Sidebar = ({ points, selectedPlaceId, onPlaceSelect, showMore }) => {
+const Sidebar = ({
+  points,
+  selectedPlaceId,
+  onPlaceSelect,
+  showMore,
+  isPlaceLoading,
+  setIsPlaceLoading,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -25,11 +32,10 @@ const Sidebar = ({ points, selectedPlaceId, onPlaceSelect, showMore }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Efecto para desplazar al elemento seleccionado
   useEffect(() => {
     if (selectedPlaceId) {
       if (!isMenuOpen) {
-        setIsMenuOpen(true); // Abre el menú si está cerrado
+        setIsMenuOpen(true);
       }
 
       if (itemRefs.current[selectedPlaceId]) {
@@ -39,7 +45,7 @@ const Sidebar = ({ points, selectedPlaceId, onPlaceSelect, showMore }) => {
         });
       }
     }
-  }, [selectedPlaceId, isMenuOpen]);
+  }, [selectedPlaceId]);
 
   return (
     <div className={styles.infoContainer}>
@@ -107,7 +113,7 @@ const Sidebar = ({ points, selectedPlaceId, onPlaceSelect, showMore }) => {
                   </div>
                 </div>
                 <div className={styles.showMore} onClick={showMore}>
-                  <p className={styles.showMoreText}>Ver más </p>
+                  <p className={styles.showMoreText}>Ver mas</p>
                   <img
                     src={ViewMore}
                     alt="ViewMore"

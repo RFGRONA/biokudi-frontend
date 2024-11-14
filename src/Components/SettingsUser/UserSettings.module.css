@@ -56,7 +56,8 @@
 .desactivateButton,
 .deleteButton,
 .editButton,
-.saveButton {
+.saveButton,
+.changePasswordButton {
   font-family: "Inter", sans-serif;
   font-weight: 600;
   background-color: #f3f0b2;
@@ -70,7 +71,8 @@
 .desactivateButton:hover,
 .deleteButton:hover,
 .editButton:hover,
-.saveButton:hover {
+.saveButton:hover,
+.changePasswordButton:hover {
   transform: scale(1.05);
 }
 
@@ -85,6 +87,11 @@
 
 .deleteButton {
   background-color: #ff2e1d;
+  color: white;
+}
+
+.changePasswordButton {
+  background-color: #2196f3;
   color: white;
 }
 

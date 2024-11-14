@@ -42,6 +42,10 @@ const UserSettings = () => {
     e.preventDefault();
   };
 
+  const goToChangePassword = () => {
+    navigate("/update-Password");
+  };
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -107,7 +111,6 @@ const UserSettings = () => {
     try {
       const user = await getProfileApi();
       setUserData(user);
-      console.log(user);
       setEmailNotification(user.emailNotification);
       setEmailPost(user.emailPost);
     } catch (error) {
@@ -418,6 +421,12 @@ const UserSettings = () => {
                     onClick={handleDeleteAccount}
                   >
                     Eliminar cuenta
+                  </button>
+                  <button
+                    className={styles.changePasswordButton}
+                    onClick={goToChangePassword}
+                  >
+                    Cambiar contraseña
                   </button>
                 </div>
               </div>

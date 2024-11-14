@@ -11,8 +11,8 @@ const Success = ({ message, onClose }) => {
       text: message,
       icon: "success",
       confirmButtonText: "OK",
-    }).then(() => {
-      if (onClose) {
+    }).then((result) => {
+      if (result.isConfirmed) {
         onClose();
       }
     });

@@ -51,6 +51,14 @@ import EditCity from "./Components/city/EditCity";
 import CreateCity from "./Components/city/CreateCity";
 import ReportCity from "./Components/city/ReportCity";
 import ReportDepartment from "./Components/deparment/ReportDepartment";
+import ListTypes from "./Components/type/ListTypes";
+import CreateType from "./Components/type/CreateType";
+import EditType from "./Components/type/EditType";
+import ReportType from "./Components/type/ReportType";
+import Browse from "./Components/places/Browse";
+import ChangePassword from "./Components/SettingsUser/ChangePassword";
+import RecoveryPassword from "./Components/SettingsUser/RecoveryPassword";
+import ResetPassword from "./Components/SettingsUser/ResetPassword";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -68,7 +76,7 @@ root.render(
       <AuthProvider>
         <Routes>
           {/* Rutas publicas, no necesitan auth*/}
-          <Route path="/browse" element={<Places />} />
+          <Route path="/browse" element={<Browse />} />
           <Route path="/map" element={<MapView />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
@@ -83,11 +91,9 @@ root.render(
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/recovery-password" element={<RecoveryPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
-
-          {/* Rutas privadas */}
-          {/* Rutas globales privadas */}
-          {/* <Route path="/settings" element={< UserSettings />} /> */}
 
           {/* LOGGED */}
           <Route
@@ -97,6 +103,7 @@ root.render(
           >
             <Route path="/profile" element={<UserSettings />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/update-password" element={<ChangePassword />} />
           </Route>
 
           {/* ADMIN, EDITOR */}
@@ -118,6 +125,7 @@ root.render(
             <Route path="/ReportTicket" element={<ReportTicket />} />
             <Route path="/ReportAudit" element={<ReportAudit />} />
             <Route path="/ReportCity" element={<ReportCity />} />
+            <Route path="/ReportType" element={<ReportType />} />
             <Route path="/ReportDepartment" element={<ReportDepartment />} />
           </Route>
 
@@ -130,13 +138,16 @@ root.render(
             <Route path="/EditActivity/:index" element={<EditActivity />} />
             <Route path="/EditRole/:index" element={<EditRole />} />
             <Route path="/EditCity/:index" element={<EditCity />} />
+            <Route path="/EditType/:index" element={<EditType />} />
             <Route path="/CreateActivity" element={<CreateActivity />} />
             <Route path="/CreateState" element={<CreateState />} />
+            <Route path="/CreateType" element={<CreateType />} />
             <Route path="/CreateRole" element={<CreateRole />} />
             <Route path="/CreateCity" element={<CreateCity />} />
             <Route path="/users" element={<ListUsers />} />
             <Route path="/Roles" element={<ListRoles />} />
             <Route path="/Cities" element={<ListCities />} />
+            <Route path="/Types" element={<ListTypes />} />
             <Route path="/Departments" element={<ListDepartment />} />
             <Route path="/CreateDepartment" element={<CreateDepartment />} />
             <Route path="/EditDepartment/:index" element={<EditDepartment />} />

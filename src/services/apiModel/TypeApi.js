@@ -8,7 +8,6 @@ export const getTypesApi = async () => {
     });
     if (response.status === 200) {
       const { data } = response;
-      console.log("Data: ", data);
       return data;
     }
   } catch (error) {

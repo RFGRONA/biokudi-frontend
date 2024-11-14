@@ -10,7 +10,7 @@ export const ValidateRegister = (input) => {
   if (!input.name) {
     errors.name.required = "Nombre es requerido";
   } else if (input.name.length < 3) {
-    errors.name.length = "Nombre debe tener al menos 3 caracteres";
+    errors.name.length = "Nombre  debe tener al menos 3 caracteres";
   }
   if (input.name.length > 63) {
     errors.name.length = "Nombre debe tener menos de 63 caracteres";
