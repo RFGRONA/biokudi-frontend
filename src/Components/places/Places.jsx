@@ -11,8 +11,13 @@ import activitiesIcon from "../../assets/activities/activity.svg";
 import { getPlacesListApi } from "../../services/apiModel/PlaceApi";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import Loading from "../helpers/loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 const Places = ({ data }) => {
+  const navigate = useNavigate();
+  const handleViewMore = (placeId) => {
+    navigate(`/map/${placeId}`);
+  };
   const list = data;
   return (
     <div>
@@ -72,7 +77,10 @@ const Places = ({ data }) => {
                 </div>
                 <div className={styles.cardDescription}>
                   <p>{place.description || "Descripción no disponible"}</p>
-                  <div className={styles.cardFooter}>
+                  <div
+                    className={styles.cardFooter}
+                    onClick={() => handleViewMore(place.idPlace)}
+                  >
                     <div className={styles.footerItem}>
                       <img src={mapIcon} alt="Mapa" className={styles.icon} />
                       <h3>Ver más</h3>

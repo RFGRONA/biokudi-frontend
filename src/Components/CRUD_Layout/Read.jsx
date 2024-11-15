@@ -516,7 +516,9 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                       ) : (
                         ""
                       )}
-                      {title !== "Actividades" &&
+
+                      {/* DETAILS BUTTON */}
+                      {/* {title !== "Actividades" &&
                       title !== "Estados" &&
                       title !== "Usuarios" &&
                       title !== "Imagenes" &&
@@ -531,7 +533,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                         </button>
                       ) : (
                         ""
-                      )}
+                      )} */}
 
                       {(title === "Actividades" && user.role !== "Editor") ||
                       (title !== "Imagenes" &&

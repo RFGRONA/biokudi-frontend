@@ -190,6 +190,10 @@
   margin-right: 20px;
 }
 
+.footerItem:hover {
+  cursor: pointer;
+}
+
 .footerItem h3 {
   font-size: 0.8rem;
   font-family: "Inter", serif;
