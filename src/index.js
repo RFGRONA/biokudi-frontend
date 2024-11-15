@@ -78,6 +78,7 @@ root.render(
           {/* Rutas publicas, no necesitan auth*/}
           <Route path="/browse" element={<Browse />} />
           <Route path="/map/:placeId" element={<MapView />} />
+          <Route path="/map" element={<MapView />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/legal" element={<Legal />} />
