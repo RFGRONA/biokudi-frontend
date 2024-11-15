@@ -19,6 +19,8 @@ export const ValidatePlaceField = (fieldName, value) => {
         errors.latitude = "Latitud es requerida";
       } else if (value < -90 || value > 90) {
         errors.latitude = "Latitud debe estar entre -90 y 90";
+      } else if (!(value > 3.75 && value < 5.85)) {
+        errors.latitude = "Coordenada no pertenece a Cundinamarca";
       } else {
         errors.latitude = "";
       }
@@ -29,6 +31,8 @@ export const ValidatePlaceField = (fieldName, value) => {
         errors.longitude = "Longitud es requerida";
       } else if (value < -180 || value > 180) {
         errors.longitude = "Longitud debe estar entre -180 y 180";
+      } else if (!(value > -74.9 && value < -73.1)) {
+        errors.latitude = "Coordenada no pertenece a Cundinamarca";
       } else {
         errors.longitude = "";
       }

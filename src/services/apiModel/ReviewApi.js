@@ -2,7 +2,7 @@ import axios from "axios";
 
 /*GET REVIEWS */
 export const getReviewApi = async () => {
-  const URL_PLACE = process.env.REACT_APP_URL_API + "/review";
+  const URL_PLACE = process.env.REACT_APP_URL_API + "/Review";
   try {
     const response = await axios.get(URL_PLACE, {
       withCredentials: true,
@@ -16,6 +16,33 @@ export const getReviewApi = async () => {
     const { response } = error;
     console.log("Error obteniendo reviews", response);
     return response;
+  }
+};
+
+/*CREATE REVIEW */
+export const createReviewApi = async (data) => {
+  console.log(data);
+  const URL_PLACE = process.env.REACT_APP_URL_API + "/Review";
+  try {
+    const response = await axios.post(URL_PLACE, data, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      return response;
+    } else {
+      console.log("Error creando review", response);
+      return;
+    }
+  } catch (error) {
+    console.log("Error creando review", error);
+    return {
+      error: true,
+      message: "Error creando review",
+      status: error.status || 500,
+    };
   }
 };
 

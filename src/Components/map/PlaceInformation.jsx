@@ -10,16 +10,98 @@ import webPageIcon from "../../assets/map/webPage.svg";
 import logo from "../../assets/map/logo.svg";
 import BackButton from "../../assets/map/backButton.svg";
 import Loading from "../helpers/loading/Loading";
+import PlaceReview from "./PlaceReview";
+import { getPlaceReviews } from "../../services/apiModel/MapApi";
+import Success from "../helpers/alerts/SuccessAlert";
+import ErrorAlert from "../helpers/alerts/ErrorAlert";
+import Decision from "../helpers/alerts/DecisionAlert";
 
 import { getFullInfoPlace } from "../../services/apiModel/MapApi";
 import { useAuth } from "../../context/AuthContext";
+import {
+  createReviewApi,
+  deleteReviewApi,
+} from "../../services/apiModel/ReviewApi";
 
 const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
   const [placeData, setPlaceData] = useState(null);
+  const [showMenuReview, setShowMenuReview] = useState(false);
+  const [showMoreReviews, setShowMoreReviews] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [reviewToDelete, setReviewToDelete] = useState(null);
+  const [decision, setDecision] = useState(false);
   const { user } = useAuth();
 
+  const onSubmitReview = async (data) => {
+    data.placeId = selectedPlaceId;
+    console.log("Data", data);
+    try {
+      const response = await createReviewApi(data);
+      console.log("Response", response);
+      if (response.status === 200) {
+        setSuccess(true);
+        setMessage("Reseña creada con éxito");
+        setShowMenuReview(false);
+        setShowMoreReviews(false);
+        return true;
+      }
+      throw new Error("Error creando reseña");
+    } catch (error) {
+      setMessage("Error creando reseña");
+      setError(true);
+      console.log("Error creando reseña", error);
+      return false;
+    }
+  };
+
+  const handleDelete = (reviewId) => {
+    setReviewToDelete(reviewId);
+    setDecision(true);
+  };
+
+  const onDeleteReview = async () => {
+    if (!reviewToDelete) return;
+    try {
+      const response = await deleteReviewApi(reviewToDelete);
+      if (response.status === 200) {
+        setSuccess(true);
+        setMessage("Reseña eliminada con éxito");
+        setShowMenuReview(false);
+        setShowMoreReviews(false);
+        return true;
+      }
+      throw new Error("Error eliminando reseña");
+    } catch (error) {
+      setMessage("Error eliminando reseña");
+      setError(true);
+      console.log("Error eliminando reseña", error);
+      return false;
+    }
+  };
+
   const handleReviewClick = () => {
-    console.log("Crear reseña");
+    setShowMenuReview(!showMenuReview);
+  };
+
+  const handleShowMoreReviews = () => {
+    setShowMoreReviews(!showMoreReviews);
+    getMoreReviews();
+  };
+
+  const getMoreReviews = async () => {
+    try {
+      const response = await getPlaceReviews(selectedPlaceId);
+      if (response.error) {
+        throw new Error("Error obteniendo reseñas");
+      }
+      setReviews(response);
+    } catch (error) {
+      console.log("Error obteniendo reseñas", error);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +113,7 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
           throw new Error("Error obteniendo información");
         }
         setPlaceData(response);
+        setReviews(response.reviews);
       } catch (error) {
         console.log("Error obteniendo información", error);
       } finally {
@@ -41,7 +124,7 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
     if (selectedPlaceId) {
       fetchPlaceData();
     }
-  }, [selectedPlaceId, setIsPlaceLoading]);
+  }, [selectedPlaceId, setIsPlaceLoading, showMore, showMenuReview, decision]);
 
   if (!placeData) {
     return (
@@ -53,6 +136,36 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
 
   return (
     <>
+      {success && (
+        <Success
+          message={message}
+          onClose={() => {
+            setSuccess(false);
+          }}
+        />
+      )}
+      {error && (
+        <ErrorAlert
+          message={message}
+          onClose={() => {
+            setError(false);
+          }}
+        />
+      )}
+      {decision && (
+        <Decision
+          message="¿Estás seguro de eliminar esta reseña?"
+          cancelText={"Cancelar"}
+          onConfirm={() => {
+            onDeleteReview();
+            setDecision(false);
+          }}
+          onCancel={() => {
+            setDecision(false);
+          }}
+        />
+      )}
+
       <div className={styles.place}>
         <div className={styles.backButton} onClick={showMore}>
           <button className={styles.button}>
@@ -121,7 +234,7 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
 
         {placeData.reviews && placeData.reviews.length > 0 ? (
           <div className={styles.reviewList}>
-            {placeData.reviews.map((review) => (
+            {reviews.map((review) => (
               <div key={review.idReview} className={styles.reviewItem}>
                 <div className={styles.reviewDetail}>
                   <img
@@ -131,7 +244,16 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
                   />
                   <span className={styles.reviewRating}>{review.rate}</span>
                   <p className={styles.reviewUser}>{review.personName}</p>
-                  <span className={styles.reviewSuspensive}>...</span>
+                  {review.personId === user?.id && (
+                    <>
+                      <span
+                        className={styles.reviewSuspensive}
+                        onClick={() => handleDelete(review.idReview)}
+                      >
+                        Eliminar
+                      </span>
+                    </>
+                  )}
                 </div>
                 <p className={styles.reviewText}>{review.comment}</p>
                 <p className={styles.reviewDate}>
@@ -145,8 +267,10 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
         )}
 
         <div className={styles.placeDetails}>
-          {placeData.reviews && placeData.reviews.length > 0 ? (
-            <button className={styles.showMore}>
+          {placeData.reviews &&
+          placeData.reviews.length > 0 &&
+          !showMoreReviews ? (
+            <button className={styles.showMore} onClick={handleShowMoreReviews}>
               <img
                 src={showMoreIcon}
                 alt="Ver más"
@@ -175,11 +299,16 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
             </div>
           )}
           {/* {user && user.role && ( */}
-          <div className={styles.createReview} onClick={handleReviewClick}>
-            <button className={styles.button}>Crear reseña</button>
-          </div>
+          {!showMenuReview && (
+            <div className={styles.createReview} onClick={handleReviewClick}>
+              <button className={styles.button}>Crear reseña</button>
+            </div>
+          )}
           {/* )} */}
         </div>
+        {showMenuReview && (
+          <PlaceReview onSubmit={onSubmitReview} setLoading={setLoading} />
+        )}
       </div>
     </>
   );

@@ -155,7 +155,6 @@
 
 .reviewDetail {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
@@ -185,8 +184,13 @@
 .reviewSuspensive {
   margin-left: auto;
   margin-bottom: 10px;
-  font-size: 1.5rem;
+  font-size: 1em;
   color: #476930;
+  cursor: pointer;
+}
+
+.reviewSuspensive:hover {
+  text-decoration: underline;
 }
 
 .reviewText {
@@ -196,6 +200,15 @@
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   color: black;
+}
+
+.reviewDate {
+  margin-left: 40px;
+  margin-bottom: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: italic;
+  color: #585c55;
 }
 
 .placeDetails {

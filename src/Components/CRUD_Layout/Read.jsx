@@ -458,10 +458,6 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                     </div>
                   )}
                 </div>
-                <div className={styles.buttonEsc}>
-                  Escoger
-                  <img src={choose} alt="Escoger" />
-                </div>
                 <div className={styles.buttonRep} onClick={goToReport}>
                   Generar Reporte
                   <img src={report} alt="Reporte" />
