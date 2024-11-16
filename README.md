@@ -1,72 +1,37 @@
-# BioKudi-Frontend
+# Biokudi: Aplicativo Web para la Promoción de Lugares Ecoturísticos en Cundinamarca
 
-# Getting Started with Create React App
+**Biokudi** es una plataforma que busca facilitar el acceso a información actualizada sobre destinos ecoturísticos en Cundinamarca, Colombia. A través de una interfaz intuitiva y un sistema de mapa interactivo, los usuarios pueden explorar lugares de interés ecológico, compartir reseñas, calificar experiencias y, en el futuro, acceder a una variedad de funcionalidades adicionales como noticias, listas personalizadas y planes de pago. Este repositorio contiene el código y la documentación técnica del proyecto.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Características Principales
 
-## Available Scripts
+- **Exploración de destinos ecoturísticos:** Mapa interactivo que permite a los usuarios visualizar y explorar distintos lugares.
+- **Sistema de calificación y reseñas:** Los usuarios pueden dejar comentarios y calificar los lugares, fomentando una comunidad activa y confiable.
+- **Autenticación y seguridad avanzadas:** Implementación de JWT, reCaptcha, encriptación RSA y medidas adicionales para proteger los datos del usuario.
+- **Escalabilidad futura:** Planeación para integrar inteligencia artificial, listas personalizadas, noticias y modelos de pago.
 
-In the project directory, you can run:
+## Convenciones de Commit y Ramas
 
-### `npm start`
+- **Ramas**:
+  - `alpha`: Rama individual de cada desarrollador.
+  - `beta`: Rama de pruebas.
+  - `main`: Rama de producción.
+- **Convención de Commit**: Prefijos en inglés seguidos de una breve descripción, por ejemplo, `CF: File configuration`, con descripción detallada en español.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Servicios Utilizados en la Infraestructura
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Hostinger**: Gestión de dominio (`biokudi.site`).
+- **Cloudflare**: Seguridad a nivel DNS.
+- **Vercel**: Alojamiento del frontend.
+- **Somee** y **Heliohost**: Alojamiento del backend y base de datos, respectivamente.
+- **ImgBB**: Almacenamiento de imágenes.
+- **BetterStack**: Monitorización en tiempo real.
+- **Codacy**: Análisis estático de código.
+- **Leaflet**: Biblioteca de mapas interactivos.
 
-### `npm test`
+## Más Información
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para obtener más detalles sobre la arquitectura, configuración, y otros aspectos técnicos del proyecto, revisa la [Wiki del repositorio](https://github.com/RFGRONA/BioKudi-Backend/wiki). Ahí encontrarás documentación adicional.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Biokudi es una iniciativa en constante evolución, orientada a ofrecer a los usuarios la mejor experiencia en la exploración de destinos ecoturísticos. Nos enfocamos en mantener altos estándares de calidad, seguridad y rendimiento en cada etapa de su desarrollo.
