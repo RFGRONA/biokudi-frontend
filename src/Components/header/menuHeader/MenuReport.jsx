@@ -19,10 +19,6 @@ const MenuManag = ({ closeMenu }) => {
     navigate("/ReportState");
   };
 
-  const goToReportUsers = () => {
-    navigate("/ReportUser");
-  };
-
   const goToReportRoles = () => {
     navigate("/ReportRole");
   };
@@ -67,7 +63,6 @@ const MenuManag = ({ closeMenu }) => {
           <li onClick={goToReportPlaces}>LUGARES</li>
           <li onClick={goToReportActivities}>ACTIVIDADES</li>
           <li onClick={goToReportStates}>ESTADOS</li>
-          <li onClick={goToReportUsers}>USUARIOS</li>
           <li onClick={goToReportRoles}>ROLES</li>
           <li onClick={goToReportPictures}>IMÁGENES</li>
           <li onClick={goToReportReviews}>RESEÑAS</li>
