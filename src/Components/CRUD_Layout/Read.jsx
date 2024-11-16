@@ -458,7 +458,7 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                     </div>
                   )}
                 </div>
-                {title !== "Reportes" ? (
+                {title !== "Usuarios" ? (
                   <div className={styles.buttonRep} onClick={goToReport}>
                     Generar Reporte
                     <img src={report} alt="Reporte" />
