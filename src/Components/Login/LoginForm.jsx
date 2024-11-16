@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const { login, loading } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState("");
 
   const goToRecovery = () => {
@@ -28,7 +28,8 @@ const LoginForm = () => {
     try {
       const response = await login(email, password, remember, captchaToken);
       if (response.status !== 200) {
-        setError(response.data.error);
+        console.log("Error during login:", response);
+        setError(response.error);
         return;
       }
       navigate("/");
@@ -97,6 +98,7 @@ const LoginForm = () => {
                 type="password"
                 id="password"
                 placeholder="**********"
+                maxLength={50}
                 className={[
                   styles.inputField,
                   "inter-bold",
