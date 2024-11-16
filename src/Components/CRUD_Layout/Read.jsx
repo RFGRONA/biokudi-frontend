@@ -458,13 +458,13 @@ const Read = ({ title, subtitle, data, onEdit, onCreate }) => {
                     </div>
                   )}
                 </div>
-                {title !== "Usuarios" ? (
+                {title === "Usuarios" ? (
+                  ""
+                ) : (
                   <div className={styles.buttonRep} onClick={goToReport}>
                     Generar Reporte
                     <img src={report} alt="Reporte" />
                   </div>
-                ) : (
-                  ""
                 )}
                 {(title !== "Actividades" || user.role !== "Editor") &&
                 title !== "Usuarios" &&
