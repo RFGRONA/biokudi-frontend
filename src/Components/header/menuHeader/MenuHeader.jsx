@@ -10,6 +10,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
 import MenuManag from "./MenuManag";
 import MenuReport from "./MenuReport";
+import { getRandomPlace } from "../../../services/apiModel/PlaceApi";
 
 const MenuHeader = ({ showMenu, closeMenu }) => {
   const { user } = useAuth();
@@ -46,8 +47,10 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
     setMenuReport(!menuReport);
   };
 
-  const goToMap = () => {
-    navigate("/map");
+  const goToMap = async () => {
+    const place = await getRandomPlace();
+    console.log(place);
+    navigate(`/map/${place.id}`);
   };
 
   return (
