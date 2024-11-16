@@ -18,6 +18,8 @@ const MapView = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isPlaceLoading, setIsPlaceLoading] = useState(false);
 
+  console.log("placeId", placeId);
+
   useEffect(() => {
     const fetchPoint = async () => {
       try {
