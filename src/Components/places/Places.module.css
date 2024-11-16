@@ -1,0 +1,201 @@
+.mainContainer {
+  max-width: 1300px;
+  margin: auto;
+  padding: 0px;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 12vh;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  color: #476930;
+}
+
+.buttonOrder,
+.buttonChoose {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #f67924;
+  border: 1px solid #f67924;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 150px;
+  text-align: center;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonOrder img,
+.buttonChoose img {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.buttonActions {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.activityContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px auto;
+  position: relative;
+  max-width: 80%;
+}
+
+.card {
+  border: 1px solid #476930;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  margin: 20px 0; /* Espaciado entre las tarjetas en lugar de margen lateral */
+  min-height: 200px;
+  width: 100%; /* Hacer que la tarjeta ocupe todo el ancho */
+  display: flex;
+}
+
+.placeImage {
+  width: 300px;
+  height: 200px;
+  z-index: 2;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.placeImage img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.cardContent {
+  padding-left: 20px;
+  height: 100%;
+  flex: 1;
+}
+
+.cardTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardTitle h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Bitter", serif;
+  color: black;
+  margin: 0;
+}
+
+.cardRating {
+  display: flex;
+  align-items: center;
+}
+
+.ratingIcon {
+  font-size: 24px;
+  color: orange;
+}
+
+.ratingValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.cardDetails {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+}
+
+.detailItem h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Inter", serif;
+  color: #476930;
+  margin: 0;
+}
+
+.cardRating img {
+  width: 24px;
+  height: auto;
+  margin-right: 8px;
+}
+
+.detailItem img {
+  width: 18px;
+  height: auto;
+  margin-right: 8px;
+}
+
+.cardDescription {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardDescription p {
+  max-width: 37rem;
+  font-size: 1em;
+  font-family: "Inter", serif;
+}
+
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  background-color: transparent;
+}
+
+.footerItem img {
+  width: 24px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.footerItem {
+  color: #ff6600;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.footerItem:hover {
+  cursor: pointer;
+}
+
+.footerItem h3 {
+  font-size: 0.8rem;
+  font-family: "Inter", serif;
+}

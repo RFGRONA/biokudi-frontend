@@ -1,0 +1,58 @@
+.body {
+  font-family: Inter, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  color: #333;
+}
+
+.h1,
+.h2,
+.h3,
+.h4 {
+  color: #476930;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+}
+.h1 {
+  font-size: 2em;
+  color: #476930;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.h2 {
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3em;
+}
+.h3 {
+  font-size: 1.3em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+.h4 {
+  font-size: 1.1em;
+  margin-top: 0.8em;
+  margin-bottom: 0.4em;
+}
+
+.ul {
+  margin-left: 20px;
+  margin-bottom: 1em;
+}
+.li {
+  margin-bottom: 0.5em;
+}
+.updateDate {
+  font-style: italic;
+  text-align: right;
+  margin-bottom: 2em;
+}
+.a {
+  color: #00539c;
+  text-decoration: none;
+}
+.a:hover {
+  text-decoration: underline;
+}

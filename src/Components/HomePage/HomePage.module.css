@@ -1,0 +1,128 @@
+.leftTitleContainer {
+  width: 50%;
+}
+.rightTitleContainer {
+  width: 50%;
+  font-size: 1.5em;
+  margin-left: 0.8em;
+}
+
+.homeImage {
+  width: 80%;
+  height: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.bodyUpper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.homeTitle {
+  display: block;
+}
+.homeTitle span {
+  display: block;
+  font-size: 1.5em;
+  word-wrap: no-wrap;
+}
+
+.homeSubtitle {
+  font-size: 1.2em;
+  margin-top: 1em;
+}
+
+/* ?============================?*/
+
+.searchBarHome {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 80%;
+  margin-top: 1em;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 10px 40px 10px 40px; /* Espacio interno del input */
+  border-radius: 20px; /* Bordes redondeados */
+  border: 1px solid #ccc; /* Color del borde */
+  font-size: 16px; /* Tamaño del texto */
+  box-sizing: border-box;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px; /* Icon Position */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.searchIcon img {
+  width: 20px; /* Icon Size */
+  height: auto;
+}
+
+.searchBar::placeholder {
+  color: #b6b6b6; /* Bar color */
+  font-size: 16px; /* Tamaño del placeholder */
+  font-weight: bold; /* Grosor del placeholder */
+}
+
+.searchBar:focus {
+  outline: none;
+}
+
+.searchBar:focus::placeholder {
+  color: transparent;
+}
+
+.homeHeading {
+  margin-right: auto;
+}
+
+@media (max-width: 600px) {
+  .homeHeading {
+    margin-right: 2em;
+  }
+
+  .searchBar {
+    width: 100%;
+  }
+
+  .homeTitle span {
+    font-size: 1.2em;
+  }
+
+  .rightTitleContainer {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 300px) {
+  .homeHeading {
+    margin-right: 2em; /* Ajusta el margen para pantallas pequeñas */
+  }
+
+  .searchBar {
+    width: 100%; /* Asegura que el input ocupe el ancho completo */
+  }
+
+  .homeTitle span {
+    font-size: 1.2em; /* Ajusta el tamaño de la letra para pantallas pequeñas */
+  }
+
+  .rightTitleContainer {
+    font-size: 1.2em; /* Ajusta el tamaño de la letra para pantallas pequeñas */
+  }
+
+  /* Ajusta otros elementos según sea necesario */
+}

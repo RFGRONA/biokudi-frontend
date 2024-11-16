@@ -1,0 +1,90 @@
+/* Contenedor principal del centro de ayuda */
+.helpContainer {
+  padding: 2em;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Inter, sans-serif;
+  font-size: 1.2em;
+}
+
+/* Párrafos de texto */
+.helpP {
+  text-align: justify;
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+/* Lista de opciones */
+.helpList {
+  margin-left: 2em;
+  margin-bottom: 1em;
+  list-style-type: disc;
+}
+
+.helpList li {
+  margin-bottom: 0.5em;
+}
+
+/* Enlaces dentro de la lista */
+.helpList a {
+  color: blue;
+  text-decoration: underline;
+}
+
+/* Contenedor para centrar el botón */
+.help {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+/* Estilo del botón de confirmación */
+.confirmButton {
+  background-color: orange;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em 2em;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirmButton:hover {
+  background-color: darkorange;
+}
+
+/* Contenedor de contacto */
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+}
+
+/* Texto de contacto */
+.helpText {
+  font-weight: bold;
+  color: black;
+  font-size: 1.2em;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+/* Correo electrónico de contacto */
+.helpEmail {
+  color: green;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0em;
+  text-align: center;
+}
+
+li .a {
+  color: #f67924;
+  font-weight: bold;
+  text-decoration: underline;
+}

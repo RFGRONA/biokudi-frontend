@@ -1,0 +1,205 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+form {
+  max-width: 23em;
+}
+
+.createAccountButton {
+  font-size: 1.2em;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.25em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  border: 1px solid #f67924;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.createAccountButton:hover {
+  background-color: #f67924;
+  color: white;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  border-right: 1px solid #ccc;
+  padding-right: 2em;
+  height: 400px;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.title {
+  font-size: 3em;
+  font-weight: 900;
+  word-wrap: break-word;
+}
+
+.formGroup {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-top: 0.3em;
+}
+.formGroup label {
+  margin-left: 0.6em;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.7em;
+  font-size: 1em;
+  border: none;
+  color: #888;
+  font-size: 1em;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+}
+
+.inputField:focus {
+  outline: none;
+}
+
+.passwordContainer {
+  position: relative;
+}
+
+.emailContainer {
+  margin-bottom: 1em;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2em;
+  user-select: none;
+}
+
+.loginButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pressButton {
+  padding-top: 0.2em;
+  padding-bottom: 0.25em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  background-color: #476930;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 1em;
+  transition: 0.3s;
+}
+
+/*When button is disabled*/
+.pressButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pressButton:hover {
+  background-color: #3c5723;
+}
+
+.recordUser {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.checkbox {
+  accent-color: #476930;
+}
+.checkbox:hover {
+  cursor: pointer;
+  accent-color: #476930;
+}
+.recordUser label {
+  font-size: 0.9em;
+  font-family: "Inter", sans-serif;
+  color: #476930;
+}
+
+.forgotPassword {
+  font-size: 0.9em;
+  color: #476930;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.errors {
+  color: red;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  padding-left: 0.5em;
+}
+
+/*Tablets*/
+@media (min-width: 950px) {
+}
+
+/*Phone*/
+@media (max-width: 650px) {
+  .login {
+    flex-direction: column;
+    gap: 2em;
+  }
+  .leftContainer {
+    border-right: none;
+    padding-right: 0;
+    justify-content: start;
+    height: auto;
+    margin-top: 3em;
+  }
+  .rightContainer {
+    gap: 1.5em;
+  }
+  .title {
+    font-size: 2.5em;
+  }
+  .formGroup {
+    width: 100%;
+  }
+  .inputField {
+    width: 100%;
+  }
+  .loginButton {
+    width: 100%;
+  }
+  .forgotPassword {
+    margin-bottom: 2em;
+  }
+}

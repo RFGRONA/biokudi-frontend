@@ -1,0 +1,322 @@
+.userContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+.settingsContainer {
+  background-color: #e4f3e2;
+  padding: 2em;
+  max-width: 900px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2.5em;
+  color: #204e37;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 1.5em;
+}
+
+.personalInfo {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 2em;
+}
+
+.userImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.userImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex-grow: 1;
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.desactivateButton,
+.deleteButton,
+.editButton,
+.saveButton,
+.changePasswordButton {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  background-color: #f3f0b2;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.desactivateButton:hover,
+.deleteButton:hover,
+.editButton:hover,
+.saveButton:hover,
+.changePasswordButton:hover {
+  transform: scale(1.05);
+}
+
+.editButton {
+  background-color: #4caf50;
+  color: white;
+}
+.desactivateButton {
+  background-color: #f67924;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #ff2e1d;
+  color: white;
+}
+
+.changePasswordButton {
+  background-color: #2196f3;
+  color: white;
+}
+
+.saveButton {
+  background-color: #2196f3;
+  border-color: #4caf50;
+  color: white;
+}
+
+.notifications {
+  margin-top: 2em;
+}
+
+.notifications h2 {
+  font-size: 1.5em;
+  color: #204e37;
+  margin-bottom: 1em;
+  font-family: "Inter", sans-serif;
+}
+
+.notificationItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.notificationItem label {
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+}
+
+.data {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.data label {
+  width: 120px;
+  color: #204e37;
+  font-family: "Inter", sans-serif;
+}
+
+.data span {
+  flex-grow: 1;
+  font-family: "Inter", sans-serif;
+}
+
+.inputField {
+  flex-grow: 1;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.checkboxCon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+/*Notifications inputs*/
+.checkboxCon input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switchLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.switchLabel input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switchLabel .switchSlider {
+  position: relative;
+  cursor: pointer;
+  width: 48px;
+  height: 27px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.4s;
+  margin-right: 15px; /* Adjust as needed */
+}
+
+.switchLabel .switchSlider::before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.switchLabel input:checked + .switchSlider {
+  background-color: #02c202;
+}
+
+.switchLabel input:checked + .switchSlider::before {
+  transform: translateX(20px);
+}
+
+.switchLabel:hover .switchSlider {
+  background-color: #bfbfbf;
+}
+
+.checkboxCon label {
+  margin-left: 15px;
+  font-size: 1.1em;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  user-select: none;
+  color: #204e37;
+}
+
+.switchSlider:hover {
+  background-color: #bfbfbf;
+}
+
+.userImageInput {
+  width: 150px;
+  padding: 0.5em;
+  font-size: 0.9em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.fileInputContainer {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fileInputLabel {
+  display: block;
+  margin-top: 10px;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.fileInput {
+  display: none;
+}
+
+.infoFile {
+  color: green;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .personalInfo {
+    flex-direction: column;
+  }
+
+  .userImageContainer {
+    margin-bottom: 1em;
+  }
+
+  .info {
+    text-align: center;
+  }
+
+  .userImage {
+    width: 100px;
+    height: 100px;
+  }
+  .previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .userImageInput {
+    width: 100px;
+  }
+}
+
+.cancelButton {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  background-color: #f3f0b2;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cancelButton:hover {
+  transform: scale(1.05);
+}
+
+.saveButton {
+  background-color: #2196f3;
+  border-color: #4caf50;
+  color: white;
+  margin-bottom: 10px; /* Add some space between buttons */
+}
+
+.error {
+  font-family: "Inter", sans-serif;
+  color: red;
+  font-size: 0.7em;
+  margin-top: 5px;
+  margin-left: 5px;
+}

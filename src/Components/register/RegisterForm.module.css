@@ -1,0 +1,225 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+  width: 100%;
+}
+
+.form {
+  min-width: 35em;
+  width: 100%;
+}
+
+.label {
+  color: #f67924;
+  font-size: 1.1em;
+  font-weight: 900;
+  margin-bottom: 0.5em;
+  font-family: "Inter", sans-serif;
+}
+
+.bottomGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.inputField {
+  max-width: ;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
+.inputField::placeholder {
+  color: #f67924;
+  opacity: 0.45;
+}
+
+.inputField:focus {
+  outline: none;
+}
+
+.formGroup {
+  display: flex;
+  margin: 0.5em;
+}
+.inputGroup {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-top: 0.3em;
+  overflow: hidden;
+  width: 100%;
+  margin: 0.3em;
+}
+
+.inputGroup input {
+  border: none;
+  padding: 0.5em;
+}
+
+.formGroup label {
+  margin-left: 0.6em;
+}
+
+.recaptcha {
+  margin-right: auto;
+  margin-left: 1em;
+}
+
+/*Confirm button*/
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4em;
+  margin-right: 4em;
+  border: 1px solid #f67924;
+  border-radius: 10px;
+  background-color: #f67924;
+  color: white;
+  transition: 0.3s;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  border: none;
+  cursor: not-allowed;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding-left: 3em;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.title {
+  font-size: 3em;
+  color: #f67924;
+  font-weight: 900;
+  word-wrap: break-word;
+  line-height: 1em;
+}
+
+.goToSesion {
+  color: #476930;
+  font-weight: 700;
+  font-size: 1.2em;
+  font-family: "Inter", sans-serif;
+  border: 1px solid #476930;
+  padding: 0.3em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.goToSesion:hover {
+  background-color: #476930;
+  color: white;
+}
+
+.passwordContainer {
+}
+
+.icon {
+  position: absolute;
+  transform: translateX(-1.5em);
+}
+
+.errors {
+  color: red;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  padding-left: 0.5em;
+}
+
+@media (max-width: 802px) {
+  .main {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .leftContainer {
+    border-right: none; /* Quitar el borde derecho */
+    display: flex;
+  }
+
+  .rightContainer {
+    margin-top: 3em;
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .goToSesion {
+    margin-top: 15px; /* Espacio entre el crear cuenta y el botón iniciar sesión */
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inputField {
+    width: 100%;
+  }
+
+  .bottomGroup {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2em;
+    text-align: center;
+    gap: 1em;
+  }
+
+  .recaptcha {
+    display: flex;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .submitButton {
+    width: auto;
+    margin: 0px;
+    margin-top: 0px;
+    text-align: center;
+  }
+}

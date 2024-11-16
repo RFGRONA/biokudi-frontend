@@ -1,0 +1,68 @@
+.logo img {
+  height: 3em;
+  pointer-events: none;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  background-color: #d8eece;
+  padding: 0.5em;
+  padding-top: 1em;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+  gap: 1em;
+  padding-left: 0.8em;
+}
+
+.actions img {
+  color: #45a049;
+  cursor: pointer;
+}
+
+.actions .imgg,
+.actions p {
+  height: 2em;
+  margin: auto;
+  word-wrap: break-word;
+}
+.btnPlaces,
+.btnMap,
+.btnLogin {
+  transition: 0.6s;
+}
+.btnPlaces:hover,
+.btnMap:hover,
+.btnLogin:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.actions .imgg,
+.actions p {
+  height: 2em;
+  margin: auto;
+  word-wrap: break-word;
+}
+
+.btnMenu {
+  margin-right: 0.5em;
+  margin-top: 0.6em;
+  margin-left: 0.5em;
+}
+
+@media (max-width: 600px) {
+  .actions {
+    gap: 0.5em;
+    padding-left: 0.5em;
+    font-size: 0.6em;
+  }
+}

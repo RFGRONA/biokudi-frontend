@@ -1,0 +1,35 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color: white;
+  margin-top: 1em;
+}
+
+.bioKudi {
+  font-size: 4em;
+}
+
+.listHelpInside {
+  padding: 2em;
+}
+
+.listHelpInside ul {
+  list-style-type: none;
+}
+
+.listHelpInside li {
+  margin-right: 1em;
+  padding: 0.5em;
+  font-size: 1.5em;
+}
+
+.copyRightTextInside {
+  padding: 2em;
+}
+
+ul {
+  list-style-type: none;
+}

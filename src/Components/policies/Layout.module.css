@@ -1,0 +1,43 @@
+.layoutContainer {
+  max-width: 1200px;
+  margin: auto;
+  padding: 4em;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 78vh;
+  margin-top: 20px;
+}
+
+.layoutBody {
+  line-height: 1.8;
+  font-size: 16px;
+  color: black;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.layoutPara {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+hr {
+  height: 3px;
+  background-color: black;
+}
