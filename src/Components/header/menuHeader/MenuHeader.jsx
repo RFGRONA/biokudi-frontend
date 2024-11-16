@@ -50,7 +50,7 @@ const MenuHeader = ({ showMenu, closeMenu }) => {
   const goToMap = async () => {
     const place = await getRandomPlace();
     console.log(place);
-    navigate(`/map/${place.id}`);
+    navigate(`/map/${place.idPlace}`);
   };
 
   return (
