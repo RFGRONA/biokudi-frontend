@@ -1,0 +1,180 @@
+.NotFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bodyContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 20px;
+}
+
+.titleContainer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.buttonActions {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 10px;
+}
+
+.buttonOrd,
+.buttonEsc,
+.buttonRep,
+.buttonCreate {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  background-color: none;
+  color: #476930;
+  border: 1px solid #476930;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 150px;
+  text-align: left;
+  padding: 7px 10px 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonRep {
+  gap: 5px;
+  background-color: #476930;
+  color: white;
+}
+.buttonCreate {
+  gap: 5px;
+  background-color: #f67924;
+  border: 1px solid #f67924;
+  color: white;
+}
+
+.buttonOrd img,
+.buttonEsc img,
+.buttonRep img,
+.buttonCreate img {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-auto-rows: auto;
+  gap: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.gridHeaderCell {
+  background-color: #d8eece;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.gridCell {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Estilos alternos para las filas */
+.evenRow {
+  background-color: #f2f2f2; /* Fondo para filas pares */
+}
+
+.oddRow {
+  background-color: #ffffff; /* Fondo para filas impares */
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.gridCell:hover {
+  background-color: #ddd;
+}
+
+/******************************************/
+
+/* Estilos para el formulario dentro del modal */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldContainer {
+  margin-bottom: 16px;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.fieldInput,
+.fieldTextarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.fieldTextarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.buttonOrd {
+  position: relative;
+}
+
+.orderMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #476930;
+  border: 1px solid #ccc;
+  min-width: 160px;
+  z-index: 1000;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.orderMenuItem {
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s;
+  transition: font-size 0.3s;
+  border-radius: 10px;
+}
+
+.orderMenuItem:hover {
+  background-color: #659445;
+  font-size: 1.2em;
+}

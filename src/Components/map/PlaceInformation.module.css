@@ -1,0 +1,294 @@
+.place {
+  position: absolute;
+  top: 0px;
+  background-color: #d8eece;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  margin-left: 65px;
+  width: 550px;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.place::-webkit-scrollbar {
+  width: 8px;
+}
+
+.place::-webkit-scrollbar-track {
+  background: #d8eece;
+  border-radius: 10px;
+}
+
+.place::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #d8eece;
+}
+
+.place::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.imageContainer {
+  margin-top: 40px;
+  width: 100%;
+  height: auto;
+}
+
+.placeImage {
+  margin-left: 10px;
+  width: 95%;
+  height: 250px;
+  border-radius: 15px;
+}
+
+.placeTitle {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #476930;
+}
+.locationInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 120px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.locationItem {
+  display: flex;
+  align-items: center;
+}
+
+.locationItem p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #476930;
+}
+
+.locationItem img {
+  margin-right: 5px;
+}
+
+.icon {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.placeDescription {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  color: black;
+  line-height: 1.2;
+}
+
+.activities {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+.activities p {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #476930;
+  margin-left: 10px;
+}
+
+.reviews {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-right: 60px;
+  margin-left: 40px;
+}
+
+.reviewsTitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f67924;
+  margin-right: 15px;
+}
+
+.reviewInformation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ratingValue {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.ratingIcon {
+  width: 24px;
+  height: auto;
+  margin-right: 3px;
+}
+
+.reviewList {
+  margin-top: 15px;
+}
+
+.reviewItem {
+  margin-bottom: 5px;
+}
+
+.reviewDetail {
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f67924;
+  margin-left: 40px;
+  margin-right: 30px;
+}
+
+.reviewDetailIcon {
+  width: 20px;
+  height: auto;
+}
+
+.reviewRating {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.reviewUser {
+  margin-right: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: black;
+}
+
+.reviewSuspensive {
+  display: flex;
+  gap: 1em;
+  margin-left: auto;
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #476930;
+  cursor: pointer;
+}
+
+.reviewSuspensive:hover {
+  text-decoration: underline;
+}
+
+.reviewText {
+  margin-top: 5px;
+  margin-left: 40px;
+  margin-right: 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: black;
+}
+
+.reviewDate {
+  margin-left: 40px;
+  margin-bottom: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: italic;
+  color: #585c55;
+}
+
+.placeDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.showMore {
+  background-color: transparent;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  color: black;
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.showMore img {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+  color: orange;
+}
+
+.website,
+.button {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #f67924;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-right: 30px;
+}
+
+.website img {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.iconDetail {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.noInfo {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #476930;
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+}
+
+.backButton:hover {
+  cursor: pointer;
+}
+
+.backText {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f67924;
+  margin-left: 10px;
+}

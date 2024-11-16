@@ -1,13 +1,95 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Bitter:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body,
+html {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  content-visibility: auto;
+}
+
+.main-content {
+  flex: 1;
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.mainContainer {
+  min-height: 85vh;
+  overflow-x: auto;
+}
+
+.bitter {
+  font-family: "Bitter", serif;
+  font-optical-sizing: auto;
+}
+.bitter-italic {
+  font-family: "Bitter", serif;
+  font-style: italic;
+  font-optical-sizing: auto;
+}
+.bitter-bold {
+  font-family: "Bitter", serif;
+  font-weight: 700;
+  font-optical-sizing: auto;
+}
+
+.asul {
+  font-family: "Asul", sans-serif;
+}
+.asul-italic {
+  font-family: "Asul", sans-serif;
+  font-style: italic;
+}
+.asul-bold {
+  font-family: "Asul", sans-serif;
+  font-weight: 700;
+}
+
+.inter {
+  font-family: "Inter", sans-serif;
+}
+.inter-italic {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+}
+.inter-bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
+.color-primary {
+  color: #476930;
+}
+.color-secondary {
+  color: #d8eece;
+}
+.color-tertiary {
+  color: #feecd6;
+}
+.color-contrast {
+  color: #f67924;
+}
+.color-auxiliar {
+  color: #f5d4ac;
+}
+.color-background {
+  background-color: #f5f5f5;
 }

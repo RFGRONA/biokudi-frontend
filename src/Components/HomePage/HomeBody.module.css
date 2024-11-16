@@ -1,0 +1,72 @@
+:root {
+  --num-images-visible: 5;
+  --animation-duration: 60s;
+  --total-width: 1000px;
+}
+
+.body {
+  padding: 20px;
+}
+
+.bodyTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #9f9f9f;
+}
+
+.carouselWrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.imageCarousel {
+  display: flex;
+  animation: scroll var(--animation-duration) linear infinite;
+  gap: 1em; /* Espacio entre las imágenes */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--total-width)));
+  }
+}
+
+.oneImageCarousel {
+  flex: 0 0 calc((100% - ((var(--num-images-visible) - 1) * 1em)) / var(--num-images-visible));
+  height: 15em;
+  position: relative;
+}
+
+.oneImageCarousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.imageCarrouselInfo {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 80%;
+  color: white;
+  background: rgba(75, 103, 55, 0.65);
+  padding: 5px;
+  padding-left: 0.5em;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+.starRaiting {
+  color: #f67924;
+}
+
+/* Pausa la animación cuando el usuario pasa el mouse por encima */
+.carouselWrapper:hover .imageCarousel {
+  animation-play-state: paused;
+}

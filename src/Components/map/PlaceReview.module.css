@@ -1,0 +1,146 @@
+.review {
+  position: relative;
+  top: 0;
+  padding: 10px;
+  z-index: 1000;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.reviewTitle {
+  font-size: 2rem;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #f67924;
+  text-align: left;
+  margin-left: 60px;
+}
+
+.placeTitle {
+  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #476930;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.closeButton {
+  color: white;
+  cursor: pointer;
+}
+
+.editTitle {
+  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #476930;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.reviewInformation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.loading {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #476930;
+}
+
+.ratingValue {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.ratingIcon {
+  width: 36px;
+  height: auto;
+  margin-right: 3px;
+}
+
+.ratePlace {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+.ratePlaceText {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+}
+
+.stars {
+  display: flex;
+  margin-left: 10px;
+}
+
+.starIcon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.starIcon:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.commentSection {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.commentTextarea {
+  background-color: #d8eece;
+  width: 90%;
+  height: 100px;
+  border: 2px solid #476930;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  resize: none;
+}
+
+.commentTextarea:focus {
+  outline: none;
+}
+
+.submitButton {
+  background-color: #476930;
+  margin-top: 10px;
+  margin-left: 28px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
