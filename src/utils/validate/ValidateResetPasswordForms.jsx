@@ -23,6 +23,8 @@ export const validateResetPasswordForm = (values) => {
     errors.newPassword = "Debe tener al menos 8 caracteres.";
   } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/.test(values.newPassword)) {
     errors.newPassword = "Debe incluir mayúsculas, minúsculas y números.";
+  } else if (values.length > 50) {
+    errors.newPassword = "Contraseña debe tener menos de 50 caracteres";
   }
 
   // Confirm New Password Validation
@@ -62,7 +64,10 @@ export const validateResetPasswordField = (name, value, values) => {
         errors.newPassword = "Debe tener al menos 8 caracteres.";
       } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/.test(value)) {
         errors.newPassword = "Debe incluir mayúsculas, minúsculas y números.";
+      } else if (values.length > 50) {
+        errors.newPassword = "Contraseña debe tener menos de 50 caracteres";
       }
+
       // Re-validate confirmNewPassword
       if (values.confirmNewPassword && value !== values.confirmNewPassword) {
         errors.confirmNewPassword = "Las contraseñas no coinciden.";

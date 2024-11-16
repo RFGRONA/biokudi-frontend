@@ -35,8 +35,8 @@ export const ValidateRegister = (input) => {
     errors.password.lowercase =
       "Contraseña debe contener al menos una minúscula";
   }
-  if (input.password.length > 40) {
-    errors.password.length = "Contraseña debe tener menos de 40 caracteres";
+  if (input.password.length > 50) {
+    errors.password.length = "Contraseña debe tener menos de 50 caracteres";
   }
 
   /**Confirm password */

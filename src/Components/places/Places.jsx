@@ -25,14 +25,11 @@ const Places = ({ data }) => {
         <div className={styles.mainContainer}>
           <h1 className={styles.title}>Lugares a explorar</h1>
           <div className={styles.buttonActions}>
-            <div className={styles.buttonOrder}>
+            {/* TODO: Order data */}
+            {/* <div className={styles.buttonOrder}>
               Ordenar
               <img src={orderIcon} alt="Ordenar" />
-            </div>
-            <div className={styles.buttonChoose}>
-              Escoger
-              <img src={chooseIcon} alt="Escoger" />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={styles.activityContainer}>

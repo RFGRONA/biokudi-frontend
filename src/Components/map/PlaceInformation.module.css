@@ -182,6 +182,8 @@
 }
 
 .reviewSuspensive {
+  display: flex;
+  gap: 1em;
   margin-left: auto;
   margin-bottom: 10px;
   font-size: 1em;

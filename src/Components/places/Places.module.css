@@ -89,7 +89,8 @@
 }
 
 .cardContent {
-  padding-left: 10px;
+  padding-left: 20px;
+  height: 100%;
   flex: 1;
 }
 
@@ -162,7 +163,7 @@
 
 .cardDescription p {
   max-width: 37rem;
-  font-size: 10px;
+  font-size: 1em;
   font-family: "Inter", serif;
 }
 

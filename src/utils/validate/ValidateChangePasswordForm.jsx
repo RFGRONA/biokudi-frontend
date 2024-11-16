@@ -33,9 +33,9 @@ export const validateChangePasswordForm = (values) => {
       "La nueva contraseña debe incluir mayúsculas, minúsculas y números.";
   } else if (values.newPassword === values.currentPassword) {
     errors.newPassword = "La nueva contraseña debe ser diferente a la actual.";
-  } else if (values.newPassword.length > 40) {
+  } else if (values.newPassword.length > 50) {
     errors.newPassword =
-      "La nueva contraseña debe tener menos de 40 caracteres.";
+      "La nueva contraseña debe tener menos de 50 caracteres.";
   }
 
   // Confirm New Password
@@ -73,9 +73,9 @@ export const validateField = (name, value, values) => {
       } else if (value === values.currentPassword) {
         errors.newPassword =
           "La nueva contraseña debe ser diferente a la actual.";
-      } else if (value.length > 40) {
+      } else if (value.length > 50) {
         errors.newPassword =
-          "La nueva contraseña debe tener menos de 40 caracteres.";
+          "La nueva contraseña debe tener menos de 50 caracteres.";
       }
 
       // Re-validate confirmNewPassword field
@@ -112,6 +112,9 @@ export const validateResetPasswordForm = (values) => {
   } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/.test(values.newPassword)) {
     errors.newPassword =
       "La nueva contraseña debe incluir mayúsculas, minúsculas y números.";
+  } else if (values.newPassword.length > 50) {
+    errors.newPassword =
+      "La nueva contraseña debe tener menos de 50 caracteres.";
   }
 
   if (!values.confirmNewPassword) {

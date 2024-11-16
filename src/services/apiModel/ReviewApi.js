@@ -47,7 +47,7 @@ export const createReviewApi = async (data) => {
 };
 
 /*UPDATE REVIEW */
-export const updatePlaceApi = async (id, data) => {
+export const updateReviewApi = async (id, data) => {
   console.log(data);
   const URL_PLACE = process.env.REACT_APP_URL_API + `/Review/${id}`;
   try {

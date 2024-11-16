@@ -15,6 +15,9 @@ import { getPlaceReviews } from "../../services/apiModel/MapApi";
 import Success from "../helpers/alerts/SuccessAlert";
 import ErrorAlert from "../helpers/alerts/ErrorAlert";
 import Decision from "../helpers/alerts/DecisionAlert";
+import deleteIcon from "../../assets/map/drop.svg";
+import editIcon from "../../assets/map/edit.svg";
+import EditPlaceReview from "./EditPlaceReview";
 
 import { getFullInfoPlace } from "../../services/apiModel/MapApi";
 import { useAuth } from "../../context/AuthContext";
@@ -33,6 +36,8 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [reviewToDelete, setReviewToDelete] = useState(null);
+  const [showEditReview, setShowEditReview] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [decision, setDecision] = useState(false);
   const { user } = useAuth();
 
@@ -61,6 +66,23 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
   const handleDelete = (reviewId) => {
     setReviewToDelete(reviewId);
     setDecision(true);
+  };
+
+  const handleEdit = (reviewId) => {
+    setSelectedReviewId(reviewId);
+    setShowEditReview(true);
+  };
+
+  const handleEditSubmit = (success) => {
+    if (success) {
+      setMessage("Reseña actualizada con éxito");
+      setSuccess(true);
+    } else {
+      setMessage("Error actualizando la reseña");
+      setError(true);
+    }
+    setShowEditReview(false);
+    setSelectedReviewId(null);
   };
 
   const onDeleteReview = async () => {
@@ -124,7 +146,16 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
     if (selectedPlaceId) {
       fetchPlaceData();
     }
-  }, [selectedPlaceId, setIsPlaceLoading, showMore, showMenuReview, decision]);
+  }, [
+    selectedPlaceId,
+    setIsPlaceLoading,
+    showMore,
+    showMenuReview,
+    decision,
+    showEditReview,
+    reviewToDelete,
+    success,
+  ]);
 
   if (!placeData) {
     return (
@@ -246,12 +277,18 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
                   <p className={styles.reviewUser}>{review.personName}</p>
                   {review.personId === user?.id && (
                     <>
-                      <span
-                        className={styles.reviewSuspensive}
-                        onClick={() => handleDelete(review.idReview)}
-                      >
-                        Eliminar
-                      </span>
+                      <div className={styles.reviewSuspensive}>
+                        <img
+                          src={deleteIcon}
+                          onClick={() => handleDelete(review.idReview)}
+                          alt="Eliminar"
+                        />
+                        <img
+                          src={editIcon}
+                          onClick={() => handleEdit(review.idReview)}
+                          alt="Editar"
+                        />
+                      </div>
                     </>
                   )}
                 </div>
@@ -298,16 +335,25 @@ const PlaceInformation = ({ selectedPlaceId, showMore, setIsPlaceLoading }) => {
               Página web no disponible
             </div>
           )}
-          {/* {user && user.role && ( */}
-          {!showMenuReview && (
+          {user && user.role && !showMenuReview && (
             <div className={styles.createReview} onClick={handleReviewClick}>
               <button className={styles.button}>Crear reseña</button>
             </div>
           )}
-          {/* )} */}
         </div>
         {showMenuReview && (
           <PlaceReview onSubmit={onSubmitReview} setLoading={setLoading} />
+        )}
+        {showEditReview && (
+          <EditPlaceReview
+            reviewId={selectedReviewId}
+            onSubmit={handleEditSubmit}
+            setLoading={setLoading}
+            onCancel={() => {
+              setShowEditReview(false);
+              setSelectedReviewId(null);
+            }}
+          />
         )}
       </div>
     </>
