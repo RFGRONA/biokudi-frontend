@@ -22,7 +22,6 @@ import ListPlaces from "./Components/places/ListPlaces";
 import EditPlace from "./Components/places/EditPlace";
 import ListActivities from "./Components/activity/ListActivities";
 import EditActivity from "./Components/activity/EditActivity";
-import Places from "./Components/places/Places";
 import ListStates from "./Components/state/ListStates";
 import CreateState from "./Components/state/CreateState";
 import EditState from "./Components/state/EditState";
@@ -58,6 +57,7 @@ import Browse from "./Components/places/Browse";
 import ChangePassword from "./Components/SettingsUser/ChangePassword";
 import RecoveryPassword from "./Components/SettingsUser/RecoveryPassword";
 import ResetPassword from "./Components/SettingsUser/ResetPassword";
+import Pricing from "./Components/HomePage/pricing/Pricing";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -86,6 +86,7 @@ root.render(
           <Route path="*" element={<Error />} />
           <Route path="/error" element={<Error />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/pricing" element={<Pricing />} />
 
           {/* Rutas restringidas, (No permitidas si estan login) */}
           <Route element={<PublicRoute />}>
