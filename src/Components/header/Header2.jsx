@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import logo from "../../assets/header/logo.svg";
 import places from "../../assets/header/btnPlaces.svg";
+import btnPricing from "../../assets/header/pricing.svg";
 import map from "../../assets/header/btnMap.svg";
 import btnLogin from "../../assets/header/btnLogin.svg";
 import styles from "./Header2.module.css";
@@ -27,6 +28,9 @@ const Header2 = () => {
   const goToHome = () => {
     navigate("/");
   };
+  const goToPricing = () => {
+    navigate("/pricing");
+  };
 
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
@@ -49,6 +53,10 @@ const Header2 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
+        <div className={styles.btnPricing} onClick={goToPricing}>
+          <img src={btnPricing} alt="precios" className={styles.imgg} />
+          <p>Precios</p>
+        </div>
         <div className={styles.btnPlaces} onClick={goToPlaces}>
           <img src={places} alt="lugares" className={styles.imgg} />
           <p>Lugares</p>
