@@ -37,13 +37,15 @@ header {
 .btnPlaces,
 .btnMap,
 .btnLogin,
-.btnPricing {
+.btnPricing,
+.btnChat {
   transition: 0.6s;
 }
 .btnPlaces:hover,
 .btnMap:hover,
 .btnLogin:hover,
-.btnPricing:hover {
+.btnPricing:hover,
+.btnChat:hover {
   cursor: pointer;
   transform: scale(1.1);
 }

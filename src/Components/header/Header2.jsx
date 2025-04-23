@@ -8,6 +8,7 @@ import styles from "./Header2.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import btnMenu from "../../assets/header/btnMenu.svg";
+import btnChat from "../../assets/header/chat.svg";
 import MenuHeader from "./menuHeader/MenuHeader";
 import { useState } from "react";
 
@@ -31,6 +32,9 @@ const Header2 = () => {
   const goToPricing = () => {
     navigate("/pricing");
   };
+  const goToChat = () => {
+    navigate("/chat");
+  };
 
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
@@ -53,6 +57,16 @@ const Header2 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
+        {isAuthorized ? (
+          <div className={styles.btnChat} onClick={goToChat}>
+            <img src={btnChat} alt="chat" className={styles.imgg} />
+            <p>IA Plan</p>
+          </div>
+        ) : (
+          ""
+        )}
+        {/* Botones de navegación */}
+
         <div className={styles.btnPricing} onClick={goToPricing}>
           <img src={btnPricing} alt="precios" className={styles.imgg} />
           <p>Precios</p>

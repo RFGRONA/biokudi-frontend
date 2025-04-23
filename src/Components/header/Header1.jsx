@@ -7,6 +7,7 @@ import styles from "./Header1.module.css";
 import btnPricing from "../../assets/header/pricing.svg";
 import { useNavigate } from "react-router-dom";
 import btnMenu from "../../assets/header/btnMenu.svg";
+import btnChat from "../../assets/header/chat.svg";
 import MenuHeader from "./menuHeader/MenuHeader";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
@@ -33,6 +34,9 @@ const Header1 = () => {
   const goToPricing = () => {
     navigate("/pricing");
   };
+  const goToChat = () => {
+    navigate("/chat");
+  };
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -53,6 +57,14 @@ const Header1 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
+        {isAuthorized ? (
+          <div className={styles.btnChat} onClick={goToChat}>
+            <img src={btnChat} alt="chat" className={styles.imgg} />
+            <p>IA PLan</p>
+          </div>
+        ) : (
+          ""
+        )}
         <div className={styles.btnPricing} onClick={goToPricing}>
           <img src={btnPricing} alt="precios" className={styles.imgg} />
           <p>Precios</p>
