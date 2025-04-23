@@ -93,6 +93,7 @@ function Chat() {
           error.message ||
           "Lo siento, no pude obtener una respuesta en este momento.",
       };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false); // Termina el estado de carga
     }
