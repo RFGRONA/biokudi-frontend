@@ -24,13 +24,15 @@
 .btnPlaces,
 .btnMap,
 .btnLogin,
-.btnMenu {
+.btnMenu,
+.btnPricing {
   transition: 0.6s;
 }
 .btnPlaces:hover,
 .btnMap:hover,
 .btnLogin:hover,
-.btnMenu:hover {
+.btnMenu:hover,
+.btnPricing:hover {
   cursor: pointer;
   transform: scale(1.1);
 }

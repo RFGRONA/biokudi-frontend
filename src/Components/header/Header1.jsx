@@ -4,6 +4,7 @@ import places from "../../assets/header/btnPlaces.svg";
 import map from "../../assets/header/btnMap.svg";
 import btnLogin from "../../assets/header/btnLogin.svg";
 import styles from "./Header1.module.css";
+import btnPricing from "../../assets/header/pricing.svg";
 import { useNavigate } from "react-router-dom";
 import btnMenu from "../../assets/header/btnMenu.svg";
 import MenuHeader from "./menuHeader/MenuHeader";
@@ -29,6 +30,9 @@ const Header1 = () => {
   const goToMap = () => {
     navigate("/map");
   };
+  const goToPricing = () => {
+    navigate("/pricing");
+  };
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -49,6 +53,10 @@ const Header1 = () => {
         <img src={logo} alt="logo" />
       </div>
       <div className={[styles.actions, "inter-bold"].join(" ")}>
+        <div className={styles.btnPricing} onClick={goToPricing}>
+          <img src={btnPricing} alt="precios" className={styles.imgg} />
+          <p>Precios</p>
+        </div>
         <div className={styles.btnPlaces} onClick={goToPlaces}>
           <img src={places} alt="lugares" className={styles.imgg} />
           <p>Lugares</p>
