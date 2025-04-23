@@ -58,6 +58,7 @@ import ChangePassword from "./Components/SettingsUser/ChangePassword";
 import RecoveryPassword from "./Components/SettingsUser/RecoveryPassword";
 import ResetPassword from "./Components/SettingsUser/ResetPassword";
 import Pricing from "./Components/HomePage/pricing/Pricing";
+import Chat from "./Components/chat/Chat";
 
 /*React Router */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -87,6 +88,7 @@ root.render(
           <Route path="/error" element={<Error />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/chat" element={<Chat />} />
 
           {/* Rutas restringidas, (No permitidas si estan login) */}
           <Route element={<PublicRoute />}>
