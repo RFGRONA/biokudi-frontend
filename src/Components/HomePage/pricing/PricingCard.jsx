@@ -3,9 +3,7 @@ import React from "react";
 
 // Puedes reemplazar estos iconos con SVGs reales o iconos de una librería como Heroicons
 const Icons = {
-  Gratuito: () => <span className="text-green-600 text-2xl mr-2">🌿.
-  
-  3</span>, // Icono de hoja
+  Gratuito: () => <span className="text-green-600 text-2xl mr-2">🌿</span>, // Icono de hoja
   Basico: () => <span className="text-green-700 text-2xl mr-2">🌲</span>, // Icono de árbol
   Premium: () => <span className="text-orange-500 text-2xl mr-2">💎</span>, // Icono de diamante
   Empresas: () => <span className="text-gray-700 text-2xl mr-2">🏢</span>, // Icono de edificio
