@@ -60,7 +60,7 @@ const Header1 = () => {
         {isAuthorized ? (
           <div className={styles.btnChat} onClick={goToChat}>
             <img src={btnChat} alt="chat" className={styles.imgg} />
-            <p>IA PLan</p>
+            <p>IA Plan</p>
           </div>
         ) : (
           ""
